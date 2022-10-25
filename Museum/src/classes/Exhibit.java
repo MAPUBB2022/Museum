@@ -1,3 +1,7 @@
+package classes;
+
+import classes.Artist;
+
 import java.util.Date;
 
 public abstract class Exhibit {
@@ -58,7 +62,7 @@ public abstract class Exhibit {
     public void getInfo()
     {
         String s = "";
-        s += "This Exhibit is called " + this.name+ "\n";
+        s += "This classes.Exhibit is called " + this.name+ "\n";
         s += "It was made in " + this.creation.getYear() + "\n";
         if (Artifact.class.isAssignableFrom(this.getClass()))
         {

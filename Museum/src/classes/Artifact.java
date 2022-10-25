@@ -1,6 +1,10 @@
+package classes;
+
+import classes.Exhibit;
+
 import java.util.Date;
 
-public class Artifact extends Exhibit{
+public class Artifact extends Exhibit {
 
     // type = "R"
     private String origin;

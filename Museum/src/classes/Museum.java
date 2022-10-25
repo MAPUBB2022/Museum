@@ -1,3 +1,9 @@
+package classes;
+
+import classes.Block;
+import classes.Client;
+import classes.Exhibit;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,8 +1,10 @@
+package classes;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Artist implements  Person {
+public class Artist implements Person {
     private String name;
     private static int counter = 1000;
     private final String id;

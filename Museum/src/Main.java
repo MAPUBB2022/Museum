@@ -1,3 +1,5 @@
+import classes.*;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -6,10 +8,9 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         Museum myMuseum = new Museum("Antipa");
-
         Block block1 = new Block("Art Gallery1");
         Block block2 = new Block("Art Gallery2");
-        Block block3 = new Block("Block 3");
+        Block block3 = new Block("classes.Block 3");
         myMuseum.addBlock(block1);
         myMuseum.addBlock(block2);
         myMuseum.addBlock(block3);
@@ -21,7 +22,7 @@ public class Main {
 
         Painting paintingMonaLisa = new Painting("Mona Lisa", new Date(1503, Calendar.NOVEMBER,24), block1, leonardo, renaissance, 10);
         Painting paintingCreationOfAdam = new Painting("Creation of Adam", new java.sql.Date(1510, Calendar.MARCH, 28), block1, michelangelo, renaissance, 0.5);
-        Statue statueEquesterian = new Statue("Equesterian Statue", new java.sql.Date(1510, Calendar.FEBRUARY, 23), block2, leonardo, renaissance, 19);
+        Statue statueEquesterian = new Statue("Equesterian classes.Statue", new java.sql.Date(1510, Calendar.FEBRUARY, 23), block2, leonardo, renaissance, 19);
 
         Client c1 = new Client("Joita Razvan");
         Client c2 = new Client("Raul Oprisor");

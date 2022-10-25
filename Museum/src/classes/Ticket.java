@@ -1,3 +1,5 @@
+package classes;
+
 import java.util.List;
 
 public class Ticket {
@@ -28,7 +30,7 @@ public class Ticket {
             permits.remove(permitToRemove);
         }
         else {
-            System.out.println("No such Block was found!");
+            System.out.println("No such classes.Block was found!");
         }
     }
 

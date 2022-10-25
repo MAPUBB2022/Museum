@@ -1,3 +1,5 @@
+package classes;
+
 interface Person {
     String getName();
     String getId();

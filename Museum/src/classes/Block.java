@@ -1,3 +1,9 @@
+package classes;
+
+import classes.ArtMovement;
+import classes.Artist;
+import classes.Exhibit;
+
 import java.util.ArrayList;
 import java.util.List;
 

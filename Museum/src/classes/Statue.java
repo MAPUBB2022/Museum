@@ -1,6 +1,12 @@
+package classes;
+
+import classes.ArtMovement;
+import classes.Artist;
+import classes.Exhibit;
+
 import java.util.Date;
 
-public class Statue extends Exhibit{
+public class Statue extends Exhibit {
 
     // type = "S"
     private Artist sculptor;

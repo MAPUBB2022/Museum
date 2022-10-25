@@ -1,7 +1,11 @@
+package classes;
+
+import classes.Exhibit;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Client implements  Person{
+public class Client implements Person {
     private String name;
     private static int counter = 1000;
     private final String id;
