@@ -62,7 +62,8 @@ What extra do we need? Painter and Art Movement
 = Every crisp statue has a well known artist.
 What extra do we need?
 Sculptor and Art Movement
-### Artifact = are old and dusty. No one knows who is their creator. 
+### Artifact 
+= are old and dusty. No one knows who is their creator. 
 What extra do we need? Its origin!
 
 ![alt text](https://github.com/MAPUBB2022/Museum/blob/main/Museum/Diagram.png)
