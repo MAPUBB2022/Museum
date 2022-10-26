@@ -12,9 +12,12 @@ public class Menu {
     }
 
     public static void showMenuOptions() {
-        System.out.println("1.Client Menu");
-        System.out.println("2.Museum Menu");
-        System.out.println("3.Tickeet Menu");
+        System.out.println("1.Museum Menu");
+        System.out.println("2.Block Menu");
+        System.out.println("3.Client Menu");
+        System.out.println("4.Artist Menu");
+        System.out.println("5.Art Movement Menu");
+        System.out.println("6.Exhibit Menu");
         System.out.println("10. Exit");
 
         Scanner scanner = new Scanner(System.in);
