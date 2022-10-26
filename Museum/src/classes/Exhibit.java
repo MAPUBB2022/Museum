@@ -1,13 +1,11 @@
 package classes;
 
-import classes.Artist;
-
 import java.util.Date;
 
 public abstract class Exhibit {
-    private String name;
     private static int counter = 1000;
     private final String id;
+    private String name;
     private Date creation;
     private Block location;
     private double price;
@@ -24,7 +22,7 @@ public abstract class Exhibit {
 
     public Exhibit(String name, Date creation, Block location, double price) {
         this.name = name;
-        this.id ="E" + counter++;
+        this.id = "E" + counter++;
         this.creation = creation;
         this.location = location;
         location.addExhibit(this);

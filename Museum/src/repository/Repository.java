@@ -1,12 +1,13 @@
 package repository;
+
 import classes.*;
+
 import java.util.ArrayList;
 
 public class Repository {
     private static Repository single_instance = null;
-    public static Repository getInstance()
 
-    {
+    public static Repository getInstance() {
         if (single_instance == null)
             single_instance = new Repository();
         return single_instance;

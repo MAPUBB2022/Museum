@@ -1,14 +1,11 @@
 package controllers;
 
 import classes.*;
-import controllers.*;
 import repository.Repository;
 import views.ViewExhibit;
 import views.ViewMuseum;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class ControllerMuseum {
@@ -53,6 +50,7 @@ public class ControllerMuseum {
 
         if (existsInMuseums(newName)) {
             System.out.println("The name you wanted to change to already exists!");
+            return;
         }
 
         for (Museum m : museums) {
@@ -67,17 +65,13 @@ public class ControllerMuseum {
 
     static public void addBlock(String nameMuseum, String id) {
 
-        if (!existsInMuseums(nameMuseum)) {
-            System.out.println("Wrong name, please try again using an existing one!");
+        if (checkIfNotExistsBlock(nameMuseum, id)) {
             return;
         }
-        if (!ControllerBlock.existsInBlocks(id)) {
-            System.out.println("Block doesn't exist! Please create it first!");
-            return;
-        }
+
         ArrayList<Museum> museums = Repository.getInstance().getMuseums();
 
-        Museum wantedMuseum = new Museum("debug");
+        Museum wantedMuseum = new Museum("Non-Existent");
 
         for (Museum m1 : museums) {
             if (m1.getName().equals(nameMuseum)) {
@@ -108,17 +102,13 @@ public class ControllerMuseum {
 
     static public void deleteBlock(String nameMuseum, String id) {
 
-        if (!existsInMuseums(nameMuseum)) {
-            System.out.println("Wrong name, please try again using an existing one!");
+        if (checkIfNotExistsBlock(nameMuseum, id)) {
             return;
         }
-        if (!ControllerBlock.existsInBlocks(id)) {
-            System.out.println("Block doesn't exist! Please create it first!");
-            return;
-        }
+
         ArrayList<Museum> museums = Repository.getInstance().getMuseums();
 
-        Museum wantedMuseum = new Museum("debug");
+        Museum wantedMuseum = new Museum("Non-Existent");
 
         for (Museum m1 : museums) {
             if (m1.getName().equals(nameMuseum)) {
@@ -132,10 +122,10 @@ public class ControllerMuseum {
         for (Block b1 : blocks) {
             if (b1.getId().equals(id)) {
                 ok = true;
+                break;
             }
         }
-        if(!ok)
-        {
+        if (!ok) {
             System.out.println("Block is not in museum!");
             return;
         }
@@ -151,17 +141,13 @@ public class ControllerMuseum {
     }
 
     static public void addClient(String nameMuseum, String id) {
-        if (!existsInMuseums(nameMuseum)) {
-            System.out.println("Wrong name, please try again using an existing one!");
+        if (checkIfNotExistsClient(nameMuseum, id)) {
             return;
         }
-        if (!ControllerClient.existsInClients(id)) {
-            System.out.println("Client doesn't exist! Please create it first!");
-            return;
-        }
+
         ArrayList<Museum> museums = Repository.getInstance().getMuseums();
 
-        Museum wantedMuseum = new Museum("debug");
+        Museum wantedMuseum = new Museum("Non-Existent");
 
         for (Museum m1 : museums) {
             if (m1.getName().equals(nameMuseum)) {
@@ -190,17 +176,13 @@ public class ControllerMuseum {
     }
 
     static public void deleteClient(String nameMuseum, String id) {
-        if (!existsInMuseums(nameMuseum)) {
-            System.out.println("Wrong name, please try again using an existing one!");
+        if (checkIfNotExistsClient(nameMuseum, id)) {
             return;
         }
-        if (!ControllerClient.existsInClients(id)) {
-            System.out.println("Client doesn't exist! Please create it first!");
-            return;
-        }
+
         ArrayList<Museum> museums = Repository.getInstance().getMuseums();
 
-        Museum wantedMuseum = new Museum("debug");
+        Museum wantedMuseum = new Museum("Non-Existent");
 
         for (Museum m1 : museums) {
             if (m1.getName().equals(nameMuseum)) {
@@ -217,8 +199,7 @@ public class ControllerMuseum {
                 break;
             }
         }
-        if(!ok)
-        {
+        if (!ok) {
             System.out.println("Client is not in museum!");
             return;
         }
@@ -242,7 +223,7 @@ public class ControllerMuseum {
         for (Museum m : museums) {
             if (name.equals(m.getName())) {
                 List<Exhibit> exhibits = m.getAllExhibits();
-                for (Exhibit e: exhibits) {
+                for (Exhibit e : exhibits) {
                     ViewExhibit.displayExhibit(e);
                 }
             }
@@ -250,30 +231,24 @@ public class ControllerMuseum {
     }
 
     static public void displayTotalVisits(String name) {
-        ArrayList<Museum> museums = Repository.getInstance().getMuseums();
         if (!existsInMuseums(name)) {
             System.out.println("The museum does not exist, please try again using an new name!");
             return;
         }
-        Museum m2 = new Museum("debug");
-        for(Museum m1 : Repository.getInstance().getMuseums())
-        {
-            if(m1.getName().equals(name))
-            {
+        Museum m2 = new Museum("Non-Existent");
+        for (Museum m1 : Repository.getInstance().getMuseums()) {
+            if (m1.getName().equals(name)) {
                 m2 = m1;
             }
         }
 
         int count = 0;
-        for(Client client : Repository.getInstance().getClients())
-        {
-            for(Ticket tickets2 : client.getVisits())
-            {
+        for (Client client : Repository.getInstance().getClients()) {
+            for (Ticket tickets2 : client.getVisits()) {
                 List<Block> blocks2 = new ArrayList<>(tickets2.getPermits());
                 blocks2.retainAll(m2.getBlocks());
-                if(!blocks2.isEmpty())
-                {
-                    count ++;
+                if (!blocks2.isEmpty()) {
+                    count++;
                 }
             }
         }
@@ -284,32 +259,30 @@ public class ControllerMuseum {
         if (!existsInMuseums(name)) {
             System.out.println("Wrong name, please try again using an existing one!");
         }
+        ViewMuseum.allInformationDisplay(name);
+    }
 
-        Museum m2 = new Museum("debug");
-        for(Museum m1 : Repository.getInstance().getMuseums())
-        {
-            if(m1.getName().equals(name))
-            {
-                m2 = m1;
-            }
+    public static boolean checkIfNotExistsClient(String nameMuseum, String id) {
+        if (!existsInMuseums(nameMuseum)) {
+            System.out.println("Wrong name, please try again using an existing one!");
+            return true;
         }
-
-        System.out.println("Museum " + name + "\n");
-        List<Block> blocks = m2.getBlocks();
-
-        System.out.println("Blocks:");
-        for(Block b: blocks) {
-            System.out.println(b.getName() + " with ID " + b.getId());
+        if (!ControllerClient.existsInClients(id)) {
+            System.out.println("Client doesn't exist! Please create it first!");
+            return true;
         }
+        return false;
+    }
 
-        System.out.println("\n");
-        List<Client> clients = m2.getClients();
-
-        System.out.println("\n");
-        System.out.println("Clients:");
-        for(Client c: clients) {
-            System.out.println(c.getName() + " with id " + c.getId());
+    public static boolean checkIfNotExistsBlock(String nameMuseum, String id) {
+        if (!existsInMuseums(nameMuseum)) {
+            System.out.println("Wrong name, please try again using an existing one!");
+            return true;
         }
-        System.out.println("\n");
+        if (!ControllerBlock.existsInBlocks(id)) {
+            System.out.println("Block doesn't exist! Please create it first!");
+            return true;
+        }
+        return false;
     }
 }

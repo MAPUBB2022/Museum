@@ -1,16 +1,12 @@
 package classes;
 
-import classes.ArtMovement;
-import classes.Artist;
-import classes.Exhibit;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Block {
+    private static int counter = 1000;
     private final String id;
     private String name;
-    private static int counter = 1000;
     private List<Exhibit> exhibits;
     private List<Artist> artists;
     private List<ArtMovement> movements;
@@ -44,11 +40,12 @@ public class Block {
     }
 
     public void addExhibit(Exhibit exhibitToAdd) {
-        if(exhibits.contains(exhibitToAdd)) {
+        if (exhibits.contains(exhibitToAdd)) {
             System.out.println("Duplicate!");
         } else {
             exhibits.add(exhibitToAdd);
-            System.out.println("Added:" + exhibitToAdd.getName());}
+            System.out.println("Added:" + exhibitToAdd.getName());
+        }
     }
 
     public void deleteExhibit(Exhibit exhibitToRemove) {
@@ -69,19 +66,19 @@ public class Block {
     }
 
     public void addArtist(Artist artistToAdd) {
-        if(artists.contains(artistToAdd)) {
+        if (artists.contains(artistToAdd)) {
             System.out.println("Duplicate!");
         } else {
-        artists.add(artistToAdd);
-        System.out.println("Added:" + artistToAdd.getName());}
+            artists.add(artistToAdd);
+            System.out.println("Added:" + artistToAdd.getName());
+        }
     }
 
     public void deleteArtist(Artist artistToRemove) {
-        if(artists.contains(artistToRemove)) {
+        if (artists.contains(artistToRemove)) {
             System.out.println("Removed:" + artistToRemove.getName());
             artists.remove(artistToRemove);
-        }
-        else {
+        } else {
             System.out.println("No such artist was found!");
         }
     }
@@ -95,19 +92,19 @@ public class Block {
     }
 
     public void addMovement(ArtMovement movementToAdd) {
-        if(movements.contains(movementToAdd)) {
+        if (movements.contains(movementToAdd)) {
             System.out.println("Duplicate!");
         } else {
-        movements.add(movementToAdd);
-        System.out.println("Added:" + movementToAdd.getName());}
+            movements.add(movementToAdd);
+            System.out.println("Added:" + movementToAdd.getName());
+        }
     }
 
     public void deleteMovement(ArtMovement movementToRemove) {
-        if(movements.contains(movementToRemove)) {
+        if (movements.contains(movementToRemove)) {
             System.out.println("Removed:" + movementToRemove.getName());
             movements.remove(movementToRemove);
-        }
-        else {
+        } else {
             System.out.println("No such art movement was found!");
         }
     }

@@ -15,8 +15,9 @@ Special Methods:
 Every fine client has a list of favorites in terms of exhibits.
 What date do we collect about the client? Name, ID, Number of Vists, Favorites
 Special Methods: 
-*	addVists (Increase the number of visits)
 *	steal (A low chance to succesfuly steal an artifact and a high chance to get busted by police) Is it worth it?
+*   presentSelf (A short description about themselves)
+*	isFamous (Displays if a person is famous or not)
 
 ### classes.Artist
 = a person who creates paintings or statues as a profession or hobby.
@@ -32,21 +33,18 @@ Special Methods:
 Many artists can take part in an art Movement.
 Every art movement has: Name, ID, Artists that took part in the creation , Start Date, End Date
 Special Methods:
-*	displayRandomArtist
+*	getRandomArtist
 
 ### classes.Block
 = the part of the building where something can be found.
 In a certain block you can find many nice things. So we need to know what exhibits are displayed. Who the artists of the beautiful exhibits are. And also the art movements special to this block!
 Every block has: Name, ID, Artists, Exhibits, Movements
-Special Methods:
-*	displayAllExhibitsInformation 
 
 ### classes.Museum
 = the class to rule them all
 Attributes: name, blocks(know all about the exhibits, clients
 Special Methods:
 *	getAllExhibits (returns a list with all exhibits from all the blocks in a museum) 
-*	calcTotalVisits (returns the numbers of all the vistis of the clients)
 
 ### classes.Exhibit
 = publicly display in an art gallery or museum as a painting, statue and artifiact in a certain block location.
@@ -65,6 +63,10 @@ Sculptor and Art Movement
 ### classes.Artifact 
 = are old and dusty. No one knows who is their creator. 
 What extra do we need? Its origin!
+
+### Special Methods using the interface:
+* getTotalVisits of a museum
+* Display a random Artist from an art movement
 
 ![Diagram](https://github.com/MAPUBB2022/Museum/blob/main/Museum/Diagram.png)
 

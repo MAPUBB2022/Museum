@@ -19,9 +19,7 @@ public class Main {
 //
         Artist leonardo = new Artist("Leonardo Da Vinci", new Date(1452,Calendar.APRIL,15), new Date(1519,Calendar.JUNE,2));
         Artist michelangelo = new Artist("Michelangelo Buonarroti", new Date(1475,Calendar.MARCH,6), new Date(1564,Calendar.FEBRUARY,18));
-//
         ArtMovement renaissance = new ArtMovement("Renaissance",  new Date(1300, Calendar.JANUARY,1),  new Date(1699,Calendar.DECEMBER,31));
-//
 //        Painting paintingMonaLisa = new Painting("Mona Lisa", new Date(1503, Calendar.NOVEMBER,24), block1, leonardo, renaissance, 10);
 //        Painting paintingCreationOfAdam = new Painting("Creation of Adam", new java.sql.Date(1510, Calendar.MARCH, 28), block1, michelangelo, renaissance, 0.5);
 //        Statue statueEquesterian = new Statue("Equesterian classes.Statue", new java.sql.Date(1510, Calendar.FEBRUARY, 23), block2, leonardo, renaissance, 19);
@@ -90,6 +88,11 @@ public class Main {
         Ticket t2 = new Ticket(lb2);
         c1.addVisit(t1);
         c2.addVisit(t2);
+
+        ArrayList<Artist> artists = new ArrayList<>();
+        artists.add(leonardo);
+        artists.add(michelangelo);
+        Repository.getInstance().setArtists(artists);
 
 
         Menu myMenu = Menu.getInstance();

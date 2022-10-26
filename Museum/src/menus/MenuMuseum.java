@@ -1,5 +1,7 @@
 package menus;
+
 import controllers.ControllerMuseum;
+
 import java.util.Scanner;
 
 public class MenuMuseum {
@@ -9,14 +11,14 @@ public class MenuMuseum {
     static Scanner scanner3 = new Scanner(System.in);
 
 
-    public static void options () {
+    public static void options() {
         System.out.println("Museum Menu");
         System.out.println("\t1. Add " + currentMenuClass);
-        System.out.println("\t2. Delete "  + currentMenuClass);
+        System.out.println("\t2. Delete " + currentMenuClass);
         System.out.println("\t3. Update " + currentMenuClass);
         System.out.println("\t4. Display all exhibits of " + currentMenuClass);
         System.out.println("\t5. Display total visits of " + currentMenuClass);
-        System.out.println("\t6. Display informations about a " + currentMenuClass);
+        System.out.println("\t6. Display information about a " + currentMenuClass);
         System.out.println("\t0. Return");
 
         int optionChosen = scanner.nextInt();
@@ -25,17 +27,17 @@ public class MenuMuseum {
             MenuMuseum.add();
         if (optionChosen == 2)
             MenuMuseum.delete();
-        if(optionChosen == 3)
+        if (optionChosen == 3)
             MenuMuseum.optionsUpdate();
         if (optionChosen == 4)
             MenuMuseum.displayAllExhibits();
         if (optionChosen == 5)
             MenuMuseum.displayTotalVisits();
-        if(optionChosen == 6)
+        if (optionChosen == 6)
             MenuMuseum.display();
     }
 
-    public static void optionsUpdate () {
+    private static void optionsUpdate() {
         System.out.println("\t\t1. Update " + currentMenuClass + " name");
         System.out.println("\t\t2. Add Block to a " + currentMenuClass);
         System.out.println("\t\t3. Remove Block from a " + currentMenuClass);
@@ -75,7 +77,7 @@ public class MenuMuseum {
         ControllerMuseum.delete(name);
     }
 
-    private  static void updateName() {
+    private static void updateName() {
         System.out.println("\t\t\tMuseum Name you want to change: ");
         String previousName = scanner2.nextLine();
         System.out.println("\t\t\tNew Name you want to change to: ");
@@ -88,7 +90,7 @@ public class MenuMuseum {
         String blockID = scanner2.nextLine();
         System.out.println("\t\t\tEnter name of museum: ");
         String museumName = scanner3.nextLine();
-        ControllerMuseum.addBlock(museumName,blockID);
+        ControllerMuseum.addBlock(museumName, blockID);
     }
 
     private static void deleteBlock() {
@@ -96,7 +98,7 @@ public class MenuMuseum {
         String blockID = scanner2.nextLine();
         System.out.println("\t\t\tEnter name of museum: ");
         String museumName = scanner3.nextLine();
-        ControllerMuseum.deleteBlock(museumName,blockID);
+        ControllerMuseum.deleteBlock(museumName, blockID);
     }
 
     private static void addClient() {
@@ -104,7 +106,7 @@ public class MenuMuseum {
         String clientId = scanner2.nextLine();
         System.out.println("\t\t\tEnter name of museum: ");
         String museumName = scanner3.nextLine();
-        ControllerMuseum.addClient(museumName,clientId);
+        ControllerMuseum.addClient(museumName, clientId);
     }
 
     private static void deleteClient() {
@@ -112,22 +114,22 @@ public class MenuMuseum {
         String clientId = scanner2.nextLine();
         System.out.println("\t\t\tEnter name of museum: ");
         String museumName = scanner3.nextLine();
-        ControllerMuseum.deleteClient(museumName,clientId);
+        ControllerMuseum.deleteClient(museumName, clientId);
     }
 
-    public static void displayAllExhibits() {
+    private static void displayAllExhibits() {
         System.out.println("\t\tEnter name of museum: ");
         String name = scanner2.nextLine();
         ControllerMuseum.displayAllExhibits(name);
     }
 
-    public static void displayTotalVisits() {
+    private static void displayTotalVisits() {
         System.out.println("\t\tEnter name of museum: ");
         String name = scanner2.nextLine();
         ControllerMuseum.displayTotalVisits(name);
     }
 
-    public static void display() {
+    private static void display() {
         System.out.println("\t\tEnter name of museum: ");
         String name = scanner2.nextLine();
         ControllerMuseum.display(name);

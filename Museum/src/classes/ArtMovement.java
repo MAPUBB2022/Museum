@@ -1,12 +1,11 @@
 package classes;
 
-import classes.Artist;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static java.lang.Math.*;
+import static java.lang.Math.floor;
+import static java.lang.Math.random;
 
 public class ArtMovement {
     private static int counter = 1000;
@@ -61,7 +60,7 @@ public class ArtMovement {
     }
 
     public void addArtist(Artist artistToAdd) {
-        if(artists.contains(artistToAdd)) {
+        if (artists.contains(artistToAdd)) {
             System.out.println("Duplicate!");
         } else {
             artists.add(artistToAdd);
@@ -70,24 +69,21 @@ public class ArtMovement {
     }
 
     public void deleteArtist(Artist artistToRemove) {
-        if(artists.contains(artistToRemove)) {
+        if (artists.contains(artistToRemove)) {
             System.out.println("Removed:" + artistToRemove.getName());
             artists.remove(artistToRemove);
-        }
-        else {
+        } else {
             System.out.println("No such artist was found!");
         }
     }
 
-    public void displayRandomArtist() {
-        if(this.artists.isEmpty())
-        {
-            System.out.println("No Artists in this Movement");
-            return;
+    public String getRandomArtist() {
+        if (this.artists.isEmpty()) {
+            return "No Artists in this Movement";
         }
-        int max = artists.size()-1;
+        int max = artists.size() - 1;
         int min = 0;
-        int position = (int) floor(random()*(max-min+1)+min);
-        System.out.println(this.artists.get(position).getName());
+        int position = (int) floor(random() * (max - min + 1) + min);
+        return this.artists.get(position).getName();
     }
 }

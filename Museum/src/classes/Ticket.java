@@ -3,9 +3,9 @@ package classes;
 import java.util.List;
 
 public class Ticket {
-    private double price;
     private static int counter = 1000;
     private final String id;
+    private double price;
     private List<Block> permits;
 
     public Ticket(List<Block> permits) {
@@ -14,22 +14,30 @@ public class Ticket {
         this.price = 2.5 * permits.size();
     }
 
+    public static int getCounter() {
+        return counter;
+    }
+
+    public static void setCounter(int counter) {
+        Ticket.counter = counter;
+    }
+
     public void addPermit(Block permitToAdd) {
-        if(permits.contains(permitToAdd)) {
+        if (permits.contains(permitToAdd)) {
             System.out.println("Duplicate!");
         } else {
             permits.add(permitToAdd);
             this.price += 2.5;
-            System.out.println("Added:" + permitToAdd.getName());}
+            System.out.println("Added:" + permitToAdd.getName());
+        }
     }
 
     public void deletePermit(Block permitToRemove) {
-        if(permits.contains(permitToRemove)) {
+        if (permits.contains(permitToRemove)) {
             System.out.println("Removed:" + permitToRemove.getName());
             this.price -= 2.5;
             permits.remove(permitToRemove);
-        }
-        else {
+        } else {
             System.out.println("No such classes.Block was found!");
         }
     }
@@ -40,14 +48,6 @@ public class Ticket {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public static int getCounter() {
-        return counter;
-    }
-
-    public static void setCounter(int counter) {
-        Ticket.counter = counter;
     }
 
     public String getId() {

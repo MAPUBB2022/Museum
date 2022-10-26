@@ -1,10 +1,5 @@
 package classes;
 
-import classes.ArtMovement;
-import classes.Artist;
-import classes.Block;
-import classes.Exhibit;
-
 import java.util.Date;
 
 public class Painting extends Exhibit {

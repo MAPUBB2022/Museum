@@ -2,7 +2,6 @@ package menus;
 
 import classes.Client;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuClient {
@@ -11,7 +10,7 @@ public class MenuClient {
 
     public static void options() {
         System.out.println("1. Add " + currentMenuClass);
-        System.out.println("2. Delete "  + currentMenuClass);
+        System.out.println("2. Delete " + currentMenuClass);
         System.out.println("3. Update " + currentMenuClass);
         System.out.println("5. Display " + currentMenuClass);
 
