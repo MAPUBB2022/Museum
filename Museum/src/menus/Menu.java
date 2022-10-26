@@ -11,14 +11,14 @@ public class Menu {
         return single_instance;
     }
 
-    public static void showMenuOptions() {
+    public void showMenuOptions() {
         System.out.println("1.Museum Menu");
         System.out.println("2.Block Menu");
         System.out.println("3.Client Menu");
         System.out.println("4.Artist Menu");
         System.out.println("5.Art Movement Menu");
         System.out.println("6.Exhibit Menu");
-        System.out.println("10. Exit");
+        System.out.println("0. Exit");
 
         Scanner scanner = new Scanner(System.in);
         int option = scanner.nextInt();
