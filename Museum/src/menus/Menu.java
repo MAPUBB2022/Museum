@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class Menu {
     private static Menu single_instance = null;
-
     public static Menu getInstance()
     {
         if (single_instance == null)
@@ -24,7 +23,29 @@ public class Menu {
         int option = scanner.nextInt();
 
         if (option == 1) {
-            MenuClient.options();
+            MenuMuseum.options();
+            showMenuOptions();
         }
+        if (option == 2) {
+            MenuBlock.options();
+            showMenuOptions();
+        }
+        if (option == 3) {
+            MenuClient.options();
+            showMenuOptions();
+        }
+        if (option == 4) {
+            MenuArtist.options();
+            showMenuOptions();
+        }
+        if(option == 5) {
+            MenuArtMovement.options();
+            showMenuOptions();
+        }
+        if(option == 6) {
+            MenuExhibit.options();
+            showMenuOptions();
+        }
+        System.out.println("Exiting Program...");
     }
 }

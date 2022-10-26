@@ -111,16 +111,4 @@ public class Block {
             System.out.println("No such art movement was found!");
         }
     }
-
-    public void displayAllExhibitsInformation() {
-        if(exhibits.size() > 0) {
-            System.out.println("In block " + this.getName() + " you can find: ");
-            for(Exhibit exhibit : this.exhibits) {
-                exhibit.getInfo();} }
-        else {
-            System.out.println("No Exhibits in block " + this.getName());
-        }
-    }
-
-
 }

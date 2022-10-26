@@ -59,28 +59,6 @@ public abstract class Exhibit {
         this.location = location;
     }
 
-    public void getInfo()
-    {
-        String s = "";
-        s += "This classes.Exhibit is called " + this.name+ "\n";
-        s += "It was made in " + this.creation.getYear() + "\n";
-        if (Artifact.class.isAssignableFrom(this.getClass()))
-        {
-            s += "It comes originally from " + ((Artifact) this).getOrigin() + "\n";
-        }
-        else if(Statue.class.isAssignableFrom(this.getClass()))
-        {
-            s += "The sculpture is made by " + ((Statue) this).getSculptor().getName() + "\n";
-        }
-        else
-        {
-            s += "The painting is made by " + ((Painting) this).getPainter().getName() + "\n";
-        }
-
-        s += "You can see it in " + this.location.getName() + "\n";
-        System.out.println(s);
-    }
-
     public double getPrice() {
         return price;
     }
