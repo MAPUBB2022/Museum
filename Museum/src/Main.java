@@ -1,4 +1,5 @@
 import classes.*;
+import menus.Menu;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -66,5 +67,8 @@ public class Main {
 
         block1.displayAllExhibitsInformation();
         block3.displayAllExhibitsInformation();
+
+        Menu myMenu = Menu.getInstance();
+        myMenu.showMenuOptions();
     }
 }

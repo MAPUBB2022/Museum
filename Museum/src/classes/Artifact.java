@@ -1,7 +1,4 @@
 package classes;
-
-import classes.Exhibit;
-
 import java.util.Date;
 
 public class Artifact extends Exhibit {
