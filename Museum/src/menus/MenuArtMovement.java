@@ -139,18 +139,18 @@ public class MenuArtMovement {
     }
 
     private static void addArtist() {
-        System.out.println("\t\tArt Movement name: ");
-        String name = scanner2.nextLine();
         System.out.println("\t\tArtist ID you want to delete");
         String artistId = scanner3.nextLine();
+        System.out.println("\t\tArt Movement name: ");
+        String name = scanner2.nextLine();
         ControllerArtMovement.addArtist(name, artistId);
     }
 
     private static void deleteArtist() {
-        System.out.println("\t\tArt Movement name: ");
-        String name = scanner2.nextLine();
         System.out.println("\t\tArtist ID you want to delete");
         String artistId = scanner3.nextLine();
+        System.out.println("\t\tArt Movement name: ");
+        String name = scanner2.nextLine();
         ControllerArtMovement.deleteArtist(name, artistId);
     }
 

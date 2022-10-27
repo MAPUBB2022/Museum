@@ -8,6 +8,7 @@ import views.ViewArtMovement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class ControllerArtMovement {
     static public boolean existsInArtMovement(String name) {
@@ -89,15 +90,30 @@ public class ControllerArtMovement {
     }
 
     public static void deleteArtist(String nameArtMovement, String artistId) {
-        if(checkIfNotExistsArtist(nameArtMovement, artistId)) {
+        if (checkIfNotExistsArtist(nameArtMovement, artistId)) {
             return;
-
+        }
+        ArrayList<Artist> artists = Repository.getInstance().getArtists();
+        Artist wantedArtist = new Artist("Non-Existent", null, null);
+        for(Artist artist: artists) {
+            if (Objects.equals(artist.getId(), artistId)) {
+                wantedArtist = artist;
+            }
         }
 
+        ArrayList<ArtMovement> artMovements = Repository.getInstance().getArtMovements();
+        ArtMovement wantedArtMovement = new ArtMovement("Non-Existent", null, null);
+        for(ArtMovement artMovement: artMovements) {
+            if (Objects.equals(artMovement.getName(), nameArtMovement)) {
+                wantedArtMovement = artMovement;
+                wantedArtMovement.deleteArtist(wantedArtist);
+            }
+        }
+        Repository.getInstance().setArtMovements(artMovements);
     }
 
     public static void addArtist(String nameArtMovement, String artistId) {
-        if(checkIfNotExistsArtist(nameArtMovement, artistId)) {
+        if (checkIfNotExistsArtist(nameArtMovement, artistId)) {
             return;
         }
 

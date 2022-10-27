@@ -6,8 +6,8 @@ import java.util.List;
 public class Client implements Person {
     private static int counter = 1000;
     private final String id;
-    private String name;
     private final List<Ticket> visits;
+    private String name;
     private List<Exhibit> favorites;
 
     public Client(String name) {
