@@ -3,20 +3,12 @@ package views;
 import classes.Block;
 import classes.Client;
 import classes.Museum;
-import repository.Repository;
 
 import java.util.List;
 
 public class ViewMuseum {
-    public static void allInformationDisplay(String name) {
-        Museum m2 = new Museum("debug");
-        for (Museum m1 : Repository.getInstance().getMuseums()) {
-            if (m1.getName().equals(name)) {
-                m2 = m1;
-            }
-        }
-
-        System.out.println("Museum " + name + "\n");
+    public static void allInformationDisplay(Museum m2) {
+        System.out.println("Museum " + m2.getName() + "\n");
         List<Block> blocks = m2.getBlocks();
 
         System.out.println("Blocks:");

@@ -6,7 +6,6 @@ import classes.Painting;
 import classes.Statue;
 
 public class ViewExhibit {
-
     public static void displayExhibit(Exhibit exhibit) {
         String s = "";
         s += "This Exhibit is called " + exhibit.getName() + "\n";

@@ -1,18 +1,14 @@
 package controllers;
 
-import classes.Artist;
-import repository.Repository;
-
-import java.util.ArrayList;
+import java.util.Date;
 
 public class ControllerArtist {
-    static public boolean existsInArtists(String id) {
-        ArrayList<Artist> artists = Repository.getInstance().getArtists();
-        for (Artist a : artists) {
-            if (id.equals(a.getId())) {
-                return true;
-            }
-        }
-        return false;
+    static public void add(String name, Date dateBorn, Date dateDied) {
+//        ArrayList<Artist> artists = Repository.getInstance().getArtists();
+//        Artist artistToAdd = new Artist(name,dateBorn,dateDied);
+//        artists.add(artistToAdd);
+//        Repository.getInstance().setArtists(artists);
     }
+
+
 }

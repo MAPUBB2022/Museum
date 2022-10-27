@@ -1,5 +1,7 @@
 package menus;
 
+import repository.inmemory.ExhibitRepositoryMemory;
+
 import java.util.Scanner;
 
 public class Menu {
@@ -47,6 +49,6 @@ public class Menu {
             MenuExhibit.options();
             showMenuOptions();
         }
-        System.out.println("Exiting Program...");
+        ExhibitRepositoryMemory.getInstance();
     }
 }

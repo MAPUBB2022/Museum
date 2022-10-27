@@ -103,7 +103,7 @@ public class MenuArtMovement {
         String oldName = scanner2.nextLine();
         System.out.println("\t\tNew Art Movement name you want to change to: ");
         String newName = scanner2.nextLine();
-        ControllerArtMovement.updateName(oldName, newName);
+        ControllerArtMovement.changeName(oldName, newName);
     }
 
     private static void updateDateCreated() {
@@ -139,7 +139,7 @@ public class MenuArtMovement {
     }
 
     private static void addArtist() {
-        System.out.println("\t\tArtist ID you want to delete");
+        System.out.println("\t\tArtist ID you want to add");
         String artistId = scanner3.nextLine();
         System.out.println("\t\tArt Movement name: ");
         String name = scanner2.nextLine();
