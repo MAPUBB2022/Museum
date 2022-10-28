@@ -11,7 +11,7 @@ public class ViewArtMovement {
         System.out.println("Date started:" + artMovement.getStartDate());
         System.out.println("Date ended:" + artMovement.getEndDate() + "\n");
 
-        if(artists.size() == 0) {
+        if (artists.size() == 0) {
             System.out.println("No artists");
             return;
         }

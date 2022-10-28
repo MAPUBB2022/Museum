@@ -83,7 +83,6 @@ public class ArtMovementRepositoryMemory implements ICrudRepository<String, ArtM
             return;
         }
         System.out.println("The art movement you want to update does not exist!");
-
     }
 
     @Override
@@ -104,7 +103,6 @@ public class ArtMovementRepositoryMemory implements ICrudRepository<String, ArtM
             return;
         }
         System.out.println("The art movement you want to update does not exist!");
-
     }
 
     @Override
@@ -146,7 +144,7 @@ public class ArtMovementRepositoryMemory implements ICrudRepository<String, ArtM
     }
 
     public void updateDateStarted(String name, Date newDate) {
-        for (ArtMovement amToUpdate : ArtMovementRepositoryMemory.getInstance().allArtMovements) {
+        for (ArtMovement amToUpdate : allArtMovements) {
             if (name.equals(amToUpdate.getName())) {
                 allArtMovements.remove(amToUpdate);
                 amToUpdate.setStartDate(newDate);
@@ -159,7 +157,7 @@ public class ArtMovementRepositoryMemory implements ICrudRepository<String, ArtM
     }
 
     public void updateDateEnded(String name, Date newDate) {
-        for (ArtMovement amToUpdate : ArtMovementRepositoryMemory.getInstance().allArtMovements) {
+        for (ArtMovement amToUpdate : allArtMovements) {
             if (name.equals(amToUpdate.getName())) {
                 allArtMovements.remove(amToUpdate);
                 amToUpdate.setEndDate(newDate);
@@ -169,4 +167,5 @@ public class ArtMovementRepositoryMemory implements ICrudRepository<String, ArtM
             }
         }
         System.out.println("Wrong name, please try again using an existing one!");
-    }}
+    }
+}

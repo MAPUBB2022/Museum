@@ -82,7 +82,7 @@ public class ControllerArtMovement {
             return true;
         }
         if (!ArtistRepositoryMemory.getInstance().checkIfExists(id)) {
-            System.out.println("Block doesn't exist! Please create it first!");
+            System.out.println("Artist doesn't exist! Please create it first!");
             return true;
         }
         return false;

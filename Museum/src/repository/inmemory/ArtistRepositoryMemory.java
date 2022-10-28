@@ -61,16 +61,60 @@ public class ArtistRepositoryMemory implements ICrudRepository<String, Artist> {
 
     @Override
     public void remove(String s) {
+        boolean found = false;
+        Artist artistToDelete = null;
+        for (Artist a : allArtists) {
+            if (a.getId().equals(s)) {
+                found = true;
+                artistToDelete = a;
+            }
+        }
+        if (found) {
+            allArtists.remove(artistToDelete);
+            System.out.println("The artist has been removed!");
+            return;
+        }
+        System.out.println("The artist does not exist, please try again using an existing one!");
 
     }
 
     @Override
-    public void update(String s, Artist newEntity) {
+    public void update(String id, Artist newEntity) {
+        boolean found = false;
+        Artist artistToDelete = null;
+        for (Artist a : allArtists) {
+            if (a.getId().equals(id)) {
+                found = true;
+                artistToDelete = a;
+            }
+        }
+        if (found) {
+            allArtists.remove(artistToDelete);
+            allArtists.add(newEntity);
+            return;
+        }
+        System.out.println("The artist you want to update does not exist!");
 
     }
 
     @Override
-    public void updateName(String s, String newId) {
+    public void updateName(String id, String newName) {
+        boolean found = false;
+        Artist artistToDelete = null;
+        for (Artist a : allArtists) {
+            if (a.getId().equals(id)) {
+                found = true;
+                artistToDelete = a;
+            }
+        }
+        if (found) {
+            allArtists.remove(artistToDelete);
+            artistToDelete.setName(newName);
+            allArtists.add(artistToDelete);
+            System.out.println("Updated name!");
+            return;
+        }
+        System.out.println("The artist you want to update does not exist!");
 
     }
 
@@ -82,6 +126,32 @@ public class ArtistRepositoryMemory implements ICrudRepository<String, Artist> {
             }
         }
         return null;
+    }
+
+    public void updateDateBorn(String id, Date newDate) {
+        for (Artist aToUpdate : allArtists) {
+            if (id.equals(aToUpdate.getId())) {
+                allArtists.remove(aToUpdate);
+                aToUpdate.setBirthDate(newDate);
+                allArtists.add(aToUpdate);
+                System.out.println("Updated date!");
+                return;
+            }
+        }
+        System.out.println("Wrong id, please try again using an existing one!");
+    }
+
+    public void updateDateDied(String id, Date newDate) {
+        for (Artist aToUpdate : allArtists) {
+            if (id.equals(aToUpdate.getId())) {
+                allArtists.remove(aToUpdate);
+                aToUpdate.setDeathDate(newDate);
+                allArtists.add(aToUpdate);
+                System.out.println("Updated date!");
+                return;
+            }
+        }
+        System.out.println("Wrong id, please try again using an existing one!");
     }
 
     @Override

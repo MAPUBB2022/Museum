@@ -48,7 +48,7 @@ public class ExhibitRepositoryMemory implements ICrudRepository<String, Exhibit>
         }
         Painting paintingMonaLisa = new Painting("Mona Lisa", dateMonaLisa, block1, artist1, artMovement, 10);
         Painting paintingCreationOfAdam = new Painting("Creation of Adam", dateCreationOfAdam, BlockRepositoryMemory.getInstance().findById("B1000"), ArtistRepositoryMemory.getInstance().findById("A1001"), ArtMovementRepositoryMemory.getInstance().findById("V1000"), 0.5);
-        Statue statueEquestrian = new Statue("Equestrian classes.Statue", dateEquestrian, BlockRepositoryMemory.getInstance().findById("B1001"), ArtistRepositoryMemory.getInstance().findById("A1000"), ArtMovementRepositoryMemory.getInstance().findById("V1000"), 19);
+        Statue statueEquestrian = new Statue("Equestrian", dateEquestrian, BlockRepositoryMemory.getInstance().findById("B1001"), ArtistRepositoryMemory.getInstance().findById("A1000"), ArtMovementRepositoryMemory.getInstance().findById("V1000"), 19);
         ExhibitRepositoryMemory.getInstance().add(paintingMonaLisa);
         ExhibitRepositoryMemory.getInstance().add(paintingCreationOfAdam);
         ExhibitRepositoryMemory.getInstance().add(statueEquestrian);
@@ -83,6 +83,11 @@ public class ExhibitRepositoryMemory implements ICrudRepository<String, Exhibit>
 
     @Override
     public Exhibit findById(String s) {
+        for (Exhibit e : allExhibits) {
+            if (s.equals(e.getId())) {
+                return e;
+            }
+        }
         return null;
     }
 

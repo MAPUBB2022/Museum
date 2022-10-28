@@ -132,7 +132,7 @@ public class MenuArtMovement {
             endDate = format.parse(endedDateString);
         } catch (ParseException e) {
             System.out.println("Date format input is wrong:");
-            updateDateCreated();
+            updateDateEnded();
             return;
         }
         ControllerArtMovement.updateDateEnded(name, endDate);
