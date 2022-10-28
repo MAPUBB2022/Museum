@@ -1,7 +1,11 @@
 package menus;
 
+import controllers.ControllerExhibit;
+
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -22,27 +26,157 @@ public class MenuExhibit {
 
         int optionChosen = scanner.nextInt();
 
-//        if (optionChosen == 1)
-//            MenuExhibit.add();
-//        if (optionChosen == 2)
-//            MenuExhibit.delete();
+        if (optionChosen == 1)
+            MenuExhibit.add();
+        if (optionChosen == 2)
+            MenuExhibit.delete();
         if (optionChosen == 3)
             MenuExhibit.optionsUpdate();
-//        if (optionChosen == 4)
-//            MenuExhibit.display();
+        if (optionChosen == 4)
+            MenuExhibit.display();
     }
 
     public static void optionsUpdate() {
         System.out.println("\t\t1. Update " + currentMenuClass + " name");
         System.out.println("\t\t2. Update date of creation of an " + currentMenuClass);
-        System.out.println("\t\t3. Update price of an " + currentMenuClass + " name");
-        System.out.println("\t\t4. Add Art Movement to an " + currentMenuClass);
-        System.out.println("\t\t5. Delete Art Movement from an " + currentMenuClass);
-        System.out.println("\t\t4. Add Exhibit to an " + currentMenuClass);
-        System.out.println("\t\t5. Delete Exhibit from an " + currentMenuClass);
+        System.out.println("\t\t3. Update price of an " + currentMenuClass);
         System.out.println("\t\t0. Return");
 
         Scanner scannerUpdate = new Scanner(System.in);
         int optionChosen = scannerUpdate.nextInt();
+        if (optionChosen == 1)
+            MenuExhibit.updateName();
+        if (optionChosen == 2)
+            MenuExhibit.updateDateOfCreation();
+        if (optionChosen == 3)
+            MenuExhibit.updatePrice();
     }
+
+    private static void updateName() {
+        System.out.println("Enter ID of Exhibit:");
+        String idOfExhibit = scanner2.nextLine();
+        System.out.println("Enter new name of Exhibit:");
+        String newName = scanner3.nextLine();
+        ControllerExhibit.updateName(idOfExhibit, newName);
+    }
+
+    private static void updateDateOfCreation() {
+        System.out.println("Enter ID of Exhibit:");
+        String idOfExhibit = scanner2.nextLine();
+        System.out.println("Enter the date of creation you want to update to:");
+        String newCreationDateString = scanner3.nextLine();
+        Date newCreationDate;
+        try {
+            newCreationDate = format.parse(newCreationDateString);
+        } catch (ParseException e) {
+            System.out.println("Date format input is wrong:");
+            updateDateOfCreation();
+            return;
+        }
+        ControllerExhibit.updateDate(idOfExhibit, newCreationDate);
+    }
+
+    private static void updatePrice() {
+        System.out.println("Enter ID of Exhibit:");
+        String idOfExhibit = scanner2.nextLine();
+        System.out.println("Enter new price of Exhibit:");
+        double newPrice = scanner3.nextDouble();
+        ControllerExhibit.updatePrice(idOfExhibit, newPrice);
+    }
+
+
+    private static void add() {
+        System.out.println("\t\tChoose what type of exhibit you want to add:");
+        System.out.println("\t\t1. Artifact");
+        System.out.println("\t\t2. Painting");
+        System.out.println("\t\t3. Statue");
+        System.out.println("\t\t0. Return");
+        int optionAdd = scanner2.nextInt();
+
+        if (optionAdd == 1) {
+            System.out.println("Enter Name:");
+            String name = scanner3.nextLine();
+            System.out.println("Enter the date of creation:");
+            String CreationDateString = scanner3.nextLine();
+            Date creationDate;
+            try {
+                creationDate = format.parse(CreationDateString);
+            } catch (ParseException e) {
+                System.out.println("Date format input is wrong:");
+                add();
+                return;
+            }
+            System.out.println("Enter Block ID where you can find it:");
+            String blockId = scanner3.nextLine();
+            System.out.println("Enter the origin place location");
+            String location = scanner3.nextLine();
+            System.out.println("Enter value of exhibit:");
+            double price = scanner3.nextDouble();
+            ControllerExhibit.addArtifact(name, creationDate, blockId, location, price);
+            return;
+        }
+
+        if (optionAdd == 2) {
+            System.out.println("Enter Name:");
+            String name = scanner3.nextLine();
+            System.out.println("Enter the date of creation:");
+            String CreationDateString = scanner3.nextLine();
+            Date creationDate;
+            try {
+                creationDate = format.parse(CreationDateString);
+            } catch (ParseException e) {
+                System.out.println("Date format input is wrong:");
+                add();
+                return;
+            }
+            System.out.println("Enter Block ID where you can find it:");
+            String blockId = scanner3.nextLine();
+            System.out.println("Enter Painter(Artist) ID:");
+            String artistId = scanner3.nextLine();
+            System.out.println("Enter Art Movement ID:");
+            String artMovement = scanner3.nextLine();
+            System.out.println("Enter value of exhibit:");
+            double price = scanner3.nextDouble();
+            ControllerExhibit.addPainting(name, creationDate, blockId, artistId, artMovement, price);
+        }
+
+        if (optionAdd == 3) {
+            System.out.println("Enter Name:");
+            String name = scanner3.nextLine();
+            System.out.println("Enter the date of creation:");
+            String CreationDateString = scanner3.nextLine();
+            Date creationDate;
+            try {
+                creationDate = format.parse(CreationDateString);
+            } catch (ParseException e) {
+                System.out.println("Date format input is wrong:");
+                add();
+                return;
+            }
+            System.out.println("Enter Block ID where you can find it:");
+            String blockId = scanner3.nextLine();
+            System.out.println("Enter Creator(Artist) ID:");
+            String artistId = scanner3.nextLine();
+            System.out.println("Enter Art Movement ID:");
+            String artMovement = scanner3.nextLine();
+            System.out.println("Enter value of exhibit:");
+            double price = scanner3.nextDouble();
+            ControllerExhibit.addStatue(name, creationDate, blockId, artistId, artMovement, price);
+        }
+    }
+
+
+    private static void delete() {
+        System.out.println("Enter ID of Exhibit:");
+        String idOfExhibit = scanner2.nextLine();
+        ControllerExhibit.delete(idOfExhibit);
+    }
+
+
+    private static void display() {
+        System.out.println("Enter ID of Exhibit:");
+        String idOfExhibit = scanner2.nextLine();
+        ControllerExhibit.display(idOfExhibit);
+    }
+
 }

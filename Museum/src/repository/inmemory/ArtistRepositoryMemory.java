@@ -75,7 +75,6 @@ public class ArtistRepositoryMemory implements ICrudRepository<String, Artist> {
             return;
         }
         System.out.println("The artist does not exist, please try again using an existing one!");
-
     }
 
     @Override
@@ -94,7 +93,6 @@ public class ArtistRepositoryMemory implements ICrudRepository<String, Artist> {
             return;
         }
         System.out.println("The artist you want to update does not exist!");
-
     }
 
     @Override
@@ -115,7 +113,6 @@ public class ArtistRepositoryMemory implements ICrudRepository<String, Artist> {
             return;
         }
         System.out.println("The artist you want to update does not exist!");
-
     }
 
     @Override

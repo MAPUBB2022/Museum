@@ -32,7 +32,6 @@ public class ClientRepositoryMemory implements ICrudRepository<String, Client> {
         }
         allClients.add(entity);
         System.out.println("Added client!");
-
     }
 
     @Override
