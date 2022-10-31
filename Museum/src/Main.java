@@ -2,6 +2,7 @@ import menus.Menu;
 import repository.inmemory.ClientRepositoryMemory;
 import repository.inmemory.ExhibitRepositoryMemory;
 import repository.inmemory.MuseumRepositoryMemory;
+import repository.inmemory.TicketRepositoryMemory;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,6 +10,7 @@ public class Main {
         MuseumRepositoryMemory.getInstance();
         ClientRepositoryMemory.getInstance();
         ExhibitRepositoryMemory.getInstance();
+        TicketRepositoryMemory.getInstance();
 
         Menu myMenu = Menu.getInstance();
         myMenu.showMenuOptions();

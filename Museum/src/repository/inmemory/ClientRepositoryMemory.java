@@ -1,10 +1,12 @@
 package repository.inmemory;
 
 import classes.Client;
+import classes.Ticket;
 import repository.ICrudRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ClientRepositoryMemory implements ICrudRepository<String, Client> {
     private static ClientRepositoryMemory single_instance = null;
@@ -36,17 +38,38 @@ public class ClientRepositoryMemory implements ICrudRepository<String, Client> {
 
     @Override
     public void remove(String s) {
-
+        if(!checkIfExists(s))
+        {
+            System.out.println("The client does not exist, please try again using an existing one!");
+            return;
+        }
+        this.allClients.removeIf(c -> Objects.equals(s, c.getId()));
+        System.out.println("The client has been removed!");
     }
 
     @Override
     public void update(String s, Client newEntity) {
-
+        if(!checkIfExists(s))
+        {
+            System.out.println("The client does not exist, please try again using an existing one!");
+            return;
+        }
+        Client newClient = this.findById(s);
+        for(Client oldClient : this.allClients)
+        {
+            if (oldClient.getId().equals(s))
+            {
+                oldClient.setFavorites(newClient.getFavorites());
+                oldClient.setName(newClient.getName());
+                System.out.println("The client has been updated!");
+                return;
+            }
+        }
     }
 
     @Override
     public void updateName(String s, String newId) {
-
+        // This method doesn't work for classes with id
     }
 
     @Override

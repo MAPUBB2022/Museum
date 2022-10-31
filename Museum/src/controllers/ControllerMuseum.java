@@ -7,8 +7,10 @@ import classes.Museum;
 import repository.inmemory.BlockRepositoryMemory;
 import repository.inmemory.ClientRepositoryMemory;
 import repository.inmemory.MuseumRepositoryMemory;
+import repository.inmemory.TicketRepositoryMemory;
 import views.ViewMuseum;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 public class ControllerMuseum {
@@ -72,28 +74,13 @@ public class ControllerMuseum {
     }
 
     static public void displayTotalVisits(String name) {
-//        if (!existsInMuseums(name)) {
-//            System.out.println("The museum does not exist, please try again using a new name!");
-//            return;
-//        }
-//        Museum m2 = new Museum("Non-Existent");
-//        for (Museum m1 : Repository.getInstance().getMuseums()) {
-//            if (m1.getName().equals(name)) {
-//                m2 = m1;
-//            }
-//        }
-//
-//        int count = 0;
-//        for (Client client : Repository.getInstance().getClients()) {
-//            for (Ticket tickets2 : client.getVisits()) {
-//                List<Block> blocks2 = new ArrayList<>(tickets2.getPermits());
-//                blocks2.retainAll(m2.getBlocks());
-//                if (!blocks2.isEmpty()) {
-//                    count++;
-//                }
-//            }
-//        }
-//        System.out.println("The total number of visits to the museum is: " + count);
+        if (!MuseumRepositoryMemory.getInstance().checkIfExists(name)) {
+            System.out.println("The museum does not exist, please try again using a new name!");
+            return;
+        }
+        Museum m2 = MuseumRepositoryMemory.getInstance().findById(name);
+
+        System.out.println("The total number of visits to the museum is: " + TicketRepositoryMemory.getInstance().numVisits(m2));
     }
 
     public static void display(String name) {

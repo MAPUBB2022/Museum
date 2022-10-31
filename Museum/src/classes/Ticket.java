@@ -8,10 +8,13 @@ public class Ticket {
     private double price;
     private List<Block> permits;
 
-    public Ticket(List<Block> permits) {
+    private Client guest;
+
+    public Ticket(List<Block> permits, Client guest) {
         this.id = "T" + counter++;
         this.permits = permits;
         this.price = 2.5 * permits.size();
+        this.guest = guest;
     }
 
     public static int getCounter() {
@@ -60,5 +63,13 @@ public class Ticket {
 
     public void setPermits(List<Block> permits) {
         this.permits = permits;
+    }
+
+    public Client getGuest() {
+        return guest;
+    }
+
+    public void setGuest(Client guest) {
+        this.guest = guest;
     }
 }
