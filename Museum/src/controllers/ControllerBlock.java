@@ -32,12 +32,22 @@ public class ControllerBlock {
     }
 
     public static void addEx(String blockId, String exId) {
+        if(!BlockRepositoryMemory.getInstance().checkIfExists(blockId))
+        {
+            System.out.println("This block does not exist!");
+            return;
+        }
         Block b = BlockRepositoryMemory.getInstance().findById(blockId);
         b.addExhibit(ExhibitRepositoryMemory.getInstance().findById(exId));
         BlockRepositoryMemory.getInstance().update(blockId, b);
     }
 
     public static void remEx(String blockId, String exId) {
+        if(!BlockRepositoryMemory.getInstance().checkIfExists(blockId))
+        {
+            System.out.println("This block does not exist!");
+            return;
+        }
         Block b = BlockRepositoryMemory.getInstance().findById(blockId);
         b.deleteExhibit(ExhibitRepositoryMemory.getInstance().findById(exId));
         BlockRepositoryMemory.getInstance().update(blockId, b);

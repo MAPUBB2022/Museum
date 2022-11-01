@@ -86,6 +86,7 @@ public class ControllerMuseum {
     public static void display(String name) {
         if (!MuseumRepositoryMemory.getInstance().checkIfExists(name)) {
             System.out.println("Wrong name, please try again using an existing one!");
+            return;
         }
         Museum m2 = MuseumRepositoryMemory.getInstance().findById(name);
         ViewMuseum.allInformationDisplay(m2);

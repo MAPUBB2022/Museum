@@ -2,6 +2,7 @@ package classes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Museum {
     private String name;
@@ -39,11 +40,18 @@ public class Museum {
     }
 
     public void addClient(Client clientToAdd) {
-        if (clients.contains(clientToAdd)) {
-            System.out.println("Duplicate!");
-        } else {
+        boolean exists = false;
+        for(Client c: this.clients) {
+            if (Objects.equals(c.getId(), clientToAdd.getId())) {
+                exists = true;
+            }
+        }
+        if(!exists){
             clients.add(clientToAdd);
             System.out.println("Added:" + clientToAdd.getName());
+        }
+        else {
+            System.out.println("Client already exists in museum");
         }
     }
 
