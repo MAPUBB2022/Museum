@@ -8,7 +8,7 @@ public class MenuBlock {
     static final String currentMenuClass = "block";
     private static final Scanner scanner2 = new Scanner(System.in);
     private static final Scanner scanner3 = new Scanner(System.in);
-    static Scanner scanner = new Scanner(System.in);
+    static final Scanner scanner = new Scanner(System.in);
 
     public static void options() {
         System.out.println("Block Menu");

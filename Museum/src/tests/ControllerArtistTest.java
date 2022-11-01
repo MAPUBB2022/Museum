@@ -129,7 +129,7 @@ class ControllerArtistTest {
     @org.junit.jupiter.api.Test
     void display() {
         ControllerArtist.display("A1000");
-        ControllerArtist.display("NonExistant");
+        ControllerArtist.display("NonExistent");
     }
 
 

@@ -13,9 +13,9 @@ Special Methods:
 ### classes.Client
 = the client is the boss.
 Every fine client has a list of favorites in terms of exhibits.
-What date do we collect about the client? Name, ID, Number of Vists, Favorites
+What date do we collect about the client? Name, ID, Number of Visits, Favorites
 Special Methods: 
-*	steal (A low chance to succesfuly steal an artifact and a high chance to get busted by police) Is it worth it?
+*	steal (A low chance to successfully steal an artifact and a high chance to get busted by police) Is it worth it?
 *   presentSelf (A short description about themselves)
 *	isFamous (Displays if a person is famous or not)
 
@@ -47,10 +47,10 @@ Special Methods:
 *	getAllExhibits (returns a list with all exhibits from all the blocks in a museum) 
 
 ### classes.Exhibit
-= publicly display in an art gallery or museum as a painting, statue and artifiact in a certain block location.
+= publicly display in an art gallery or museum as a painting, statue and artifact in a certain block location.
 Every exhibit is special. So we need to know its Name, ID, location classes.Block in the museum and the date of creation
 Special Methods: 
-*	getInformation (returns a String with all the informations about an exhibit)
+*	getInformation (returns a String with all the information about an exhibit)
 
 
 ### classes.Painting

@@ -14,7 +14,7 @@ public class MenuExhibit {
     private static final Scanner scanner2 = new Scanner(System.in);
     private static final Scanner scanner3 = new Scanner(System.in);
     private static final DateFormat format = new SimpleDateFormat("dd-MM-yy", Locale.ENGLISH);
-    static Scanner scanner = new Scanner(System.in);
+    static final Scanner scanner = new Scanner(System.in);
 
     public static void options() {
         System.out.println("Exhibit Menu");

@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class MenuMuseum {
     static final String currentMenuClass = "museum";
-    static Scanner scanner = new Scanner(System.in);
-    static Scanner scanner2 = new Scanner(System.in);
-    static Scanner scanner3 = new Scanner(System.in);
+    static final Scanner scanner = new Scanner(System.in);
+    static final Scanner scanner2 = new Scanner(System.in);
+    static final Scanner scanner3 = new Scanner(System.in);
 
 
     public static void options() {
