@@ -12,8 +12,7 @@ import views.ViewClient;
 import java.util.List;
 
 public class ControllerClient {
-    public static void add(String s)
-    {
+    public static void add(String s) {
         ClientRepositoryMemory.getInstance().add(new Client(s));
     }
 
@@ -24,8 +23,7 @@ public class ControllerClient {
     public static void update(String clientId, String clientName) {
         Client c = new Client(clientName);
         c.setFavorites(ClientRepositoryMemory.getInstance().findById(clientId).getFavorites());
-        for(Ticket t: ClientRepositoryMemory.getInstance().findById(clientId).getVisits())
-        {
+        for (Ticket t : ClientRepositoryMemory.getInstance().findById(clientId).getVisits()) {
             c.addVisit(t);
         }
         ClientRepositoryMemory.getInstance().update(clientId, c);
@@ -55,8 +53,7 @@ public class ControllerClient {
 
     public static void display(String clientId) {
         Client c = ClientRepositoryMemory.getInstance().findById(clientId);
-        if(c == null)
-        {
+        if (c == null) {
             System.out.println("This client does not exist, try again using a different ID");
             return;
         }

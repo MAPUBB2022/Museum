@@ -41,16 +41,16 @@ public class Museum {
 
     public void addClient(Client clientToAdd) {
         boolean exists = false;
-        for(Client c: this.clients) {
+        for (Client c : this.clients) {
             if (Objects.equals(c.getId(), clientToAdd.getId())) {
                 exists = true;
+                break;
             }
         }
-        if(!exists){
+        if (!exists) {
             clients.add(clientToAdd);
             System.out.println("Added:" + clientToAdd.getName());
-        }
-        else {
+        } else {
             System.out.println("Client already exists in museum");
         }
     }

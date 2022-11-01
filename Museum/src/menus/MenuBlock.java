@@ -1,17 +1,14 @@
 package menus;
 
 import controllers.ControllerBlock;
-import controllers.ControllerClient;
 
 import java.util.Scanner;
 
 public class MenuBlock {
     static final String currentMenuClass = "block";
-    static Scanner scanner = new Scanner(System.in);
-
     private static final Scanner scanner2 = new Scanner(System.in);
-
     private static final Scanner scanner3 = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
 
     public static void options() {
         System.out.println("Block Menu");
@@ -29,7 +26,7 @@ public class MenuBlock {
             MenuBlock.add();
         if (optionChosen == 2)
             MenuBlock.delete();
-        if(optionChosen == 3)
+        if (optionChosen == 3)
             MenuBlock.update();
         if (optionChosen == 4)
             MenuBlock.addEx();

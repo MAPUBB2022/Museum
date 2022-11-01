@@ -10,7 +10,6 @@ import repository.inmemory.MuseumRepositoryMemory;
 import repository.inmemory.TicketRepositoryMemory;
 import views.ViewMuseum;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 public class ControllerMuseum {

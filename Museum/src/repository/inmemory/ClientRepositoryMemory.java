@@ -1,7 +1,6 @@
 package repository.inmemory;
 
 import classes.Client;
-import classes.Ticket;
 import repository.ICrudRepository;
 
 import java.util.ArrayList;
@@ -38,8 +37,7 @@ public class ClientRepositoryMemory implements ICrudRepository<String, Client> {
 
     @Override
     public void remove(String s) {
-        if(!checkIfExists(s))
-        {
+        if (!checkIfExists(s)) {
             System.out.println("The client does not exist, please try again using an existing one!");
             return;
         }
@@ -49,16 +47,13 @@ public class ClientRepositoryMemory implements ICrudRepository<String, Client> {
 
     @Override
     public void update(String s, Client newEntity) {
-        if(!checkIfExists(s))
-        {
+        if (!checkIfExists(s)) {
             System.out.println("The client does not exist, please try again using an existing one!");
             return;
         }
         Client newClient = this.findById(s);
-        for(Client oldClient : this.allClients)
-        {
-            if (oldClient.getId().equals(s))
-            {
+        for (Client oldClient : this.allClients) {
+            if (oldClient.getId().equals(s)) {
                 oldClient.setFavorites(newClient.getFavorites());
                 oldClient.setName(newClient.getName());
                 System.out.println("The client has been updated!");

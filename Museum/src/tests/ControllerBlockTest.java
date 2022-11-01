@@ -1,13 +1,13 @@
-package Tests;
+package tests;
 
 import controllers.ControllerBlock;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import repository.inmemory.BlockRepositoryMemory;
-import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestMethodOrder(OrderAnnotation.class)
 class ControllerBlockTest {

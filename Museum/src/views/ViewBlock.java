@@ -10,20 +10,17 @@ public class ViewBlock {
         System.out.println("Block " + b.getName());
 
         System.out.println("Exhibits: ");
-        for(Exhibit e : b.getExhibits())
-        {
+        for (Exhibit e : b.getExhibits()) {
             System.out.println("\t" + e.getName());
         }
 
         System.out.println("Artists: ");
-        for(Artist a : b.getArtists())
-        {
+        for (Artist a : b.getArtists()) {
             System.out.println("\t" + a.getName());
         }
 
         System.out.println("Art Movements: ");
-        for(ArtMovement m : b.getMovements())
-        {
+        for (ArtMovement m : b.getMovements()) {
             System.out.println("\t" + m.getName());
         }
     }

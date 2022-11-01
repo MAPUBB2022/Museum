@@ -1,12 +1,9 @@
 package controllers;
 
 import classes.Block;
-import classes.Client;
 import repository.inmemory.BlockRepositoryMemory;
-import repository.inmemory.ClientRepositoryMemory;
 import repository.inmemory.ExhibitRepositoryMemory;
 import views.ViewBlock;
-import views.ViewClient;
 
 public class ControllerBlock {
 
@@ -19,8 +16,7 @@ public class ControllerBlock {
     }
 
     public static void update(String blockId, String blockName) {
-        if(!BlockRepositoryMemory.getInstance().checkIfExists(blockId))
-        {
+        if (!BlockRepositoryMemory.getInstance().checkIfExists(blockId)) {
             System.out.println("This block does not exist!");
             return;
         }
@@ -32,8 +28,7 @@ public class ControllerBlock {
     }
 
     public static void addEx(String blockId, String exId) {
-        if(!BlockRepositoryMemory.getInstance().checkIfExists(blockId))
-        {
+        if (!BlockRepositoryMemory.getInstance().checkIfExists(blockId)) {
             System.out.println("This block does not exist!");
             return;
         }
@@ -43,8 +38,7 @@ public class ControllerBlock {
     }
 
     public static void remEx(String blockId, String exId) {
-        if(!BlockRepositoryMemory.getInstance().checkIfExists(blockId))
-        {
+        if (!BlockRepositoryMemory.getInstance().checkIfExists(blockId)) {
             System.out.println("This block does not exist!");
             return;
         }

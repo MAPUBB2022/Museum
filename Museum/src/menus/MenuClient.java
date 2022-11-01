@@ -1,10 +1,8 @@
 package menus;
 
 import classes.Block;
-import classes.Client;
 import controllers.ControllerClient;
 import repository.inmemory.BlockRepositoryMemory;
-import repository.inmemory.ClientRepositoryMemory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +10,9 @@ import java.util.Scanner;
 
 public class MenuClient {
     static final String currentMenuClass = "client";
-    static Scanner scanner = new Scanner(System.in);
-
     private static final Scanner scanner2 = new Scanner(System.in);
-
     private static final Scanner scanner3 = new Scanner(System.in);
-
+    static Scanner scanner = new Scanner(System.in);
 
     public static void options() {
         System.out.println("Client Menu");
@@ -36,7 +31,7 @@ public class MenuClient {
             MenuClient.add();
         if (optionChosen == 2)
             MenuClient.delete();
-        if(optionChosen == 3)
+        if (optionChosen == 3)
             MenuClient.update();
         if (optionChosen == 4)
             MenuClient.addVisit();
@@ -75,10 +70,9 @@ public class MenuClient {
         System.out.println("How many blocks?");
         int num = Integer.parseInt(scanner3.next());
         List<Block> lb = new ArrayList<>();
-        for(int i = 1; i <= num; i++)
-        {
+        for (int i = 1; i <= num; i++) {
             Scanner scanner4 = new Scanner(System.in);
-            System.out.println("\t\t\t"+i + ". Block");
+            System.out.println("\t\t\t" + i + ". Block");
             lb.add(BlockRepositoryMemory.getInstance().findById(scanner4.next()));
         }
         ControllerClient.addVisit(clientId, lb);

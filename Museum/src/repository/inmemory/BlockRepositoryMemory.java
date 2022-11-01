@@ -1,6 +1,9 @@
 package repository.inmemory;
 
-import classes.*;
+import classes.Block;
+import classes.Exhibit;
+import classes.Painting;
+import classes.Statue;
 import repository.ICrudRepository;
 
 import java.util.ArrayList;
@@ -60,21 +63,17 @@ public class BlockRepositoryMemory implements ICrudRepository<String, Block> {
                 newBlock.setArtists(new ArrayList<>());
                 for (Exhibit exhibit : oldBlock.getExhibits()) {
                     if (exhibit instanceof Painting) {
-                        if(!newBlock.getMovements().contains(((Painting) exhibit).getArtMovement()))
-                        {
+                        if (!newBlock.getMovements().contains(((Painting) exhibit).getArtMovement())) {
                             newBlock.addMovement(((Painting) exhibit).getArtMovement());
                         }
-                        if(!newBlock.getArtists().contains(((Painting) exhibit).getPainter()))
-                        {
+                        if (!newBlock.getArtists().contains(((Painting) exhibit).getPainter())) {
                             newBlock.addArtist(((Painting) exhibit).getPainter());
                         }
                     } else if (exhibit instanceof Statue) {
-                        if(!newBlock.getMovements().contains(((Statue) exhibit).getArtMovement()))
-                        {
+                        if (!newBlock.getMovements().contains(((Statue) exhibit).getArtMovement())) {
                             newBlock.addMovement((((Statue) exhibit).getArtMovement()));
                         }
-                        if(!newBlock.getArtists().contains(((Statue) exhibit).getSculptor()))
-                        {
+                        if (!newBlock.getArtists().contains(((Statue) exhibit).getSculptor())) {
                             newBlock.addArtist(((Statue) exhibit).getSculptor());
                         }
                     }
