@@ -19,11 +19,16 @@ public class ControllerBlock {
     }
 
     public static void update(String blockId, String blockName) {
-    Block b = new Block(blockName);
-    b.setArtists(BlockRepositoryMemory.getInstance().findById(blockId).getArtists());
-    b.setExhibits(BlockRepositoryMemory.getInstance().findById(blockId).getExhibits());
-    b.setMovements(BlockRepositoryMemory.getInstance().findById(blockId).getMovements());
-    BlockRepositoryMemory.getInstance().update(blockId, b);
+        if(!BlockRepositoryMemory.getInstance().checkIfExists(blockId))
+        {
+            System.out.println("This block does not exist!");
+            return;
+        }
+        Block b = new Block(blockName);
+        b.setArtists(BlockRepositoryMemory.getInstance().findById(blockId).getArtists());
+        b.setExhibits(BlockRepositoryMemory.getInstance().findById(blockId).getExhibits());
+        b.setMovements(BlockRepositoryMemory.getInstance().findById(blockId).getMovements());
+        BlockRepositoryMemory.getInstance().update(blockId, b);
     }
 
     public static void addEx(String blockId, String exId) {
@@ -40,8 +45,7 @@ public class ControllerBlock {
 
     public static void display(String blockId) {
         Block b = BlockRepositoryMemory.getInstance().findById(blockId);
-        if(b == null)
-        {
+        if (b == null) {
             System.out.println("This block does not exist, try again using a different ID");
             return;
         }
