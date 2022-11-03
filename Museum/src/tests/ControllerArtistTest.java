@@ -31,7 +31,7 @@ class ControllerArtistTest {
                 throw new RuntimeException(e);
             }
             ControllerArtist.add("Nicu", dateBornNicu, dateDiedNicu);
-            assert true: (ArtistRepositoryMemory.getInstance().checkIfExists("A1002"));
+            assert true : (ArtistRepositoryMemory.getInstance().checkIfExists("A1002"));
         }
     }
 
@@ -50,11 +50,11 @@ class ControllerArtistTest {
     @org.junit.jupiter.api.Test
     void changeName() {
         Artist artist = ArtistRepositoryMemory.getInstance().findById("A1000");
-        ControllerArtist.changeName(artist.getId(),"Test Artist");
+        ControllerArtist.changeName(artist.getId(), "Test Artist");
         Artist artistAfterChange = ArtistRepositoryMemory.getInstance().findById("A1000");
         String updatedName = artistAfterChange.getName();
         assert (updatedName.equals("Test Artist"));
-        ControllerArtist.changeName(artist.getId(),"Leonardo Da Vinci");
+        ControllerArtist.changeName(artist.getId(), "Leonardo Da Vinci");
         Artist artistAfterChange2 = ArtistRepositoryMemory.getInstance().findById("A1000");
         String updatedName2 = artistAfterChange2.getName();
         assert (updatedName2.equals("Leonardo Da Vinci"));
@@ -70,7 +70,7 @@ class ControllerArtistTest {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        ControllerArtist.updateDateBorn(artist.getId(),dateUpdate);
+        ControllerArtist.updateDateBorn(artist.getId(), dateUpdate);
         artist = ArtistRepositoryMemory.getInstance().findById("A1000");
         assert (artist.getBirthDate()).equals(dateUpdate);
     }
@@ -85,7 +85,7 @@ class ControllerArtistTest {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        ControllerArtist.updateDateDied(artist.getId(),dateUpdate);
+        ControllerArtist.updateDateDied(artist.getId(), dateUpdate);
         artist = ArtistRepositoryMemory.getInstance().findById("A1000");
         assert (artist.getDeathDate()).equals(dateUpdate);
     }
@@ -93,37 +93,37 @@ class ControllerArtistTest {
     @org.junit.jupiter.api.Test
     void addArtMovement() {
         Artist artist = ArtistRepositoryMemory.getInstance().findById("A1000");
-        ControllerArtist.addArtMovement(artist.getId(),"V1000");
-        ControllerArtist.addArtMovement(artist.getId(),"V1000"); // Duplicate
-        ControllerArtist.addArtMovement(artist.getId(),"NonExistent");
-        ControllerArtist.addArtMovement("NonExistent","NonExistent");
+        ControllerArtist.addArtMovement(artist.getId(), "V1000");
+        ControllerArtist.addArtMovement(artist.getId(), "V1000"); // Duplicate
+        ControllerArtist.addArtMovement(artist.getId(), "NonExistent");
+        ControllerArtist.addArtMovement("NonExistent", "NonExistent");
     }
 
     @org.junit.jupiter.api.Test
     void deleteArtMovement() {
         Artist artist = ArtistRepositoryMemory.getInstance().findById("A1000");
-        ControllerArtist.addArtMovement(artist.getId(),"V1000"); // In case it does not exist=> It will be added, else it will display Duplicate
-        ControllerArtist.deleteArtMovement(artist.getId(),"V1000");
-        ControllerArtist.deleteArtMovement(artist.getId(),"NonExistent");
-        ControllerArtist.deleteArtMovement("NonExistent","NonExistent");
+        ControllerArtist.addArtMovement(artist.getId(), "V1000"); // In case it does not exist=> It will be added, else it will display Duplicate
+        ControllerArtist.deleteArtMovement(artist.getId(), "V1000");
+        ControllerArtist.deleteArtMovement(artist.getId(), "NonExistent");
+        ControllerArtist.deleteArtMovement("NonExistent", "NonExistent");
     }
 
     @org.junit.jupiter.api.Test
     void addExhibit() {
         Artist artist = ArtistRepositoryMemory.getInstance().findById("A1000");
-        ControllerArtist.addExhibit(artist.getId(),"E1001");
-        ControllerArtist.addExhibit(artist.getId(),"E1001"); // Duplicate
-        ControllerArtist.addExhibit(artist.getId(),"NonExistent");
-        ControllerArtist.addExhibit("NonExistent","NonExistent");
+        ControllerArtist.addExhibit(artist.getId(), "E1001");
+        ControllerArtist.addExhibit(artist.getId(), "E1001"); // Duplicate
+        ControllerArtist.addExhibit(artist.getId(), "NonExistent");
+        ControllerArtist.addExhibit("NonExistent", "NonExistent");
     }
 
     @org.junit.jupiter.api.Test
     void deleteExhibit() {
         Artist artist = ArtistRepositoryMemory.getInstance().findById("A1000");
-        ControllerArtist.addExhibit(artist.getId(),"E1001"); // In case it does not exist=> It will be added, else it will display Duplicate
-        ControllerArtist.deleteExhibit(artist.getId(),"E1001");
-        ControllerArtist.deleteExhibit(artist.getId(),"NonExistent");
-        ControllerArtist.deleteExhibit("NonExistent","NonExistent");
+        ControllerArtist.addExhibit(artist.getId(), "E1001"); // In case it does not exist=> It will be added, else it will display Duplicate
+        ControllerArtist.deleteExhibit(artist.getId(), "E1001");
+        ControllerArtist.deleteExhibit(artist.getId(), "NonExistent");
+        ControllerArtist.deleteExhibit("NonExistent", "NonExistent");
     }
 
     @org.junit.jupiter.api.Test

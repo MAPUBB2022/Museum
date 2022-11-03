@@ -125,7 +125,7 @@ public class ControllerArtist {
 
     public static void display(String id) {
         Artist artist = ArtistRepositoryMemory.getInstance().findById(id);
-        if(artist == null) {
+        if (artist == null) {
             System.out.println("The Artist does not exist! Try again using a different ID!");
             return;
         }
