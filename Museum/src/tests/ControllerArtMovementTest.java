@@ -10,8 +10,8 @@ import repository.inmemory.ArtistRepositoryMemory;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -188,10 +188,11 @@ class ControllerArtMovementTest {
         }
         ArtMovement artMovement = ArtMovementRepositoryMemory.getInstance().findByName("Baroque");
         assertTrue (artMovement.getArtists().isEmpty());
+        ArrayList<Artist> artMovementArtists;
         ControllerArtMovement.addArtist("Baroque","A1000");
         ControllerArtMovement.addArtist("Baroque","A1000");
         artMovement = ArtMovementRepositoryMemory.getInstance().findByName("Baroque");
-        List<Artist> artMovementArtists = artMovement.getArtists();
+        artMovementArtists = (ArrayList<Artist>) artMovement.getArtists();
         assert (artMovement.getArtists()).equals(artMovementArtists);
         assertFalse(artMovement.getArtists().isEmpty());
     }
