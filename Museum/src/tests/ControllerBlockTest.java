@@ -1,11 +1,17 @@
 package tests;
 
+import classes.*;
 import controllers.ControllerBlock;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import repository.inmemory.BlockRepositoryMemory;
+import repository.inmemory.ExhibitRepositoryMemory;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,18 +34,50 @@ class ControllerBlockTest {
     }
 
     @Test
+    @Order(3)
     void update() {
+        Block b1 = BlockRepositoryMemory.getInstance().findById("B1004");
+        b1.setName("BlockEast");
+        BlockRepositoryMemory.getInstance().update("B1004",b1);
+        assertEquals(BlockRepositoryMemory.getInstance().findById("B1004").getName(),"BlockEast");
     }
 
     @Test
+    @Order(4)
     void addEx() {
+        ControllerBlock.addEx("B1004","E1000");
+        List<Exhibit> le1 = new ArrayList<>();
+        le1.add(ExhibitRepositoryMemory.getInstance().findById("E1000"));
+        assertEquals( BlockRepositoryMemory.getInstance().findById("B1004").getExhibits(),le1);
+
+        ControllerBlock.addEx("B1004","E1000");
+        assertEquals( BlockRepositoryMemory.getInstance().findById("B1004").getExhibits(),le1);
+
+        List<Artist> la1 = new ArrayList<>();
+        Painting p = (Painting) ExhibitRepositoryMemory.getInstance().findById("E1000");
+        la1.add(p.getPainter());
+
+        assertEquals(BlockRepositoryMemory.getInstance().findById("B1004").getArtists(),la1);
+
     }
 
     @Test
-    void remEx() {
-    }
-
-    @Test
+    @Order(5)
     void display() {
+        ControllerBlock.display("B1004");
+        ControllerBlock.display("B1100");
+    }
+
+    @Test
+    @Order(6)
+    void remEx() {
+        ControllerBlock.remEx("B1004","E1000");
+
+        List<Exhibit> le1 = new ArrayList<>();
+        List<Artist> la1 = new ArrayList<>();
+        assertEquals( BlockRepositoryMemory.getInstance().findById("B1004").getExhibits(),le1);
+        assertEquals(BlockRepositoryMemory.getInstance().findById("B1004").getArtists(),la1);
+
+        ControllerBlock.remEx("B1004","E1000");
     }
 }

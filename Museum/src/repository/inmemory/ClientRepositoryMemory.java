@@ -65,6 +65,8 @@ public class ClientRepositoryMemory implements ICrudRepository<String, Client> {
     @Override
     public void updateName(String s, String newId) {
         // This method doesn't work for classes with id
+        Client c = this.findById(s);
+        c.setName(newId);
     }
 
     @Override

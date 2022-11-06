@@ -1,9 +1,13 @@
 package controllers;
 
-import classes.Block;
+import classes.*;
 import repository.inmemory.BlockRepositoryMemory;
 import repository.inmemory.ExhibitRepositoryMemory;
 import views.ViewBlock;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class ControllerBlock {
 
@@ -34,6 +38,45 @@ public class ControllerBlock {
         }
         Block b = BlockRepositoryMemory.getInstance().findById(blockId);
         b.addExhibit(ExhibitRepositoryMemory.getInstance().findById(exId));
+
+        List<Artist> la1 = new ArrayList<>();
+        for(int i = 0; i < b.getExhibits().size(); i++)
+        {
+            if(b.getExhibits().get(i) instanceof Painting)
+            {
+                if(!la1.contains(((Painting) b.getExhibits().get(i)).getPainter()))
+                {
+                    la1.add(((Painting) b.getExhibits().get(i)).getPainter());
+                }
+            }
+            else if(b.getExhibits().get(i) instanceof Statue)
+            {
+                if(!la1.contains(((Statue) b.getExhibits().get(i)).getSculptor()))
+                {
+                    la1.add(((Statue) b.getExhibits().get(i)).getSculptor());
+                }
+            }
+        }
+        List<ArtMovement> lam1 = new ArrayList<>();
+        for(int i = 0; i < b.getExhibits().size(); i++)
+        {
+            if(b.getExhibits().get(i) instanceof Painting)
+            {
+                if(!lam1.contains(((Painting) b.getExhibits().get(i)).getArtMovement()))
+                {
+                    lam1.add(((Painting) b.getExhibits().get(i)).getArtMovement());
+                }
+            }
+            else if(b.getExhibits().get(i) instanceof Statue)
+            {
+                if(!lam1.contains(((Statue) b.getExhibits().get(i)).getArtMovement()))
+                {
+                    lam1.add(((Statue) b.getExhibits().get(i)).getArtMovement());
+                }
+            }
+        }
+        b.setArtists(la1);
+        b.setMovements(lam1);
         BlockRepositoryMemory.getInstance().update(blockId, b);
     }
 
