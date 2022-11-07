@@ -1,4 +1,4 @@
-package menus;
+package views.menus;
 
 import classes.Block;
 import controllers.ControllerClient;

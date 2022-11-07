@@ -1,4 +1,4 @@
-import menus.Menu;
+import views.menus.Menu;
 import repository.inmemory.ClientRepositoryMemory;
 import repository.inmemory.ExhibitRepositoryMemory;
 import repository.inmemory.MuseumRepositoryMemory;
