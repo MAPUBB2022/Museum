@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Museum {
+public class Museum implements Comparable<Museum> {
     private String name;
     private List<Block> blocks;
     private List<Client> clients;
@@ -88,5 +88,12 @@ public class Museum {
             lst.addAll(block.getExhibits());
         }
         return lst;
+    }
+
+    public int compareTo(Museum a) {
+        if (getName() == null || a.getName() == null) {
+            return 0;
+        }
+        return getName().compareTo(a.getName());
     }
 }

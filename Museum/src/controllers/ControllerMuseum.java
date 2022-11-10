@@ -10,6 +10,7 @@ import repository.inmemory.MuseumRepositoryMemory;
 import repository.inmemory.TicketRepositoryMemory;
 import views.ViewMuseum;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ControllerMuseum {
@@ -82,6 +83,15 @@ public class ControllerMuseum {
         System.out.println("The total number of visits to the museum is: " + TicketRepositoryMemory.getInstance().numVisits(m2));
     }
 
+    static public int getTotalVisitsNoPrints(String name) {
+        if (!MuseumRepositoryMemory.getInstance().checkIfExists(name)) {
+            return -1;
+        }
+        Museum m2 = MuseumRepositoryMemory.getInstance().findById(name);
+
+        return TicketRepositoryMemory.getInstance().numVisits(m2);
+    }
+
     public static void display(String name) {
         if (!MuseumRepositoryMemory.getInstance().checkIfExists(name)) {
             System.out.println("Wrong name, please try again using an existing one!");
@@ -126,5 +136,53 @@ public class ControllerMuseum {
                 System.out.println("Exhibit " + e.getName() + " in block " + b.getId());
             }
         }
+    }
+
+    public static List<Museum> sort() {
+        List<Museum> museums = MuseumRepositoryMemory.getInstance().getMuseums();
+        Collections.sort(museums);
+        for (Museum m : museums) {
+            ControllerMuseum.display(m.getName());
+        }
+        return museums;
+    }
+
+    public static List<Museum> filterByClients(int minNumberClients) {
+        List<Museum> filteredMuseums = new java.util.ArrayList<>(Collections.emptyList());
+        for (Museum m : Collections.unmodifiableList(MuseumRepositoryMemory.getInstance().getMuseums())) {
+            if (m.getClients().size() > minNumberClients) {
+                display(m.getName());
+                filteredMuseums.add(m);
+            }
+        }
+        return filteredMuseums;
+    }
+
+    public static List<Museum> filterByVisits(int minNumberVisits) {
+        List<Museum> filteredMuseums = new java.util.ArrayList<>(Collections.emptyList());
+        for (Museum m : Collections.unmodifiableList(MuseumRepositoryMemory.getInstance().getMuseums())) {
+            System.out.println(m.getName() + ' ' + getTotalVisitsNoPrints(m.getName()));
+            if (getTotalVisitsNoPrints(m.getName()) > minNumberVisits) {
+                display(m.getName());
+                filteredMuseums.add(m);
+            }
+        }
+        return filteredMuseums;
+    }
+
+    public static List<Museum> filterByExhibit(int minNumberExhibit) {
+        List<Museum> filteredMuseums = new java.util.ArrayList<>(Collections.emptyList());
+        for (Museum m : Collections.unmodifiableList(MuseumRepositoryMemory.getInstance().getMuseums())) {
+            List<Block> blocksOfMuseum = MuseumRepositoryMemory.getInstance().findById(m.getName()).getBlocks();
+            int numberExhibits = 0;
+            for (Block b : blocksOfMuseum) {
+                numberExhibits = numberExhibits + b.getExhibits().size();
+            }
+            if (numberExhibits > minNumberExhibit) {
+                display(m.getName());
+                filteredMuseums.add(m);
+            }
+        }
+        return filteredMuseums;
     }
 }

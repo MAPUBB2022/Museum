@@ -1,16 +1,22 @@
 package tests;
 
+import classes.ArtMovement;
 import classes.Artist;
+import controllers.ControllerArtMovement;
 import controllers.ControllerArtist;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import repository.inmemory.ArtMovementRepositoryMemory;
 import repository.inmemory.ArtistRepositoryMemory;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 @TestMethodOrder(OrderAnnotation.class)
 class ControllerArtistTest {
@@ -23,12 +29,12 @@ class ControllerArtistTest {
             try {
                 dateBornNicu = format.parse("15-04-1452");
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+                throw new AssertionError();
             }
             try {
                 dateDiedNicu = format.parse("2-06-1519");
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+                throw new AssertionError();
             }
             ControllerArtist.add("Nicu", dateBornNicu, dateDiedNicu);
             assert true : (ArtistRepositoryMemory.getInstance().checkIfExists("A1002"));
@@ -68,7 +74,7 @@ class ControllerArtistTest {
         try {
             dateUpdate = format.parse("15-04-1452");
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            throw new AssertionError();
         }
         ControllerArtist.updateDateBorn(artist.getId(), dateUpdate);
         artist = ArtistRepositoryMemory.getInstance().findById("A1000");
@@ -83,7 +89,7 @@ class ControllerArtistTest {
         try {
             dateUpdate = format.parse("15-04-1469");
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            throw new AssertionError();
         }
         ControllerArtist.updateDateDied(artist.getId(), dateUpdate);
         artist = ArtistRepositoryMemory.getInstance().findById("A1000");
@@ -142,12 +148,12 @@ class ControllerArtistTest {
             try {
                 dateBornNicu = format.parse("15-04-1452");
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+                throw new AssertionError();
             }
             try {
                 dateDiedNicu = format.parse("2-06-1519");
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+                throw new AssertionError();
             }
             ControllerArtist.add("Nicu", dateBornNicu, dateDiedNicu);
         }
@@ -155,4 +161,128 @@ class ControllerArtistTest {
         ControllerArtist.delete("NonExistent"); // does not exist
     }
 
+    @Test
+    void sort() {
+        Date dateFirst, dateLast;
+        DateFormat format = new SimpleDateFormat("dd-MM-yy", Locale.ENGLISH);
+        try {
+            dateFirst = format.parse("01-01-1000");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        try {
+            dateLast = format.parse("03-06-3000");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        ControllerArtist.add("Primul Artist", dateFirst, null);
+        ControllerArtist.add("Ultimul Artist", dateLast, null);
+        List<Artist> listaSortata = ControllerArtist.sort();
+        if (!Objects.equals(listaSortata.get(0).getName(), "Primul Artist")) {
+            throw new AssertionError();
+        }
+        if (!Objects.equals(listaSortata.get(listaSortata.size() - 1).getName(), "Ultimul Artist")) {
+            throw new AssertionError();
+        }
+    }
+
+    @Test
+    void filterByExhibit() {
+        int numberOfPersonsWithTwoExhibits = ControllerArtist.filterByExhibit(2).size();
+        DateFormat format = new SimpleDateFormat("dd-MM-yy", Locale.ENGLISH);
+        Date dateArtistulMare;
+        try {
+            dateArtistulMare = format.parse("15-04-1452");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        ControllerArtist.add("Masa Artist", dateArtistulMare, null);
+        Artist artist = ArtistRepositoryMemory.getInstance().findByName("Masa Artist");
+        ControllerArtist.addExhibit(artist.getId(), "E1000");
+        ControllerArtist.addExhibit(artist.getId(), "E1001");
+        ControllerArtist.addExhibit(artist.getId(), "E1002");
+        int numberOfPersonsWithTwoExhibitsAfter = ControllerArtist.filterByExhibit(2).size();
+        if (numberOfPersonsWithTwoExhibits != numberOfPersonsWithTwoExhibitsAfter - 1) {
+            throw new AssertionError();
+        }
+    }
+
+    @Test
+    void filterByBorn() {
+        Date dateArtistulMare, dateForChecking, dateForTryingToThrowOff;
+        DateFormat format = new SimpleDateFormat("dd-MM-yy", Locale.ENGLISH);
+        try {
+            dateForChecking = format.parse("01-01-2000");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        try {
+            dateForTryingToThrowOff = format.parse("03-06-1978");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        try {
+            dateArtistulMare = format.parse("03-04-2000");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        int sizeBornBefore = ControllerArtist.filterByBorn(dateForChecking).size();
+
+        ControllerArtist.add("Mare Artist", dateArtistulMare, null);
+        ControllerArtist.add("Mic Artist", dateForTryingToThrowOff, null);
+
+        int sizeBornAfter = ControllerArtist.filterByBorn(dateForChecking).size();
+        if (sizeBornBefore != sizeBornAfter - 1) {
+            throw new AssertionError();
+        }
+    }
+
+    @Test
+    void filterByDead() {
+        int sizeDeadBefore = ControllerArtist.filterByDead().size();
+        Date dateArtistulMare;
+        DateFormat format = new SimpleDateFormat("dd-MM-yy", Locale.ENGLISH);
+        try {
+            dateArtistulMare = format.parse("15-04-1452");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        ControllerArtist.add("Marele Artist", dateArtistulMare, null);
+        int sizeDeadAfter = ControllerArtist.filterByDead().size();
+        if (sizeDeadBefore != sizeDeadAfter - 1) {
+            throw new AssertionError();
+        }
+    }
+
+    @Test
+    void filterByArtMovement() {
+        Date dateArtist, startDateArtMovement, endDateArtMovement;
+        DateFormat format = new SimpleDateFormat("dd-MM-yy", Locale.ENGLISH);
+        try {
+            dateArtist = format.parse("15-04-1452");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        try {
+            startDateArtMovement = format.parse("15-04-1445");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        try {
+            endDateArtMovement = format.parse("07-03-1497");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        ControllerArtist.add("Copac", dateArtist, null);
+        ControllerArtMovement.add("Frunza", startDateArtMovement, endDateArtMovement);
+        if (ControllerArtist.filterByArtMovement("Frunza").size() != 0) {
+            throw new AssertionError();
+        }
+        Artist idArtist = ArtistRepositoryMemory.getInstance().findByName("Copac");
+        ArtMovement idArtMovement = ArtMovementRepositoryMemory.getInstance().findByName("Frunza");
+        ControllerArtist.addArtMovement(idArtist.getId(), idArtMovement.getId());
+        if (ControllerArtist.filterByArtMovement("Frunza").size() != 1) {
+            throw new AssertionError();
+        }
+    }
 }

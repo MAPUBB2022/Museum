@@ -14,6 +14,7 @@ public class Menu {
     }
 
     public void showMenuOptions() {
+        System.out.println();
         System.out.println("1. Museum Menu");
         System.out.println("2. Block Menu");
         System.out.println("3. Client Menu");

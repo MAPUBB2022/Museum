@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Artist implements Person {
+public class Artist implements Person, Comparable<Artist> {
     private static int counter = 1000;
     private final String id;
     private String name;
@@ -111,5 +111,13 @@ public class Artist implements Person {
             return ("Sorry, you are only famous after death");
         else
             return ("You are famous, " + this.getName());
+    }
+
+    @Override
+    public int compareTo(Artist o) {
+        if (getBirthDate() == null || o.getBirthDate() == null) {
+            return 0;
+        }
+        return getBirthDate().compareTo(o.getBirthDate());
     }
 }

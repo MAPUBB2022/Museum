@@ -24,6 +24,8 @@ public class MenuArtist {
         System.out.println("\t4. Display information about an " + currentMenuClass);
         System.out.println("\t5. An artist will present itself ");
         System.out.println("\t6. Find out if an artist is famous or not ");
+        System.out.println("\t7. Sort by age");
+        System.out.println("\t8. Filter artists");
         System.out.println("\t0. Return");
 
         int optionChosen = scanner.nextInt();
@@ -40,6 +42,68 @@ public class MenuArtist {
             MenuArtist.presentSelf();
         if (optionChosen == 6)
             MenuArtist.isFamous();
+        if (optionChosen == 7)
+            MenuArtist.sort();
+        if (optionChosen == 8)
+            MenuArtist.filter();
+    }
+
+    private static void filter() {
+        System.out.println("\t\t1. Filter " + currentMenuClass + "s by number of exhibits");
+        System.out.println("\t\t2. Filter " + currentMenuClass + "s by art movements");
+        System.out.println("\t\t3. Filter " + currentMenuClass + "s by born date");
+        System.out.println("\t\t4. Filter " + currentMenuClass + "s by not dead");
+        System.out.println("\t\t0. Return");
+
+        Scanner scannerUpdate = new Scanner(System.in);
+        int optionChosen = scannerUpdate.nextInt();
+
+        if (optionChosen == 1) {
+            MenuArtist.filterByExhibit();
+        }
+        if (optionChosen == 2) {
+            MenuArtist.filterByArtMovement();
+        }
+        if (optionChosen == 3) {
+            MenuArtist.filterByBorn();
+        }
+        if (optionChosen == 4) {
+            MenuArtist.filterByDead();
+        }
+    }
+
+    private static void filterByDead() {
+        ControllerArtist.filterByDead();
+    }
+
+    private static void filterByBorn() {
+        System.out.println("Enter born date");
+        String startedDateString = scanner3.nextLine();
+        Date BornDate;
+        try {
+            BornDate = format.parse(startedDateString);
+        } catch (ParseException e) {
+            System.out.println("Date format input is wrong:");
+            updateDateBorn();
+            return;
+        }
+        ControllerArtist.filterByBorn(BornDate);
+    }
+
+    private static void filterByArtMovement() {
+        System.out.println("Enter art movement name");
+        String artMovementName = scanner2.next();
+        ControllerArtist.filterByArtMovement(artMovementName);
+    }
+
+    private static void filterByExhibit() {
+        System.out.println("Enter the maximal number of exhibits:");
+        int minNumberExhibit = scanner2.nextInt();
+        ControllerArtist.filterByExhibit(minNumberExhibit);
+    }
+
+    private static void sort() {
+        ControllerArtist.sort();
     }
 
     private static void optionsUpdate() {

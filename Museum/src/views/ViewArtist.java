@@ -27,5 +27,6 @@ public class ViewArtist {
         for (Exhibit e : exhibits) {
             System.out.println(e.getName() + " with ID " + e.getId());
         }
+        System.out.println("\n");
     }
 }

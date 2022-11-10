@@ -19,6 +19,7 @@ public class MenuMuseum {
         System.out.println("\t4. Display all exhibits of " + currentMenuClass);
         System.out.println("\t5. Display total visits of " + currentMenuClass);
         System.out.println("\t6. Display information about a " + currentMenuClass);
+        System.out.println("\t7. Sort and Filter by ID " + currentMenuClass);
         System.out.println("\t0. Return");
 
         int optionChosen = scanner.nextInt();
@@ -35,6 +36,9 @@ public class MenuMuseum {
             MenuMuseum.displayTotalVisits();
         if (optionChosen == 6)
             MenuMuseum.display();
+        if (optionChosen == 7) {
+            MenuMuseum.sortAndFilter();
+        }
     }
 
     private static void optionsUpdate() {
@@ -63,6 +67,53 @@ public class MenuMuseum {
         if (optionChosen == 5) {
             MenuMuseum.deleteClient();
         }
+    }
+
+    private static void sortAndFilter() {
+        System.out.println("\t\t1. Sort by ID");
+        System.out.println("\t\t2. Filter by minimal number of exhibits");
+        System.out.println("\t\t3. Filter by minimal number of clients");
+        System.out.println("\t\t4. Filter by minimal number of visits");
+        System.out.println("\t\t0. Return");
+
+        Scanner scannerUpdate = new Scanner(System.in);
+        int optionChosen = scannerUpdate.nextInt();
+
+        if (optionChosen == 1) {
+            MenuMuseum.sort();
+        }
+        if (optionChosen == 2) {
+            MenuMuseum.filterByExhibits();
+        }
+        if (optionChosen == 3) {
+            MenuMuseum.filterByClients();
+        }
+        if (optionChosen == 4) {
+            MenuMuseum.filterByVisits();
+        }
+    }
+
+    private static void filterByClients() {
+        System.out.println("Input the minimal number of clients");
+        int minNumberClients = scanner2.nextInt();
+        ControllerMuseum.filterByClients(minNumberClients);
+    }
+
+    private static void filterByVisits() {
+        System.out.println("Input the minimal number of visits");
+        int minNumberVisits = scanner2.nextInt();
+        ControllerMuseum.filterByVisits(minNumberVisits);
+    }
+
+    private static void filterByExhibits() {
+        System.out.println("Input the minimal number of clients");
+        int minNumberExhibit = scanner2.nextInt();
+        ControllerMuseum.filterByExhibit(minNumberExhibit);
+    }
+
+    private static void sort() {
+        System.out.println("Sort by ID:");
+        ControllerMuseum.sort();
     }
 
     private static void add() {

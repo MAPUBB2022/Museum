@@ -21,12 +21,6 @@ public class ControllerClient {
     }
 
     public static void update(String clientId, String clientName) {
-//        Client c = new Client(clientName);
-//        c.setFavorites(ClientRepositoryMemory.getInstance().findById(clientId).getFavorites());
-//        for (Ticket t : ClientRepositoryMemory.getInstance().findById(clientId).getVisits()) {
-//            c.addVisit(t);
-//        }
-//        ClientRepositoryMemory.getInstance().update(clientId, c);
         ClientRepositoryMemory.getInstance().updateName(clientId, clientName);
     }
 

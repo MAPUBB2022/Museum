@@ -17,21 +17,21 @@ class ControllerExhibitTest {
     @Test
     @Order(1)
     void addArtifact() {
-        ControllerExhibit.addArtifact("Art1", new Date(10,10,1000), "B1001", "Dacia", 130000);
+        ControllerExhibit.addArtifact("Art1", new Date(10, 10, 1000), "B1001", "Dacia", 130000);
         assertEquals(ExhibitRepositoryMemory.getInstance().findById("E1004").getName(), "Art1");
     }
 
     @Test
     @Order(2)
     void addPainting() {
-        ControllerExhibit.addPainting("Paint1", new Date(10,10,1000), "B1001", "A1001", "V1000", 1000500);
+        ControllerExhibit.addPainting("Paint1", new Date(10, 10, 1000), "B1001", "A1001", "V1000", 1000500);
         assertEquals(ExhibitRepositoryMemory.getInstance().findById("E1005").getName(), "Paint1");
     }
 
     @Test
     @Order(3)
     void addStatue() {
-        ControllerExhibit.addStatue("Stat1", new Date(10,10,1000), "B1001", "A1000", "V1000", 3800000);
+        ControllerExhibit.addStatue("Stat1", new Date(10, 10, 1000), "B1001", "A1000", "V1000", 3800000);
         assertEquals(ExhibitRepositoryMemory.getInstance().findById("E1006").getName(), "Stat1");
     }
 
@@ -45,7 +45,7 @@ class ControllerExhibitTest {
     @Test
     @Order(5)
     void updateDate() {
-        Date d = new Date(2,2,500);
+        Date d = new Date(2, 2, 500);
         ControllerExhibit.updateDate("E1006", d);
         assertEquals(ExhibitRepositoryMemory.getInstance().findById("E1006").getCreation(), d);
     }

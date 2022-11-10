@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class ArtistRepositoryMemory implements ICrudRepository<String, Artist> {
@@ -159,5 +160,18 @@ public class ArtistRepositoryMemory implements ICrudRepository<String, Artist> {
             }
         }
         return false;
+    }
+
+    public List<Artist> getArtists() {
+        return allArtists;
+    }
+
+    public Artist findByName(String name) {
+        for (Artist a : allArtists) {
+            if (name.equals(a.getName())) {
+                return a;
+            }
+        }
+        return null;
     }
 }

@@ -146,25 +146,25 @@ class ControllerArtMovementTest {
     void deleteArtist() {
         ControllerArtMovement.delete("Baroque");
         if (!ArtMovementRepositoryMemory.getInstance().checkIfExistsByName("Baroque")) {
-        DateFormat format = new SimpleDateFormat("dd-MM-yy", Locale.ENGLISH);
-        Date dateStartedBaroque, dateEndedBaroque;
-        try {
-            dateStartedBaroque = format.parse("15-04-1452");
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+            DateFormat format = new SimpleDateFormat("dd-MM-yy", Locale.ENGLISH);
+            Date dateStartedBaroque, dateEndedBaroque;
+            try {
+                dateStartedBaroque = format.parse("15-04-1452");
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                dateEndedBaroque = format.parse("2-06-1519");
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            ControllerArtMovement.add("Baroque", dateStartedBaroque, dateEndedBaroque);
         }
-        try {
-            dateEndedBaroque = format.parse("2-06-1519");
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        ControllerArtMovement.add("Baroque", dateStartedBaroque, dateEndedBaroque);
-    }
-        ControllerArtMovement.addArtist("Baroque","A1000");
-        ControllerArtMovement.addArtist("Baroque","A1000");
+        ControllerArtMovement.addArtist("Baroque", "A1000");
+        ControllerArtMovement.addArtist("Baroque", "A1000");
         ArtMovement artMovement = ArtMovementRepositoryMemory.getInstance().findByName("Baroque");
         assertFalse(artMovement.getArtists().isEmpty());
-        ControllerArtMovement.deleteArtist("Baroque","A1000");
+        ControllerArtMovement.deleteArtist("Baroque", "A1000");
         assertTrue(artMovement.getArtists().isEmpty());
     }
 
@@ -187,10 +187,10 @@ class ControllerArtMovementTest {
             ControllerArtMovement.add("Baroque", dateStartedBaroque, dateEndedBaroque);
         }
         ArtMovement artMovement = ArtMovementRepositoryMemory.getInstance().findByName("Baroque");
-        assertTrue (artMovement.getArtists().isEmpty());
+        assertTrue(artMovement.getArtists().isEmpty());
         ArrayList<Artist> artMovementArtists;
-        ControllerArtMovement.addArtist("Baroque","A1000");
-        ControllerArtMovement.addArtist("Baroque","A1000");
+        ControllerArtMovement.addArtist("Baroque", "A1000");
+        ControllerArtMovement.addArtist("Baroque", "A1000");
         artMovement = ArtMovementRepositoryMemory.getInstance().findByName("Baroque");
         artMovementArtists = (ArrayList<Artist>) artMovement.getArtists();
         assert (artMovement.getArtists()).equals(artMovementArtists);

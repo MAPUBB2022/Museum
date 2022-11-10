@@ -116,4 +116,8 @@ public class MuseumRepositoryMemory implements repository.ICrudRepository<String
         }
         return false;
     }
+
+    public ArrayList<Museum> getMuseums() {
+        return allMuseums;
+    }
 }

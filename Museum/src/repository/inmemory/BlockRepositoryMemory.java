@@ -101,6 +101,15 @@ public class BlockRepositoryMemory implements ICrudRepository<String, Block> {
         return null;
     }
 
+    public Block findByName(String s) {
+        for (Block b : allBlocks) {
+            if (s.equals(b.getName())) {
+                return b;
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean checkIfExists(String s) {
         for (Block b : allBlocks) {

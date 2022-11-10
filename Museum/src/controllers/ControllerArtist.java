@@ -9,7 +9,9 @@ import repository.inmemory.ArtistRepositoryMemory;
 import repository.inmemory.ExhibitRepositoryMemory;
 import views.ViewArtist;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 public class ControllerArtist {
     static public void add(String name, Date dateBorn, Date dateDied) {
@@ -130,5 +132,59 @@ public class ControllerArtist {
             return;
         }
         ViewArtist.display(artist);
+    }
+
+    public static List<Artist> sort() {
+        List<Artist> artists = ArtistRepositoryMemory.getInstance().getArtists();
+        Collections.sort(artists);
+        for (Artist a : artists) {
+            ControllerArtist.display(a.getId());
+        }
+        return artists;
+    }
+
+    public static List<Artist> filterByExhibit(int minNumberExhibit) {
+        List<Artist> filteredArtists = new java.util.ArrayList<>(Collections.emptyList());
+        for (Artist a : Collections.unmodifiableList(ArtistRepositoryMemory.getInstance().getArtists())) {
+            if (a.getListOfArt().size() > minNumberExhibit) {
+                display(a.getId());
+                filteredArtists.add(a);
+            }
+        }
+        return filteredArtists;
+    }
+
+    public static List<Artist> filterByArtMovement(String artMovementName) {
+        ArtMovement artMovementToCheck = ArtMovementRepositoryMemory.getInstance().findByName(artMovementName);
+        List<Artist> filteredArtists = new java.util.ArrayList<>(Collections.emptyList());
+        for (Artist a : Collections.unmodifiableList(ArtistRepositoryMemory.getInstance().getArtists())) {
+            if (a.getMovements().contains(artMovementToCheck)) {
+                display(a.getId());
+                filteredArtists.add(a);
+            }
+        }
+        return filteredArtists;
+    }
+
+    public static List<Artist> filterByBorn(Date bornDate) {
+        List<Artist> filteredArtists = new java.util.ArrayList<>(Collections.emptyList());
+        for (Artist a : Collections.unmodifiableList(ArtistRepositoryMemory.getInstance().getArtists())) {
+            if (a.getBirthDate().after(bornDate)) {
+                display(a.getId());
+                filteredArtists.add(a);
+            }
+        }
+        return filteredArtists;
+    }
+
+    public static List<Artist> filterByDead() {
+        List<Artist> filteredArtists = new java.util.ArrayList<>(Collections.emptyList());
+        for (Artist a : Collections.unmodifiableList(ArtistRepositoryMemory.getInstance().getArtists())) {
+            if (a.getDeathDate() == null) {
+                display(a.getId());
+                filteredArtists.add(a);
+            }
+        }
+        return filteredArtists;
     }
 }
