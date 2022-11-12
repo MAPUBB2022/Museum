@@ -10,8 +10,10 @@ import repository.inmemory.ExhibitRepositoryMemory;
 import views.ViewArtist;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ControllerArtist {
     static public void add(String name, Date dateBorn, Date dateDied) {
@@ -174,7 +176,9 @@ public class ControllerArtist {
                 filteredArtists.add(a);
             }
         }
-        return filteredArtists;
+        return filteredArtists.stream()
+                .sorted(Comparator.comparing(Artist::getBirthDate))
+                .collect(Collectors.toList());
     }
 
     public static List<Artist> filterByDead() {
@@ -185,6 +189,8 @@ public class ControllerArtist {
                 filteredArtists.add(a);
             }
         }
-        return filteredArtists;
+        return filteredArtists.stream()
+                .sorted(Comparator.comparing(Artist::getDeathDate))
+                .collect(Collectors.toList());
     }
 }

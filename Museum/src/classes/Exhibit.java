@@ -2,7 +2,7 @@ package classes;
 
 import java.util.Date;
 
-public abstract class Exhibit {
+public abstract class Exhibit implements Comparable<Exhibit> {
     private static int counter = 1000;
     private final String id;
     private String name;
@@ -63,5 +63,10 @@ public abstract class Exhibit {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public int compareTo(Exhibit o) {
+        return getName().compareTo(o.getName());
     }
 }

@@ -1,5 +1,7 @@
 package views.menus;
 
+import controllers.ControllerArtist;
+import controllers.ControllerClient;
 import controllers.ControllerExhibit;
 
 import java.text.DateFormat;
@@ -22,6 +24,8 @@ public class MenuExhibit {
         System.out.println("\t2. Delete " + currentMenuClass);
         System.out.println("\t3. Update " + currentMenuClass);
         System.out.println("\t4. Display information about an " + currentMenuClass);
+        System.out.println("\t5. Sort by name");
+        System.out.println("\t6. Filter " + currentMenuClass);
         System.out.println("\t0. Return");
 
         int optionChosen = scanner.nextInt();
@@ -34,6 +38,47 @@ public class MenuExhibit {
             MenuExhibit.optionsUpdate();
         if (optionChosen == 4)
             MenuExhibit.display();
+        if (optionChosen == 5)
+            MenuExhibit.sort();
+        if (optionChosen == 6)
+            MenuExhibit.filter();
+    }
+
+    private static void sort() {ControllerExhibit.sort();}
+
+    private static void filter() {
+        System.out.println("\t\t1. Filter " + currentMenuClass + "s by price");
+        System.out.println("\t\t2. Filter " + currentMenuClass + "s by creation date");
+        System.out.println("\t\t0. Return");
+
+        Scanner scannerUpdate = new Scanner(System.in);
+        int optionChosen = scannerUpdate.nextInt();
+
+        if (optionChosen == 1) {
+            MenuExhibit.filterByPrice();
+        }
+        if (optionChosen == 2) {
+            MenuExhibit.filterByDate();
+        }
+    }
+
+    private static void filterByPrice() {
+        System.out.println("Enter the minimum price");
+        int minPrice = scanner2.nextInt();
+        ControllerExhibit.filterByPrice(minPrice);
+    }
+
+    private static void filterByDate() {
+        System.out.println("Enter born date");
+        String startedDateString = scanner3.nextLine();
+        Date chosenDate;
+        try {
+            chosenDate = format.parse(startedDateString);
+        } catch (ParseException e) {
+            System.out.println("Date format input is wrong:");
+            return;
+        }
+        ControllerExhibit.filterByAge(chosenDate);
     }
 
     public static void optionsUpdate() {

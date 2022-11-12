@@ -1,5 +1,6 @@
 package views.menus;
 
+import controllers.ControllerArtist;
 import controllers.ControllerBlock;
 
 import java.util.Scanner;
@@ -18,6 +19,8 @@ public class MenuBlock {
         System.out.println("\t4. Add new exhibit in " + currentMenuClass);
         System.out.println("\t5. Remove an exhibit from " + currentMenuClass);
         System.out.println("\t6. Display " + currentMenuClass);
+        System.out.println("\t7. Sort by name");
+        System.out.println("\t8. Filter " + currentMenuClass);
         System.out.println("\t0. Return");
 
         int optionChosen = scanner.nextInt();
@@ -34,7 +37,51 @@ public class MenuBlock {
             MenuBlock.remEx();
         if (optionChosen == 6)
             MenuBlock.display();
+        if (optionChosen == 7)
+            MenuBlock.sort();
+        if (optionChosen == 8)
+            MenuBlock.filter();
 
+    }
+
+    private static void sort() {ControllerBlock.sort();}
+
+    private static void filter() {
+        System.out.println("\t\t1. Filter " + currentMenuClass + "s by number of exhibits");
+        System.out.println("\t\t2. Filter " + currentMenuClass + "s by art movements");
+        System.out.println("\t\t3. Filter " + currentMenuClass + "s by artists");
+        System.out.println("\t\t0. Return");
+
+        Scanner scannerUpdate = new Scanner(System.in);
+        int optionChosen = scannerUpdate.nextInt();
+
+        if (optionChosen == 1) {
+            MenuBlock.filterByExhibit();
+        }
+        if (optionChosen == 2) {
+            MenuBlock.filterByArtMovement();
+        }
+        if (optionChosen == 3) {
+            MenuBlock.filterByArtists();
+        }
+    }
+
+    private static void filterByExhibit() {
+        System.out.println("Enter the minimal number of exhibits");
+        int minNumberExhibit = scanner2.nextInt();
+        ControllerBlock.filterByExhibit(minNumberExhibit);
+    }
+
+    private static void filterByArtMovement() {
+        System.out.println("Enter art movement name");
+        String artMovementName = scanner2.next();
+        ControllerBlock.filterByArtMovement(artMovementName);
+    }
+
+    private static void filterByArtists() {
+        System.out.println("Enter artist name");
+        String artistName = scanner2.next();
+        ControllerBlock.filterByArtist(artistName);
     }
 
     private static void add() {

@@ -3,7 +3,7 @@ package classes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Client implements Person {
+public class Client implements Person, Comparable<Client> {
     private static int counter = 1000;
     private final String id;
     private final List<Ticket> visits;
@@ -78,5 +78,10 @@ public class Client implements Person {
 
     public String isFamous() {
         return ("Clients are not famous :(");
+    }
+
+    @Override
+    public int compareTo(Client o) {
+        return getName().compareTo(o.getName());
     }
 }

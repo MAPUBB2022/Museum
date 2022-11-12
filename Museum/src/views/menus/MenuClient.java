@@ -1,6 +1,7 @@
 package views.menus;
 
 import classes.Block;
+import controllers.ControllerBlock;
 import controllers.ControllerClient;
 import repository.inmemory.BlockRepositoryMemory;
 
@@ -23,6 +24,8 @@ public class MenuClient {
         System.out.println("\t5. Add a new favorite of the " + currentMenuClass);
         System.out.println("\t6. Remove a favorite of the " + currentMenuClass);
         System.out.println("\t7. Display " + currentMenuClass);
+        System.out.println("\t8. Sort by name");
+        System.out.println("\t9. Filter " + currentMenuClass);
         System.out.println("\t0. Return");
 
         int optionChosen = scanner.nextInt();
@@ -41,7 +44,41 @@ public class MenuClient {
             MenuClient.remFav();
         if (optionChosen == 7)
             MenuClient.display();
+        if (optionChosen == 8)
+            MenuClient.sort();
+        if (optionChosen == 9)
+            MenuClient.filter();
 
+    }
+
+    private static void sort() {ControllerClient.sort();}
+
+    private static void filter() {
+        System.out.println("\t\t1. Filter " + currentMenuClass + "s by favorites");
+        System.out.println("\t\t2. Filter " + currentMenuClass + "s by number of visits");
+        System.out.println("\t\t0. Return");
+
+        Scanner scannerUpdate = new Scanner(System.in);
+        int optionChosen = scannerUpdate.nextInt();
+
+        if (optionChosen == 1) {
+            MenuClient.filterByFavorites();
+        }
+        if (optionChosen == 2) {
+            MenuClient.filterByVisits();
+        }
+    }
+
+    private static void filterByFavorites() {
+        System.out.println("Enter exhibit name");
+        String exhibitName = scanner2.next();
+        ControllerClient.filterByFavorites(exhibitName);
+    }
+
+    private static void filterByVisits() {
+        System.out.println("Enter the minimal number of visits");
+        int minNumberVisits = scanner2.nextInt();
+        ControllerClient.filterByVisits(minNumberVisits);
     }
 
     private static void add() {

@@ -119,4 +119,6 @@ public class BlockRepositoryMemory implements ICrudRepository<String, Block> {
         }
         return false;
     }
+
+    public List<Block> getAllBlocks(){return this.allBlocks;}
 }

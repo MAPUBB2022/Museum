@@ -1,13 +1,14 @@
 package controllers;
 
 import classes.*;
-import repository.inmemory.ArtMovementRepositoryMemory;
-import repository.inmemory.ArtistRepositoryMemory;
-import repository.inmemory.BlockRepositoryMemory;
-import repository.inmemory.ExhibitRepositoryMemory;
+import repository.inmemory.*;
 import views.ViewExhibit;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ControllerExhibit {
 
@@ -82,5 +83,40 @@ public class ControllerExhibit {
             return;
         }
         ExhibitRepositoryMemory.getInstance().add(new Statue(name, dateOfCreation, block, sculptor, artMovement, price));
+    }
+
+    public static List<Exhibit> sort() {
+        List<Exhibit> exhibits = ExhibitRepositoryMemory.getInstance().getAllExhibits();
+        Collections.sort(exhibits);
+        for (Exhibit e : exhibits) {
+            ControllerExhibit.display(e.getId());
+        }
+        return exhibits;
+    }
+
+    public static List<Exhibit> filterByPrice(int minPrice) {
+        List<Exhibit> filteredExhibits = new java.util.ArrayList<>(Collections.emptyList());
+        for (Exhibit e : Collections.unmodifiableList(ExhibitRepositoryMemory.getInstance().getAllExhibits())) {
+            if (e.getPrice() > minPrice) {
+                display(e.getId());
+                filteredExhibits.add(e);
+            }
+        }
+        return filteredExhibits;
+    }
+
+    public static List<Exhibit> filterByAge(Date minDate)
+    {
+        List<Exhibit> filteredExhibits = new java.util.ArrayList<>(Collections.emptyList());
+        for (Exhibit e :Collections.unmodifiableList(ExhibitRepositoryMemory.getInstance().getAllExhibits())) {
+            if (e.getCreation().after(minDate))
+            {
+                display(e.getId());
+                filteredExhibits.add(e);
+            }
+        }
+        return filteredExhibits.stream()
+                .sorted(Comparator.comparing(Exhibit::getCreation))
+                .collect(Collectors.toList());
     }
 }

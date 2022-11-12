@@ -1,14 +1,10 @@
 package controllers;
 
-import classes.Block;
-import classes.Client;
-import classes.Exhibit;
-import classes.Ticket;
-import repository.inmemory.ClientRepositoryMemory;
-import repository.inmemory.ExhibitRepositoryMemory;
-import repository.inmemory.TicketRepositoryMemory;
+import classes.*;
+import repository.inmemory.*;
 import views.ViewClient;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ControllerClient {
@@ -53,5 +49,37 @@ public class ControllerClient {
             return;
         }
         ViewClient.displayClient(c);
+    }
+
+    public static List<Client> sort() {
+        List<Client> clients = ClientRepositoryMemory.getInstance().getAllClients();
+        Collections.sort(clients);
+        for (Client c : clients) {
+            ControllerClient.display(c.getId());
+        }
+        return clients;
+    }
+
+    public static List<Client> filterByFavorites(String exhibitName) {
+        Exhibit exhibitToCheck = ExhibitRepositoryMemory.getInstance().findById(exhibitName);
+        List<Client> filteredClients = new java.util.ArrayList<>(Collections.emptyList());
+        for (Client c : Collections.unmodifiableList(ClientRepositoryMemory.getInstance().getAllClients())) {
+            if (c.getFavorites().contains(filteredClients)) {
+                display(c.getId());
+                filteredClients.add(c);
+            }
+        }
+        return filteredClients;
+    }
+
+    public static List<Client> filterByVisits(int minNumberVisits) {
+        List<Client> filteredClients = new java.util.ArrayList<>(Collections.emptyList());
+        for (Client c : Collections.unmodifiableList(ClientRepositoryMemory.getInstance().getAllClients())) {
+            if (c.getVisits().size() > minNumberVisits) {
+                display(c.getId());
+                filteredClients.add(c);
+            }
+        }
+        return filteredClients;
     }
 }

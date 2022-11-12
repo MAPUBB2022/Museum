@@ -189,4 +189,8 @@ public class ExhibitRepositoryMemory implements ICrudRepository<String, Exhibit>
         }
         return false;
     }
+
+    public ArrayList<Exhibit> getAllExhibits() {
+        return allExhibits;
+    }
 }

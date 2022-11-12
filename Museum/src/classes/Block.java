@@ -3,7 +3,7 @@ package classes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Block {
+public class Block implements Comparable<Block>{
     private static int counter = 1000;
     private final String id;
     private String name;
@@ -107,5 +107,10 @@ public class Block {
         } else {
             System.out.println("No such art movement was found!");
         }
+    }
+
+    @Override
+    public int compareTo(Block o) {
+        return this.getExhibits().size() - o.getExhibits().size();
     }
 }
