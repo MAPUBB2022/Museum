@@ -23,8 +23,8 @@ public class MenuArtMovement {
         System.out.println("\t3. Update " + currentMenuClass);
         System.out.println("\t4. Display information about an " + currentMenuClass);
         System.out.println("\t5. Display random artists from a " + currentMenuClass);
-        System.out.println("\t6. Sort all " + currentMenuClass + " by age");
-        System.out.println("\t7. Filter all " + currentMenuClass + " by age");
+        System.out.println("\t6. Sort all " + currentMenuClass + "s by age");
+        System.out.println("\t7. Filter all " + currentMenuClass + "s by age");
         System.out.println("\t0. Return");
 
         int optionChosen = scanner.nextInt();
