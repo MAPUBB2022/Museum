@@ -168,4 +168,8 @@ public class ArtMovementRepositoryMemory implements ICrudRepository<String, ArtM
         }
         System.out.println("Wrong name, please try again using an existing one!");
     }
+
+    public ArrayList<ArtMovement> getList() {
+        return allArtMovements;
+    }
 }

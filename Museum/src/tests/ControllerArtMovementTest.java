@@ -3,6 +3,7 @@ package tests;
 import classes.ArtMovement;
 import classes.Artist;
 import controllers.ControllerArtMovement;
+import controllers.ControllerArtist;
 import org.junit.jupiter.api.Test;
 import repository.inmemory.ArtMovementRepositoryMemory;
 import repository.inmemory.ArtistRepositoryMemory;
@@ -10,9 +11,7 @@ import repository.inmemory.ArtistRepositoryMemory;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -244,4 +243,58 @@ class ControllerArtMovementTest {
 
     }
 
+    @Test
+    void sort() {
+        Date dateFirst, dateLast;
+        DateFormat format = new SimpleDateFormat("dd-MM-yy", Locale.ENGLISH);
+        try {
+            dateFirst = format.parse("01-01-1000");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        try {
+            dateLast = format.parse("03-06-3000");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        ControllerArtMovement.add("Primul Art Movement", dateFirst, dateFirst);
+        ControllerArtMovement.add("Ultimul Art Movement", dateLast, dateLast);
+        List<ArtMovement> listaSortata = ControllerArtMovement.sort();
+        if (!Objects.equals(listaSortata.get(0).getName(), "Primul Art Movement")) {
+            throw new AssertionError();
+        }
+        if (!Objects.equals(listaSortata.get(listaSortata.size() - 1).getName(), "Ultimul Art Movement")) {
+            throw new AssertionError();
+        }
+    }
+
+    @Test
+    void filterByDate() {
+        Date dateArtMovement, dateForChecking, dateForTryingToThrowOff;
+        DateFormat format = new SimpleDateFormat("dd-MM-yy", Locale.ENGLISH);
+        try {
+            dateForChecking = format.parse("01-01-2000");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        try {
+            dateForTryingToThrowOff = format.parse("03-06-1978");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        try {
+            dateArtMovement = format.parse("03-04-2000");
+        } catch (ParseException e) {
+            throw new AssertionError();
+        }
+        int sizeBornBefore = ControllerArtist.filterByBorn(dateForChecking).size();
+
+        ControllerArtMovement.add("Mare Artist", dateArtMovement, dateArtMovement);
+        ControllerArtMovement.add("Mic Artist", dateForTryingToThrowOff, dateForTryingToThrowOff);
+
+        int sizeBornAfter = ControllerArtMovement.filterByDate(dateForChecking).size();
+        if (sizeBornBefore != sizeBornAfter - 1) {
+            throw new AssertionError();
+        }
+    }
 }

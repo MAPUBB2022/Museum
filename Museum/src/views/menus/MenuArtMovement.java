@@ -23,6 +23,8 @@ public class MenuArtMovement {
         System.out.println("\t3. Update " + currentMenuClass);
         System.out.println("\t4. Display information about an " + currentMenuClass);
         System.out.println("\t5. Display random artists from a " + currentMenuClass);
+        System.out.println("\t6. Sort all " + currentMenuClass + " by age");
+        System.out.println("\t7. Filter all " + currentMenuClass + " by age");
         System.out.println("\t0. Return");
 
         int optionChosen = scanner.nextInt();
@@ -37,6 +39,28 @@ public class MenuArtMovement {
             MenuArtMovement.display();
         if (optionChosen == 5)
             MenuArtMovement.displayRandomArtist();
+        if (optionChosen == 6)
+            MenuArtMovement.sort();
+        if (optionChosen == 7)
+            MenuArtMovement.filterByAge();
+    }
+
+    private static void filterByAge() {
+        System.out.println("\t\tEnter the date the art movement you want to filter by started: (dd-MM-yy) (e.g.24-10-2002)");
+        String startedDateString = scanner3.nextLine();
+        Date startedDate;
+        try {
+            startedDate = format.parse(startedDateString);
+        } catch (ParseException e) {
+            System.out.println("Date format input is wrong:");
+            add();
+            return;
+        }
+        ControllerArtMovement.filterByDate(startedDate);
+    }
+
+    private static void sort() {
+        ControllerArtMovement.sort();
     }
 
     private static void optionsUpdate() {

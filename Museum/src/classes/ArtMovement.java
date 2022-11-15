@@ -7,7 +7,7 @@ import java.util.List;
 import static java.lang.Math.floor;
 import static java.lang.Math.random;
 
-public class ArtMovement {
+public class ArtMovement implements Comparable<ArtMovement>{
     private static int counter = 1000;
     private final String id;
     private String name;
@@ -85,5 +85,13 @@ public class ArtMovement {
         int min = 0;
         int position = (int) floor(random() * (max - min + 1) + min);
         return this.artists.get(position).getName();
+    }
+
+    @Override
+    public int compareTo(ArtMovement am) {
+        if (getStartDate() == null || am.getStartDate() == null) {
+            return 0;
+        }
+        return getStartDate().compareTo(am.getStartDate());
     }
 }

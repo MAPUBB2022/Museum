@@ -6,8 +6,8 @@ import repository.inmemory.ArtMovementRepositoryMemory;
 import repository.inmemory.ArtistRepositoryMemory;
 import views.ViewArtMovement;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ControllerArtMovement {
 
@@ -86,6 +86,30 @@ public class ControllerArtMovement {
             return true;
         }
         return false;
+    }
+
+    public static List<ArtMovement> sort() {
+        List<ArtMovement> artMovements = ArtMovementRepositoryMemory.getInstance().getList();
+        Collections.sort(artMovements);
+        for (ArtMovement am: artMovements) {
+            ControllerArtMovement.display(am.getName());
+            System.out.println();
+            System.out.println();
+        }
+        return artMovements;
+    }
+
+    public static List<ArtMovement> filterByDate(Date startDate) {
+        List<ArtMovement> filteredArtMovement = new java.util.ArrayList<>(Collections.emptyList());
+        for (ArtMovement am : Collections.unmodifiableList(ArtMovementRepositoryMemory.getInstance().getList())) {
+            if (am.getStartDate().after(startDate)) {
+                display(am.getId());
+                filteredArtMovement.add(am);
+            }
+        }
+        return filteredArtMovement.stream()
+                .sorted(Comparator.comparing(ArtMovement::getStartDate))
+                .collect(Collectors.toList());
     }
 }
 
