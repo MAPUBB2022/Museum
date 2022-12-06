@@ -3,10 +3,6 @@ package repository.inmemory;
 import classes.Artist;
 import repository.ICrudRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

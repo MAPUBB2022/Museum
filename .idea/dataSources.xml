@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlserver://ASUSTUFGAMINGF1\SQLEXPRESS:1433;database=MuseumV1</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="DESKTOP-5UV75S5" uuid="4ff60893-1c5a-4ee5-8d4a-a3b5ece81bbb">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://localhost\MSSQLSERVER;database=Museum</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
