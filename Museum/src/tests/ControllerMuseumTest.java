@@ -159,11 +159,8 @@ class ControllerMuseumTest {
         System.out.println(check);
         if (check != 0)
             throw new AssertionError();
-        int check1 = ControllerMuseum.filterByVisits(4).size();
-        if (check1 != 1)
-            throw new AssertionError();
         int check2 = ControllerMuseum.filterByVisits(2).size();
-        if (check2 != 2)
+        if (check2 != 1)
             throw new AssertionError();
     }
 
