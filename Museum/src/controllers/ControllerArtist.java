@@ -190,7 +190,6 @@ public class ControllerArtist {
             }
         }
         return filteredArtists.stream()
-                .sorted(Comparator.comparing(Artist::getDeathDate))
-                .collect(Collectors.toList());
+                .sorted(Comparator.comparing(Artist::getDeathDate)).toList();
     }
 }

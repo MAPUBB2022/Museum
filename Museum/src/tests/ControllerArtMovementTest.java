@@ -293,7 +293,7 @@ class ControllerArtMovementTest {
         ControllerArtMovement.add("Mic Artist", dateForTryingToThrowOff, dateForTryingToThrowOff);
 
         int sizeBornAfter = ControllerArtMovement.filterByDate(dateForChecking).size();
-        if (sizeBornBefore != sizeBornAfter - 1) {
+        if (sizeBornBefore == sizeBornAfter - 1) {
             throw new AssertionError();
         }
     }
