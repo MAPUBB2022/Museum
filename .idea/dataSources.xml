@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="MuseumV1@ASUSTUFGAMINGF1" uuid="00019f16-5bb3-453f-bd52-14d16a0a55f1">
+    <data-source source="LOCAL" name="MuseumV2@ASUSTUFGAMINGF1" uuid="00019f16-5bb3-453f-bd52-14d16a0a55f1">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
-      <jdbc-url>jdbc:sqlserver://ASUSTUFGAMINGF1\SQLEXPRESS:1433;database=MuseumV1</jdbc-url>
+      <jdbc-url>jdbc:sqlserver://ASUSTUFGAMINGF1\SQLEXPRESS:1433;database=MuseumV2</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
     <data-source source="LOCAL" name="DESKTOP-5UV75S5" uuid="4ff60893-1c5a-4ee5-8d4a-a3b5ece81bbb">

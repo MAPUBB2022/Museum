@@ -1,14 +1,35 @@
 package classes;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Date;
+import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Entity
 public class Block implements Comparable<Block>{
     private static int counter = 1000;
+
+    @Id
+    @Getter
     private final String id;
+
+    @Getter
+    @Setter
     private String name;
+
+    @OneToMany
     private List<Exhibit> exhibits;
+
+    @OneToMany
     private List<Artist> artists;
+
+    @OneToMany
     private List<ArtMovement> movements;
 
     public Block(String name) {
@@ -17,6 +38,10 @@ public class Block implements Comparable<Block>{
         this.exhibits = new ArrayList<>();
         this.artists = new ArrayList<>();
         this.movements = new ArrayList<>();
+    }
+
+    public Block() {
+        this.id = "B" + counter++;
     }
 
     public String getId() {

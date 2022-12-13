@@ -4,15 +4,26 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
     <persistence-unit name="default">
-        <class>classes.Artist</class>
         <class>classes.Artifact</class>
+        <class>classes.Artist</class>
+        <class>classes.ArtMovement</class>
+        <class>classes.Block</class>
+        <class>classes.Client</class>
+        <class>classes.Exhibit</class>
+        <class>classes.Museum</class>
+        <class>classes.Painting</class>
+        <class>classes.Person</class>
+        <class>classes.Statue</class>
+        <class>classes.Ticket</class>
         <properties>
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost\SQLEXPRESS;database=university;encrypt=true;trustServerCertificate=true;"/>
-            <property name="javax.persistence.jdbc.user" value="guest"/>
-            <property name="javax.persistence.jdbc.password" value="1234"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://ASUSTUFGAMINGF1\SQLEXPRESS:1433;database=MuseumV2;encrypt=true;trustServerCertificate=true;integratedSecurity=true;"/>
+            <property name="javax.persistence.jdbc.user" value=""/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+
         </properties>
     </persistence-unit>
 </persistence>

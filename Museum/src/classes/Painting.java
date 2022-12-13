@@ -1,15 +1,32 @@
 package classes;
 
-import java.util.Date;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.Date;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@DiscriminatorValue("painting")
 public class Painting extends Exhibit {
+
+    @ManyToOne
     private Artist painter;
+
+    @ManyToOne
     private ArtMovement artMovement;
 
     public Painting(String name, Date creation, Block location, Artist painter, ArtMovement artMove, double price) {
         super(name, creation, location, painter, price);
         this.painter = painter;
         this.artMovement = artMove;
+    }
+
+    public Painting() {
+
     }
 
     public String getName() {

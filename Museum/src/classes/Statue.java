@@ -1,17 +1,33 @@
 package classes;
 
-import java.util.Date;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.Date;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@DiscriminatorValue("statue")
 public class Statue extends Exhibit {
 
     // type = "S"
+    @ManyToOne
     private Artist sculptor;
+
+    @ManyToOne
     private ArtMovement artMovement;
 
     public Statue(String name, Date creation, Block location, Artist sculptor, ArtMovement artMove, double price) {
         super(name, creation, location, sculptor, price);
         this.sculptor = sculptor;
         this.artMovement = artMove;
+    }
+
+    public Statue() {
+
     }
 
     public String getName() {

@@ -3,11 +3,28 @@ package classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
 public class Client implements Person, Comparable<Client> {
+
     private static int counter = 1000;
+
+    @Id
+    @Getter
     private final String id;
-    private final List<Ticket> visits;
+
+    @OneToMany
+    private List<Ticket> visits;
+
+    @Getter
+    @Setter
     private String name;
+
+    @OneToMany
     private List<Exhibit> favorites;
 
     public Client(String name) {
@@ -15,6 +32,10 @@ public class Client implements Person, Comparable<Client> {
         this.id = "C" + counter++;
         this.visits = new ArrayList<>();
         this.favorites = new ArrayList<>();
+    }
+
+    public Client() {
+        this.id = "C" + counter++;
     }
 
     public String getName() {

@@ -1,6 +1,7 @@
 package classes;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -14,15 +15,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name="Artist")
 public class Artist implements Person, Comparable<Artist> {
     private static int counter = 1000;
 
     @Id
     @Getter
+    @Column(name="ID")
     private final String id;
 
     @Getter
     @Setter
+    @Column(name="Name")
     private String name;
 
     @ManyToMany
@@ -30,13 +34,15 @@ public class Artist implements Person, Comparable<Artist> {
 
     @Getter
     @Setter
+    @Column(name="BirthDate")
     private Date birthDate;
 
     @Getter
     @Setter
+    @Column(name="DeathDate")
     private Date deathDate;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Exhibit> exhibits;
 
     public Artist(String name, Date birthDate, Date deathDate) {
@@ -46,6 +52,10 @@ public class Artist implements Person, Comparable<Artist> {
         this.birthDate = birthDate;
         this.deathDate = deathDate;
         this.exhibits = new ArrayList<>();
+    }
+
+    public Artist() {
+        this.id = "A" + counter++;
     }
 
     public String getName() {

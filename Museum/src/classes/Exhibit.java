@@ -1,17 +1,37 @@
 package classes;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Date;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "exhibit_type")
 public abstract class Exhibit implements Comparable<Exhibit> {
     private static int counter = 1000;
+
+    @Id
+    @Getter
     private final String id;
+
+    @Getter
+    @Setter
     private String name;
+
+    @Getter
+    @Setter
     private Date creation;
+
+    @ManyToOne
     private Block location;
+
+    @Getter
+    @Setter
     private double price;
 
     public Exhibit(String name, Date creation, Block location, Artist artist, double price) {
@@ -31,6 +51,10 @@ public abstract class Exhibit implements Comparable<Exhibit> {
         this.location = location;
         location.addExhibit(this);
         this.price = price;
+    }
+
+    public Exhibit() {
+        this.id = "E" + counter++;
     }
 
     public String getName() {

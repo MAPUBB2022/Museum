@@ -1,18 +1,38 @@
 package classes;
 
-import java.util.ArrayList;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Date;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.floor;
 import static java.lang.Math.random;
 
+@Entity
 public class ArtMovement implements Comparable<ArtMovement>{
     private static int counter = 1000;
+
+    @Id
+    @Getter
     private final String id;
+
+    @Getter
+    @Setter
     private String name;
+
+    @Getter
+    @Setter
     private Date startDate;
+
+    @Getter
+    @Setter
     private Date endDate;
+
+    @ManyToMany
     private List<Artist> artists;
 
     public ArtMovement(String name, Date startDate, Date endDate) {
@@ -21,6 +41,11 @@ public class ArtMovement implements Comparable<ArtMovement>{
         this.startDate = startDate;
         this.endDate = endDate;
         this.artists = new ArrayList<>();
+    }
+
+    public ArtMovement() {
+        this.id = "V" + counter++;
+
     }
 
     public String getId() {

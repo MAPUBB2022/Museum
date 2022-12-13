@@ -2,12 +2,27 @@ package classes;
 
 import java.util.List;
 
+import javax.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
 public class Ticket {
     private static int counter = 1000;
+
+    @Id
+    @Getter
     private final String id;
+
+    @Getter
+    @Setter
     private double price;
+
+    @OneToMany
     private List<Block> permits;
 
+    @ManyToOne
     private Client guest;
 
     public Ticket(List<Block> permits, Client guest) {
@@ -15,6 +30,10 @@ public class Ticket {
         this.permits = permits;
         this.price = 2.5 * permits.size();
         this.guest = guest;
+    }
+
+    public Ticket() {
+        this.id = "T" + counter++;
     }
 
     public static int getCounter() {

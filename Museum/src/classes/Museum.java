@@ -4,15 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
 public class Museum implements Comparable<Museum> {
+    @Id
+    @Getter
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String name;
+
+    @OneToMany
     private List<Block> blocks;
+
+    @ManyToMany
     private List<Client> clients;
 
     public Museum(String name) {
         this.name = name;
         this.blocks = new ArrayList<>();
         this.clients = new ArrayList<>();
+    }
+
+    public Museum() {
+
     }
 
     public String getName() {

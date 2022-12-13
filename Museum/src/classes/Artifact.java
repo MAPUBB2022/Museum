@@ -1,15 +1,32 @@
 package classes;
 
-import java.util.Date;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.Date;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@DiscriminatorValue("artifact")
+@Table(name = "A")
 public class Artifact extends Exhibit {
 
     // type = "R"
+
+    @Id
+    @Getter
     private String origin;
 
     public Artifact(String name, Date creation, Block location, String origin, double price) {
         super(name, creation, location, price);
         this.origin = origin;
+    }
+
+    public Artifact() {
+
     }
 
     public String getName() {
