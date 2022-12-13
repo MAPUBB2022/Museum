@@ -1,16 +1,42 @@
 package classes;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 public class Artist implements Person, Comparable<Artist> {
     private static int counter = 1000;
+
+    @Id
+    @Getter
     private final String id;
+
+    @Getter
+    @Setter
     private String name;
+
+    @ManyToMany
     private List<ArtMovement> movements;
+
+    @Getter
+    @Setter
     private Date birthDate;
+
+    @Getter
+    @Setter
     private Date deathDate;
+
+    @OneToMany(cascade = CascadeType.MERGE)
     private List<Exhibit> exhibits;
 
     public Artist(String name, Date birthDate, Date deathDate) {

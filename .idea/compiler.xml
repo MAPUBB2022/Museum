@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Git_Muz" target="17" />
+      <module name="Git_Muz" target="19" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

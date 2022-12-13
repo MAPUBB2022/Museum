@@ -1,7 +1,11 @@
 package classes;
 
 import java.util.Date;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 public abstract class Exhibit implements Comparable<Exhibit> {
     private static int counter = 1000;
     private final String id;
