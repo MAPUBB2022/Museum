@@ -48,6 +48,14 @@ public class ArtMovement implements Comparable<ArtMovement>{
         this.artists = new ArrayList<>();
     }
 
+    public ArtMovement(String ID, String name, Date startDate, Date endDate) {
+        this.id = ID;
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.artists = new ArrayList<>();
+    }
+
     public ArtMovement() {
         this.id = "V" + counter++;
 
