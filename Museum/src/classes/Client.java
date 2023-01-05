@@ -9,12 +9,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name = "Client")
 public class Client implements Person, Comparable<Client> {
 
     private static int counter = 1000;
 
     @Id
     @Getter
+    @Column(name="ID")
     private final String id;
 
     @OneToMany
@@ -22,6 +24,7 @@ public class Client implements Person, Comparable<Client> {
 
     @Getter
     @Setter
+    @Column(name="Name")
     private String name;
 
     @OneToMany

@@ -12,15 +12,18 @@ import java.util.List;
 
 
 @Entity
+@Table(name = "Block")
 public class Block implements Comparable<Block>{
     private static int counter = 1000;
 
     @Id
     @Getter
+    @Column(name="ID")
     private final String id;
 
     @Getter
     @Setter
+    @Column(name="Name")
     private String name;
 
     @OneToMany

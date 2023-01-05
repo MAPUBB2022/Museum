@@ -13,23 +13,28 @@ import static java.lang.Math.floor;
 import static java.lang.Math.random;
 
 @Entity
+@Table(name = "ArtMovement")
 public class ArtMovement implements Comparable<ArtMovement>{
     private static int counter = 1000;
 
     @Id
     @Getter
+    @Column(name="ID")
     private final String id;
 
     @Getter
     @Setter
+    @Column(name="Name")
     private String name;
 
     @Getter
     @Setter
+    @Column(name="StartDate")
     private Date startDate;
 
     @Getter
     @Setter
+    @Column(name="EndDate")
     private Date endDate;
 
     @ManyToMany

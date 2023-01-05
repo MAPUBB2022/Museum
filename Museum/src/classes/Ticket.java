@@ -8,15 +8,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name = "Ticket")
 public class Ticket {
     private static int counter = 1000;
 
     @Id
     @Getter
+    @Column(name="ID")
     private final String id;
 
     @Getter
     @Setter
+    @Column(name="Price")
     private double price;
 
     @OneToMany

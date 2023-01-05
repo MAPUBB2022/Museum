@@ -12,26 +12,32 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "exhibit_type")
+@Table(name = "Exhibit")
 public abstract class Exhibit implements Comparable<Exhibit> {
     private static int counter = 1000;
 
     @Id
     @Getter
+    @Column(name="ID")
     private final String id;
 
     @Getter
     @Setter
+    @Column(name="Name")
     private String name;
 
     @Getter
     @Setter
+    @Column(name="Creation")
     private Date creation;
 
     @ManyToOne
+    @Column(name="Location")
     private Block location;
 
     @Getter
     @Setter
+    @Column(name="Price")
     private double price;
 
     public Exhibit(String name, Date creation, Block location, Artist artist, double price) {

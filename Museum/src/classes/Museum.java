@@ -10,10 +10,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name = "Museum")
 public class Museum implements Comparable<Museum> {
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="Name")
     private String name;
 
     @OneToMany

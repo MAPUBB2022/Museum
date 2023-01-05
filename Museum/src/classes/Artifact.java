@@ -11,13 +11,14 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue("artifact")
-@Table(name = "A")
+@Table(name = "Artifact")
 public class Artifact extends Exhibit {
 
     // type = "R"
 
     @Id
     @Getter
+    @Column(name="Origin")
     private String origin;
 
     public Artifact(String name, Date creation, Block location, String origin, double price) {

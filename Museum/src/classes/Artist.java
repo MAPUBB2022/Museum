@@ -54,6 +54,15 @@ public class Artist implements Person, Comparable<Artist> {
         this.exhibits = new ArrayList<>();
     }
 
+    public Artist(String id, String name, Date birthDate, Date deathDate) {
+        this.name = name;
+        this.id = id;
+        this.movements = new ArrayList<>();
+        this.birthDate = birthDate;
+        this.deathDate = deathDate;
+        this.exhibits = new ArrayList<>();
+    }
+
     public Artist() {
         this.id = "A" + counter++;
     }

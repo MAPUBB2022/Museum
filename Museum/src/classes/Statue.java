@@ -11,6 +11,7 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue("statue")
+@Table(name = "Statue")
 public class Statue extends Exhibit {
 
     // type = "S"

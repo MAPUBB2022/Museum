@@ -11,12 +11,15 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue("painting")
+@Table(name = "Painting")
 public class Painting extends Exhibit {
 
     @ManyToOne
+    @Column(name="PainterID")
     private Artist painter;
 
     @ManyToOne
+    @Column(name="ArtMovementID")
     private ArtMovement artMovement;
 
     public Painting(String name, Date creation, Block location, Artist painter, ArtMovement artMove, double price) {
