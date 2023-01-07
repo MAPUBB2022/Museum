@@ -132,4 +132,8 @@ public class ArtMovement implements Comparable<ArtMovement>{
         }
         return getStartDate().compareTo(am.getStartDate());
     }
+
+    public static void changeCounter(int newCounter) {
+        counter = newCounter;
+    }
 }

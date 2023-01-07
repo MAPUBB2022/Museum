@@ -115,4 +115,8 @@ public class Client implements Person, Comparable<Client> {
     public int compareTo(Client o) {
         return getName().compareTo(o.getName());
     }
+
+    public static void changeCounter(int newCounter) {
+        counter = newCounter;
+    }
 }

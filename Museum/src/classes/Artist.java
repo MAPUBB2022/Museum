@@ -165,4 +165,8 @@ public class Artist implements Person, Comparable<Artist> {
         }
         return getBirthDate().compareTo(o.getBirthDate());
     }
+
+    public static void changeCounter(int newCounter) {
+        counter = newCounter;
+    }
 }

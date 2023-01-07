@@ -13,7 +13,7 @@ public class ArtistDB implements ICrudRepository<String, Artist> {
     private static ArtistDB single_instance = null;
     private final ArrayList<Artist> allArtists = new ArrayList<>();
 
-    public static ArtistDB getInstance() throws SQLException, ClassNotFoundException {
+    public static ArtistDB getInstance() throws ClassNotFoundException {
         if (single_instance == null) {
             single_instance = new ArtistDB();
         }
@@ -32,7 +32,28 @@ public class ArtistDB implements ICrudRepository<String, Artist> {
         String Name = entity.getName();
         java.util.Date BirthDate = entity.getBirthDate();
         java.util.Date DeathDate = entity.getDeathDate();
-//        insert into Artist (ID, Name, BirthDate, DeathDate) values ('A1000','Leonardo Da Vinci', '1452-04-15', '1519-06-2')
+
+        //----------
+        Connection connection = null;
+        try {
+            connection = OurConnection.getConnection();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            PreparedStatement  statement = connection.prepareStatement("INSERT INTO Artist (ID, Name, BirthDate, DeathDate) VALUES (?, ?, ?, ?)");
+            statement.setString(1, ID);
+            statement.setString(2, Name);
+            statement.setDate(3, (Date) BirthDate);
+            statement.setDate(4, (Date) DeathDate);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        //----------
+
         System.out.println("Added artist!");
     }
 
@@ -87,22 +108,16 @@ public class ArtistDB implements ICrudRepository<String, Artist> {
     @Override
     public void update(String id, Artist newEntity) {
         boolean found = false;
-        Artist artistToDelete = null;
         for (Artist a : allArtists) {
             if (a.getId().equals(id)) {
                 found = true;
-                artistToDelete = a;
+                break;
             }
         }
         if (found) {
-            allArtists.remove(artistToDelete);
-            allArtists.add(newEntity);
             //        DB Code:
-            String newID = newEntity.getId();
-            String newName = newEntity.getName();
-            java.util.Date newBirthDate = newEntity.getBirthDate();
-            java.util.Date newDeathDate = newEntity.getDeathDate();
-            // UPDATE Artist SET ID = '', Name = '', BirthDate = '', DeathDate = '' WHERE ID = '';
+            this.remove(id);
+            this.add(newEntity);
             return;
         }
         System.out.println("The artist you want to update does not exist!");
@@ -235,79 +250,79 @@ public class ArtistDB implements ICrudRepository<String, Artist> {
             }
         }
 
-        ResultSet resultSet4 = statement4.executeQuery("SELECT * FROM Painting");
-        while (resultSet4.next()) {
-            String PainterID = resultSet4.getString(1);
-            String ArtMovementID = resultSet4.getString(2);
-//            Find the Art Movement:
-            ResultSet resultSetArtMovements  = statement5.executeQuery("SELECT * FROM ArtMovement");
-            ArtMovement artMovementOfArtist = null;
-            while (resultSetArtMovements.next()) {
-                String id = resultSetArtMovements.getString(1);
-                if (Objects.equals(ArtMovementID, id)) {
-                    String Name = resultSetArtMovements.getString(2);
-                    Date StartDate = resultSetArtMovements.getDate(3);
-                    Date EndDate = resultSetArtMovements.getDate(4);
-                    artMovementOfArtist = new ArtMovement(id,Name,StartDate,EndDate);
-                }
-            }
-
-            String locationID = resultSet4.getString(3);
-            ResultSet resultSetBlocks  = statement6.executeQuery("SELECT * FROM Blocks");
-            Block blockOfArtist = null;
-            //            Find the block
-            while (resultSetBlocks.next()) {
-                String id = resultSetBlocks.getString(3);
-                if (Objects.equals(locationID, id)) {
-                    String Name = resultSetBlocks.getString(1);
-                    blockOfArtist = new Block(id, Name);
-                }
-            }
-            float price = resultSet4.getFloat(4);
-            Date creation = resultSet4.getDate(5);
-            String name = resultSet4.getString(6);
-            String PaintingID = resultSet4.getString(7);
-            Painting painting = new Painting(PaintingID,name,creation,blockOfArtist,ArtistDB.getInstance().findById(PainterID),artMovementOfArtist,price);
-            Artist artistToAddArtMovement = ArtistDB.getInstance().findById(PainterID);
-            artistToAddArtMovement.addExhibit(painting);
-        }
-
-        ResultSet resultSet5 = statement7.executeQuery("SELECT * FROM Statue");
-        while (resultSet5.next()) {
-            String SculptorID = resultSet5.getString(1);
-            String ArtMovementID = resultSet5.getString(2);
-//            Find the Art Movement:
-            ResultSet resultSetArtMovements  = statement8.executeQuery("SELECT * FROM ArtMovement");
-            ArtMovement artMovementOfArtist = null;
-            while (resultSetArtMovements.next()) {
-                String id = resultSetArtMovements.getString(1);
-                if (Objects.equals(ArtMovementID, id)) {
-                    String Name = resultSetArtMovements.getString(2);
-                    Date StartDate = resultSetArtMovements.getDate(3);
-                    Date EndDate = resultSetArtMovements.getDate(4);
-                    artMovementOfArtist = new ArtMovement(id,Name,StartDate,EndDate);
-                }
-            }
-
-            String locationID = resultSet5.getString(3);
-            ResultSet resultSetBlocks  = statement9.executeQuery("SELECT * FROM Blocks");
-            Block blockOfArtist = null;
-//            Find the block
-            while (resultSetBlocks.next()) {
-                String id = resultSetBlocks.getString(3);
-                if (Objects.equals(locationID, id)) {
-                    String Name = resultSetBlocks.getString(1);
-                    blockOfArtist = new Block(id, Name);
-                }
-            }
-            float price = resultSet5.getFloat(4);
-            Date creation = resultSet5.getDate(5);
-            String name = resultSet5.getString(6);
-            String StatueID = resultSet5.getString(7);
-            Statue statue = new Statue(StatueID,name,creation,blockOfArtist,ArtistDB.getInstance().findById(SculptorID),artMovementOfArtist,price);
-            Artist artistToAddArtMovement = ArtistDB.getInstance().findById(SculptorID);
-            artistToAddArtMovement.addExhibit(statue);
-        }
+//        ResultSet resultSet4 = statement4.executeQuery("SELECT * FROM Painting");
+//        while (resultSet4.next()) {
+//            String PainterID = resultSet4.getString(1);
+//            String ArtMovementID = resultSet4.getString(2);
+////            Find the Art Movement:
+//            ResultSet resultSetArtMovements  = statement5.executeQuery("SELECT * FROM ArtMovement");
+//            ArtMovement artMovementOfArtist = null;
+//            while (resultSetArtMovements.next()) {
+//                String id = resultSetArtMovements.getString(1);
+//                if (Objects.equals(ArtMovementID, id)) {
+//                    String Name = resultSetArtMovements.getString(2);
+//                    Date StartDate = resultSetArtMovements.getDate(3);
+//                    Date EndDate = resultSetArtMovements.getDate(4);
+//                    artMovementOfArtist = new ArtMovement(id,Name,StartDate,EndDate);
+//                }
+//            }
+//
+//            String locationID = resultSet4.getString(3);
+//            ResultSet resultSetBlocks  = statement6.executeQuery("SELECT * FROM Blocks");
+//            Block blockOfArtist = null;
+//            //            Find the block
+//            while (resultSetBlocks.next()) {
+//                String id = resultSetBlocks.getString(3);
+//                if (Objects.equals(locationID, id)) {
+//                    String Name = resultSetBlocks.getString(1);
+//                    blockOfArtist = new Block(id, Name);
+//                }
+//            }
+//            float price = resultSet4.getFloat(4);
+//            Date creation = resultSet4.getDate(5);
+//            String name = resultSet4.getString(6);
+//            String PaintingID = resultSet4.getString(7);
+//            Painting painting = new Painting(PaintingID,name,creation,blockOfArtist,ArtistDB.getInstance().findById(PainterID),artMovementOfArtist,price);
+//            Artist artistToAddArtMovement = ArtistDB.getInstance().findById(PainterID);
+//            artistToAddArtMovement.addExhibit(painting);
+//        }
+//
+//        ResultSet resultSet5 = statement7.executeQuery("SELECT * FROM Statue");
+//        while (resultSet5.next()) {
+//            String SculptorID = resultSet5.getString(1);
+//            String ArtMovementID = resultSet5.getString(2);
+////            Find the Art Movement:
+//            ResultSet resultSetArtMovements  = statement8.executeQuery("SELECT * FROM ArtMovement");
+//            ArtMovement artMovementOfArtist = null;
+//            while (resultSetArtMovements.next()) {
+//                String id = resultSetArtMovements.getString(1);
+//                if (Objects.equals(ArtMovementID, id)) {
+//                    String Name = resultSetArtMovements.getString(2);
+//                    Date StartDate = resultSetArtMovements.getDate(3);
+//                    Date EndDate = resultSetArtMovements.getDate(4);
+//                    artMovementOfArtist = new ArtMovement(id,Name,StartDate,EndDate);
+//                }
+//            }
+//
+//            String locationID = resultSet5.getString(3);
+//            ResultSet resultSetBlocks  = statement9.executeQuery("SELECT * FROM Blocks");
+//            Block blockOfArtist = null;
+////            Find the block
+//            while (resultSetBlocks.next()) {
+//                String id = resultSetBlocks.getString(3);
+//                if (Objects.equals(locationID, id)) {
+//                    String Name = resultSetBlocks.getString(1);
+//                    blockOfArtist = new Block(id, Name);
+//                }
+//            }
+//            float price = resultSet5.getFloat(4);
+//            Date creation = resultSet5.getDate(5);
+//            String name = resultSet5.getString(6);
+//            String StatueID = resultSet5.getString(7);
+//            Statue statue = new Statue(StatueID,name,creation,blockOfArtist,ArtistDB.getInstance().findById(SculptorID),artMovementOfArtist,price);
+//            Artist artistToAddArtMovement = ArtistDB.getInstance().findById(SculptorID);
+//            artistToAddArtMovement.addExhibit(statue);
+//        }
 
         System.out.println("test!");
     }

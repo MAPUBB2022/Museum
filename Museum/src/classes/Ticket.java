@@ -101,4 +101,8 @@ public class Ticket {
     public void setGuest(Client guest) {
         this.guest = guest;
     }
+
+    public static void changeCounter(int newCounter) {
+        counter = newCounter;
+    }
 }

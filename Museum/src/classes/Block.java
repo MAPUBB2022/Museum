@@ -172,4 +172,8 @@ public class Block implements Comparable<Block>{
     public int compareTo(Block o) {
         return this.getExhibits().size() - o.getExhibits().size();
     }
+
+    public static void changeCounter(int newCounter) {
+        counter = newCounter;
+    }
 }

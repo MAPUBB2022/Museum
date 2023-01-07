@@ -122,4 +122,8 @@ public abstract class Exhibit implements Comparable<Exhibit> {
     public int compareTo(Exhibit o) {
         return getName().compareTo(o.getName());
     }
+
+    public static void changeCounter(int newCounter) {
+        counter = newCounter;
+    }
 }
