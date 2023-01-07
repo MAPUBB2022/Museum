@@ -59,7 +59,25 @@ public class ArtistDB implements ICrudRepository<String, Artist> {
             allArtists.remove(artistToDelete);
             //        DB Code:
             String ID = artistToDelete.getId();
-//          DELETE from Artist WHERE ID = '' ;
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("DELETE FROM Artist WHERE Artist.ID = ?");
+                statement.setString(1, ID);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("The artist has been removed!");
             return;
         }
@@ -194,7 +212,7 @@ public class ArtistDB implements ICrudRepository<String, Artist> {
             String name = resultSet.getString(2);
             Date d1 = resultSet.getDate(3);
             Date d2 = resultSet.getDate(4);
-            System.out.println(id + ": " + name);
+            //System.out.println(id + ": " + name);
             ArtistDB.getInstance().addNoDB(new Artist(id,name, d1, d2));
         }
 

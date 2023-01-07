@@ -16,13 +16,18 @@ public class Artifact extends Exhibit {
 
     // type = "R"
 
-    @Id
+    @Setter
     @Getter
     @Column(name="Origin")
     private String origin;
 
     public Artifact(String name, Date creation, Block location, String origin, double price) {
         super(name, creation, location, price);
+        this.origin = origin;
+    }
+
+    public Artifact(String id, String name, Date creation, Block location, String origin, double price) {
+        super(id, name, creation, location, price);
         this.origin = origin;
     }
 

@@ -41,6 +41,13 @@ public class Client implements Person, Comparable<Client> {
         this.id = "C" + counter++;
     }
 
+    public Client(String id, String name) {
+        this.name = name;
+        this.id = id;
+        this.visits = new ArrayList<>();
+        this.favorites = new ArrayList<>();
+    }
+
     public String getName() {
         return name;
     }

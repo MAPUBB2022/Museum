@@ -39,6 +39,13 @@ public class Ticket {
         this.id = "T" + counter++;
     }
 
+    public Ticket(String id, Double price, Client client, List<Block> perm) {
+        this.id = id;
+        this.permits = perm;
+        this.price = price;
+        this.guest = client;
+    }
+
     public static int getCounter() {
         return counter;
     }

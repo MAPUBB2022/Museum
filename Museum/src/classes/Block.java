@@ -3,6 +3,7 @@ package classes;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import repository.database.MuseumDB;
 
 import java.util.Date;
 import javax.persistence.*;
@@ -25,6 +26,11 @@ public class Block implements Comparable<Block>{
     @Setter
     @Column(name="Name")
     private String name;
+
+    @Getter
+    @Setter
+    @ManyToOne
+    private Museum museum;
 
     @OneToMany
     private List<Exhibit> exhibits;
@@ -53,6 +59,23 @@ public class Block implements Comparable<Block>{
 
     public Block() {
         this.id = "B" + counter++;
+    }
+
+    public Block(String id, String name, Museum museum) {
+        this.id = id;
+        this.name = name;
+        this.exhibits = new ArrayList<>();
+        this.artists = new ArrayList<>();
+        this.movements = new ArrayList<>();
+        this.museum = museum;
+    }
+
+    public Museum getMuseum() {
+        return museum;
+    }
+
+    public void setMuseum(Museum museum) {
+        this.museum = museum;
     }
 
     public String getId() {
