@@ -28,8 +28,10 @@ public class Painting extends Exhibit {
         this.artMovement = artMove;
     }
 
-    public Painting() {
-
+    public Painting(String ID, String name, Date creation, Block location, Artist painter, ArtMovement artMove, double price) {
+        super(ID, name, creation, location, painter, price);
+        this.painter = painter;
+        this.artMovement = artMove;
     }
 
     public String getName() {

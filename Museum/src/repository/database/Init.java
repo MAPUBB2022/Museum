@@ -10,6 +10,6 @@ public class Init {
 
         Connection connection = DriverManager.getConnection("jdbc:sqlserver://ASUSTUFGAMINGF1\\SQLEXPRESS:1433;database=MuseumV2;encrypt=false", "newuser", "password");
 
-        ArtistDB.populate(connection);
+        ArtistDB.getInstance().populate(connection);
     }
 }

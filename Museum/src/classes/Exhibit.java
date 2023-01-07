@@ -50,6 +50,16 @@ public abstract class Exhibit implements Comparable<Exhibit> {
         this.price = price;
     }
 
+    public Exhibit(String ID, String name, Date creation, Block location, Artist artist, double price) {
+        this.name = name;
+        this.id = ID;
+        this.creation = creation;
+        this.location = location;
+        artist.addExhibit(this);
+        location.addExhibit(this);
+        this.price = price;
+    }
+
     public Exhibit(String name, Date creation, Block location, double price) {
         this.name = name;
         this.id = "E" + counter++;

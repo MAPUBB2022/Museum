@@ -27,6 +27,12 @@ public class Statue extends Exhibit {
         this.artMovement = artMove;
     }
 
+    public Statue(String ID, String name, Date creation, Block location, Artist sculptor, ArtMovement artMove, double price) {
+        super(ID, name, creation, location, sculptor, price);
+        this.sculptor = sculptor;
+        this.artMovement = artMove;
+    }
+
     public Statue() {
 
     }

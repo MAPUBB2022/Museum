@@ -43,6 +43,14 @@ public class Block implements Comparable<Block>{
         this.movements = new ArrayList<>();
     }
 
+    public Block(String ID, String name) {
+        this.id = ID;
+        this.name = name;
+        this.exhibits = new ArrayList<>();
+        this.artists = new ArrayList<>();
+        this.movements = new ArrayList<>();
+    }
+
     public Block() {
         this.id = "B" + counter++;
     }
