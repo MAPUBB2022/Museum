@@ -9,7 +9,7 @@ import views.ViewArtMovement;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ControllerArtMovement {
+public class ControllerArtMovement  {
 
     static public void add(String name, Date startDate, Date endDate) throws ClassNotFoundException {
         if (ArtMovementDB.getInstance().findByName(name) !=  null) {
@@ -36,7 +36,7 @@ public class ControllerArtMovement {
         ArtMovementDB.getInstance().updateDateEnded(name, newDate);
     }
 
-    public static void deleteArtist(String nameArtMovement, String artistId) {
+    public static void deleteArtist(String nameArtMovement, String artistId) throws ClassNotFoundException {
         if (checkIfNotExistsArtist(nameArtMovement, artistId)) {
             return;
         }
@@ -46,7 +46,7 @@ public class ControllerArtMovement {
         ArtMovementDB.getInstance().update(nameArtMovement, wantedArtMovement);
     }
 
-    public static void addArtist(String nameArtMovement, String artistId) {
+    public static void addArtist(String nameArtMovement, String artistId) throws ClassNotFoundException {
         if (checkIfNotExistsArtist(nameArtMovement, artistId)) {
             return;
         }
@@ -99,7 +99,7 @@ public class ControllerArtMovement {
         return artMovements;
     }
 
-    public static List<ArtMovement> filterByDate(Date startDate) {
+    public static List<ArtMovement> filterByDate(Date startDate) throws ClassNotFoundException {
         List<ArtMovement> filteredArtMovement = new java.util.ArrayList<>(Collections.emptyList());
         for (ArtMovement am : Collections.unmodifiableList(ArtMovementDB.getInstance().getList())) {
             if (am.getStartDate().after(startDate)) {

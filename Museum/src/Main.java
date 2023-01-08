@@ -24,8 +24,8 @@ public class Main {
 //        ExhibitRepositoryMemory.getInstance();
 //        TicketRepositoryMemory.getInstance();
 //
-//        Menu myMenu = Menu.getInstance();
-//         myMenu.showMenuOptions();
-//        System.out.println("Exiting Program...");
+        Menu myMenu = Menu.getInstance();
+         myMenu.showMenuOptions();
+        System.out.println("Exiting Program...");
     }
 }

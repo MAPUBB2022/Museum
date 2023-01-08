@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ControllerArtist {
-    static public void add(String name, Date dateBorn, Date dateDied) {
+    static public void add(String name, Date dateBorn, Date dateDied) throws ClassNotFoundException {
         Artist artistToAdd = new Artist(name, dateBorn, dateDied);
         ArtistDB.getInstance().add(artistToAdd);
     }
@@ -54,7 +54,7 @@ public class ControllerArtist {
         ArtistDB.getInstance().updateDateDied(id, newDiedDate);
     }
 
-    public static void addArtMovement(String id, String idArtMovement) {
+    public static void addArtMovement(String id, String idArtMovement) throws ClassNotFoundException {
         if (checkIfNotExistsArtMovement(id, idArtMovement)) {
             return;
         }
@@ -64,7 +64,7 @@ public class ControllerArtist {
         ArtistDB.getInstance().update(id, wantedArtist);
     }
 
-    public static void deleteArtMovement(String id, String idArtMovement) {
+    public static void deleteArtMovement(String id, String idArtMovement) throws ClassNotFoundException {
         if (checkIfNotExistsArtMovement(id, idArtMovement)) {
             return;
         }
@@ -74,7 +74,7 @@ public class ControllerArtist {
         ArtistDB.getInstance().update(id, wantedArtist);
     }
 
-    public static void addExhibit(String id, String idExhibit) {
+    public static void addExhibit(String id, String idExhibit) throws ClassNotFoundException {
         if (checkIfNotExistsExhibit(id, idExhibit)) {
             return;
         }
@@ -90,7 +90,7 @@ public class ControllerArtist {
         ArtistDB.getInstance().update(id, wantedArtist);
     }
 
-    public static void deleteExhibit(String id, String idExhibit) {
+    public static void deleteExhibit(String id, String idExhibit) throws ClassNotFoundException {
         if (checkIfNotExistsExhibit(id, idExhibit)) {
             return;
         }
@@ -143,7 +143,7 @@ public class ControllerArtist {
         return artists;
     }
 
-    public static List<Artist> filterByExhibit(int minNumberExhibit) {
+    public static List<Artist> filterByExhibit(int minNumberExhibit) throws ClassNotFoundException {
         List<Artist> filteredArtists = new java.util.ArrayList<>(Collections.emptyList());
         for (Artist a : Collections.unmodifiableList(ArtistDB.getInstance().getArtists())) {
             if (a.getListOfArt().size() > minNumberExhibit) {
@@ -166,7 +166,7 @@ public class ControllerArtist {
         return filteredArtists;
     }
 
-    public static List<Artist> filterByBorn(Date bornDate) {
+    public static List<Artist> filterByBorn(Date bornDate) throws ClassNotFoundException {
         List<Artist> filteredArtists = new java.util.ArrayList<>(Collections.emptyList());
         for (Artist a : Collections.unmodifiableList(ArtistDB.getInstance().getArtists())) {
             if (a.getBirthDate().after(bornDate)) {
@@ -179,7 +179,7 @@ public class ControllerArtist {
                 .collect(Collectors.toList());
     }
 
-    public static List<Artist> filterByDead() {
+    public static List<Artist> filterByDead() throws ClassNotFoundException {
         List<Artist> filteredArtists = new java.util.ArrayList<>(Collections.emptyList());
         for (Artist a : Collections.unmodifiableList(ArtistDB.getInstance().getArtists())) {
             if (a.getDeathDate() == null) {

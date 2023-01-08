@@ -137,9 +137,25 @@ public class ArtistDB implements ICrudRepository<String, Artist> {
             allArtists.remove(artistToDelete);
             artistToDelete.setName(newName);
             allArtists.add(artistToDelete);
-            System.out.println("Updated name!");
             // DB Code:
-            // UPDATE Artist SET Name = '' WHERE ID = '';
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Updated name!");
+            try {
+                PreparedStatement statement = connection.prepareStatement("UPDATE Artist SET Name = ? WHERE Artist.ID = ?");
+                statement.setString(1, newName);
+                statement.setString(2, id);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Updated name!");
             return;
         }
         System.out.println("The artist you want to update does not exist!");
@@ -162,7 +178,23 @@ public class ArtistDB implements ICrudRepository<String, Artist> {
                 aToUpdate.setBirthDate(newDate);
                 allArtists.add(aToUpdate);
 //                DB Code:
-                // UPDATE Artist SET BirthDate = '' WHERE ID = '';
+                Connection connection = null;
+                try {
+                    connection = OurConnection.getConnection();
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("Updated name!");
+                try {
+                    PreparedStatement statement = connection.prepareStatement("UPDATE Artist SET BirthDate = ? WHERE Artist.ID = ?");
+                    statement.setString(1, String.valueOf(newDate));
+                    statement.setString(2, id);
+                    statement.executeUpdate();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 System.out.println("Updated date!");
                 return;
             }
@@ -177,8 +209,23 @@ public class ArtistDB implements ICrudRepository<String, Artist> {
                 aToUpdate.setDeathDate(newDate);
                 allArtists.add(aToUpdate);
                 //                DB Code:
-                // UPDATE Artist SET DeathDate = '' WHERE ID = '';
-                System.out.println("Updated date!");
+                Connection connection = null;
+                try {
+                    connection = OurConnection.getConnection();
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("Updated name!");
+                try {
+                    PreparedStatement statement = connection.prepareStatement("UPDATE Artist SET DeathDate = ? WHERE Artist.ID = ?");
+                    statement.setString(1, String.valueOf(newDate));
+                    statement.setString(2, id);
+                    statement.executeUpdate();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }                   System.out.println("Updated date!");
                 return;
             }
         }

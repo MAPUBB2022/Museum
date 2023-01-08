@@ -136,9 +136,24 @@ public class BlockDB implements ICrudRepository<String, Block> {
             allBlocks.remove(BlockToDelete);
             BlockToDelete.setName(newName);
             allBlocks.add(BlockToDelete);
-            System.out.println("Updated name!");
             // DB Code:
-            // UPDATE Block SET Name = '' WHERE ID = '';
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement statement = connection.prepareStatement("UPDATE Block  SET Name = ? WHERE Block.ID = ?");
+                statement.setString(1, String.valueOf(newName));
+                statement.setString(2, id);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Updated name!");
             return;
         }
         System.out.println("The Block you want to update does not exist!");
@@ -157,9 +172,24 @@ public class BlockDB implements ICrudRepository<String, Block> {
             allBlocks.remove(BlockToDelete);
             BlockToDelete.setMuseum(newMuseum);
             allBlocks.add(BlockToDelete);
-            System.out.println("Updated Museum!");
             // DB Code:
-            // UPDATE Block SET Name = '' WHERE ID = '';
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement statement = connection.prepareStatement("UPDATE Block SET Museum = ? WHERE Block.ID = ?");
+                statement.setString(1, String.valueOf(newMuseum));
+                statement.setString(2, id);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Updated name!");
             return;
         }
         System.out.println("The Block you want to update does not exist!");
@@ -179,8 +209,6 @@ public class BlockDB implements ICrudRepository<String, Block> {
             BlockToDelete.setMuseum(newMuseum);
             allBlocks.add(BlockToDelete);
             System.out.println("Updated Museum!");
-            // DB Code:
-            // UPDATE Block SET Name = '' WHERE ID = '';
             return;
         }
         System.out.println("The Block you want to update does not exist!");
@@ -219,6 +247,9 @@ public class BlockDB implements ICrudRepository<String, Block> {
         }
         return null;
     }
+
+    public List<Block> getAllBlocks(){return this.allBlocks;}
+
 
     public static void populate(Connection connection) throws SQLException, ClassNotFoundException {
         Statement statement1 = connection.createStatement();

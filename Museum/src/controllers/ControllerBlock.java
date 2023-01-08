@@ -87,7 +87,7 @@ public class ControllerBlock {
         ViewBlock.displayBlock(b);
     }
 
-    public static List<Block> sort()
+    public static List<Block> sort() throws ClassNotFoundException
     {
         List<Block> lb1 = BlockDB.getInstance().getAllBlocks();
         Collections.sort(lb1);
@@ -98,7 +98,7 @@ public class ControllerBlock {
         return lb1;
     }
 
-    public static List<Block> filterByExhibit(int minNumberExhibit) {
+    public static List<Block> filterByExhibit(int minNumberExhibit) throws ClassNotFoundException {
         List<Block> filteredBlocks = new java.util.ArrayList<>(Collections.emptyList());
         for (Block b : Collections.unmodifiableList(BlockDB.getInstance().getAllBlocks())) {
             if (b.getExhibits().size() > minNumberExhibit) {

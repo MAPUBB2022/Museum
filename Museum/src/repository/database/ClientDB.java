@@ -136,7 +136,22 @@ public class ClientDB implements ICrudRepository<String, Client> {
             allClients.add(ClientToDelete);
             System.out.println("Updated name!");
             // DB Code:
-            // UPDATE Client SET Name = '' WHERE ID = '';
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement statement = connection.prepareStatement("UPDATE Client SET Name = ? WHERE Client.ID = ?");
+                statement.setString(1, String.valueOf(newName));
+                statement.setString(2, id);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             return;
         }
         System.out.println("The Client you want to update does not exist!");
@@ -220,4 +235,7 @@ public class ClientDB implements ICrudRepository<String, Client> {
             }
         }
     }
+
+    public List<Client> getAllClients() {return this.allClients;}
+
 }

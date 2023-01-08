@@ -124,6 +124,12 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
         boolean found = false;
         Museum MuseumToDelete = null;
         for (Museum a : allMuseums) {
+            if (a.getName().equals(newName)) {
+                System.out.println("The museum name you want to change to already exists!");
+                return;
+            }
+        }
+        for (Museum a : allMuseums) {
             if (a.getName().equals(id)) {
                 found = true;
                 MuseumToDelete = a;

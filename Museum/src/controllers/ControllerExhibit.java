@@ -95,7 +95,7 @@ public class ControllerExhibit {
         return exhibits;
     }
 
-    public static List<Exhibit> filterByPrice(int minPrice) {
+    public static List<Exhibit> filterByPrice(int minPrice) throws ClassNotFoundException {
         List<Exhibit> filteredExhibits = new java.util.ArrayList<>(Collections.emptyList());
         for (Exhibit e : Collections.unmodifiableList(ExhibitDB.getInstance().getAllExhibits())) {
             if (e.getPrice() > minPrice) {
@@ -106,7 +106,7 @@ public class ControllerExhibit {
         return filteredExhibits;
     }
 
-    public static List<Exhibit> filterByAge(Date minDate)
+    public static List<Exhibit> filterByAge(Date minDate) throws ClassNotFoundException
     {
         List<Exhibit> filteredExhibits = new java.util.ArrayList<>(Collections.emptyList());
         for (Exhibit e :Collections.unmodifiableList(ExhibitDB.getInstance().getAllExhibits())) {

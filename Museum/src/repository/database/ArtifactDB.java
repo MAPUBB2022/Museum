@@ -144,10 +144,24 @@ public class ArtifactDB implements ICrudRepository<String, Artifact> {
             allArtifacts.remove(ArtifactToDelete);
             ArtifactToDelete.setName(newName);
             allArtifacts.add(ArtifactToDelete);
-            System.out.println("Updated name!");
             // DB Code:
-            // UPDATE Artifact SET Name = '' WHERE ID = '';
-            return;
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Updated name!");
+            try {
+                PreparedStatement statement = connection.prepareStatement("UPDATE Artifact SET Name = ? WHERE Artifact.ID = ?");
+                statement.setString(1, newName);
+                statement.setString(2, id);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }            return;
         }
         System.out.println("The Artifact you want to update does not exist!");
     }
@@ -167,8 +181,23 @@ public class ArtifactDB implements ICrudRepository<String, Artifact> {
             allArtifacts.add(ArtifactToDelete);
             System.out.println("Updated price!");
             // DB Code:
-            // UPDATE Artifact SET Price = '' WHERE ID = '';
-            return;
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Updated name!");
+            try {
+                PreparedStatement statement = connection.prepareStatement("UPDATE Artifact SET Price = ? WHERE Artifact.ID = ?");
+                statement.setDouble(1, newPrice);
+                statement.setString(2, id);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }            return;
         }
         System.out.println("The Artifact you want to update does not exist!");
     }
@@ -188,8 +217,23 @@ public class ArtifactDB implements ICrudRepository<String, Artifact> {
             allArtifacts.add(ArtifactToDelete);
             System.out.println("Updated origin!");
             // DB Code:
-            // UPDATE Artifact SET Origin = '' WHERE ID = '';
-            return;
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Updated name!");
+            try {
+                PreparedStatement statement = connection.prepareStatement("UPDATE Artifact SET Origin = ? WHERE Artifact.ID = ?");
+                statement.setString(1, newOrigin);
+                statement.setString(2, id);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }            return;
         }
         System.out.println("The Artifact you want to update does not exist!");
     }
@@ -209,8 +253,23 @@ public class ArtifactDB implements ICrudRepository<String, Artifact> {
             allArtifacts.add(ArtifactToDelete);
             System.out.println("Updated Creation!");
             // DB Code:
-            // UPDATE Artifact SET Creation = '' WHERE ID = '';
-            return;
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Updated name!");
+            try {
+                PreparedStatement statement = connection.prepareStatement("UPDATE Artifact SET Creation = ? WHERE Artifact.ID = ?");
+                statement.setDate(1, (java.sql.Date) newCreation);
+                statement.setString(2, id);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }            return;
         }
         System.out.println("The Artifact you want to update does not exist!");
     }
