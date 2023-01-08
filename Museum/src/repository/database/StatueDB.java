@@ -146,9 +146,28 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             allStatues.remove(StatueToDelete);
             StatueToDelete.setName(newName);
             allStatues.add(StatueToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Statue SET Name = ? WHERE Statue.ID = ?");
+                statement.setString(1, newName);
+                statement.setString(2, StatueToDelete.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
+
             System.out.println("Updated name!");
-            // DB Code:
-            // UPDATE Statue SET Name = '' WHERE ID = '';
             return;
         }
         System.out.println("The Statue you want to update does not exist!");
@@ -167,9 +186,27 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             allStatues.remove(StatueToDelete);
             StatueToDelete.setPrice(newPrice);
             allStatues.add(StatueToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Statue SET Price = ? WHERE Statue.ID = ?");
+                statement.setDouble(1, newPrice);
+                statement.setString(2, StatueToDelete.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("Updated price!");
-            // DB Code:
-            // UPDATE Statue SET Price = '' WHERE ID = '';
             return;
         }
         System.out.println("The Statue you want to update does not exist!");
@@ -189,9 +226,27 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             allStatues.remove(StatueToDelete);
             StatueToDelete.setCreation(newCreation);
             allStatues.add(StatueToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Statue SET Creation = ? WHERE Statue.ID = ?");
+                statement.setDate(1, (java.sql.Date) newCreation);
+                statement.setString(2, StatueToDelete.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("Updated Creation!");
-            // DB Code:
-            // UPDATE Statue SET Creation = '' WHERE ID = '';
             return;
         }
         System.out.println("The Statue you want to update does not exist!");
@@ -210,9 +265,27 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             allStatues.remove(StatueToDelete);
             StatueToDelete.setSculptor(newSculptor);
             allStatues.add(StatueToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Statue SET Sculptor = ? WHERE Statue.ID = ?");
+                statement.setString(1, newSculptor.getId());
+                statement.setString(2, StatueToDelete.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("Updated Painter!");
-            // DB Code:
-            // UPDATE Statue SET Creation = '' WHERE ID = '';
             return;
         }
         System.out.println("The Statue you want to update does not exist!");
@@ -231,9 +304,27 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             allStatues.remove(StatueToDelete);
             StatueToDelete.setArtMovement(newArtMovement);
             allStatues.add(StatueToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Statue SET ArtMovement = ? WHERE Statue.ID = ?");
+                statement.setString(1, newArtMovement.getId());
+                statement.setString(2, StatueToDelete.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("Updated Art Movement!");
-            // DB Code:
-            // UPDATE Statue SET Creation = '' WHERE ID = '';
             return;
         }
         System.out.println("The Statue you want to update does not exist!");
@@ -252,9 +343,27 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             allStatues.remove(StatueToDelete);
             StatueToDelete.setLocation(newLocation);
             allStatues.add(StatueToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Statue SET Location = ? WHERE Statue.ID = ?");
+                statement.setString(1, newLocation.getId());
+                statement.setString(2, StatueToDelete.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("Updated Location!");
-            // DB Code:
-            // UPDATE Statue SET Creation = '' WHERE ID = '';
             return;
         }
         System.out.println("The Statue you want to update does not exist!");

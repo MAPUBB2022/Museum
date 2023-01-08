@@ -18,7 +18,7 @@ public class MenuExhibit {
     private static final Scanner scanner3 = new Scanner(System.in);
     private static final DateFormat format = new SimpleDateFormat("dd-MM-yy", Locale.ENGLISH);
 
-    public static void options() {
+    public static void options() throws ClassNotFoundException {
         System.out.println("Exhibit Menu");
         System.out.println("\t1. Add " + currentMenuClass);
         System.out.println("\t2. Delete " + currentMenuClass);
@@ -44,9 +44,9 @@ public class MenuExhibit {
             MenuExhibit.filter();
     }
 
-    private static void sort() {ControllerExhibit.sort();}
+    private static void sort() throws ClassNotFoundException {ControllerExhibit.sort();}
 
-    private static void filter() {
+    private static void filter() throws ClassNotFoundException {
         System.out.println("\t\t1. Filter " + currentMenuClass + "s by price");
         System.out.println("\t\t2. Filter " + currentMenuClass + "s by creation date");
         System.out.println("\t\t0. Return");
@@ -62,13 +62,13 @@ public class MenuExhibit {
         }
     }
 
-    private static void filterByPrice() {
+    private static void filterByPrice() throws ClassNotFoundException {
         System.out.println("Enter the minimum price");
         int minPrice = scanner2.nextInt();
         ControllerExhibit.filterByPrice(minPrice);
     }
 
-    private static void filterByDate() {
+    private static void filterByDate() throws ClassNotFoundException {
         System.out.println("Enter born date");
         String startedDateString = scanner3.nextLine();
         Date chosenDate;
@@ -81,7 +81,7 @@ public class MenuExhibit {
         ControllerExhibit.filterByAge(chosenDate);
     }
 
-    public static void optionsUpdate() {
+    public static void optionsUpdate() throws ClassNotFoundException {
         System.out.println("\t\t1. Update " + currentMenuClass + " name");
         System.out.println("\t\t2. Update date of creation of an " + currentMenuClass);
         System.out.println("\t\t3. Update price of an " + currentMenuClass);
@@ -97,7 +97,7 @@ public class MenuExhibit {
             MenuExhibit.updatePrice();
     }
 
-    private static void updateName() {
+    private static void updateName() throws ClassNotFoundException {
         System.out.println("\t\tEnter ID of Exhibit:");
         String idOfExhibit = scanner2.nextLine();
         System.out.println("\t\tEnter new name of Exhibit:");
@@ -105,7 +105,7 @@ public class MenuExhibit {
         ControllerExhibit.updateName(idOfExhibit, newName);
     }
 
-    private static void updateDateOfCreation() {
+    private static void updateDateOfCreation() throws ClassNotFoundException {
         System.out.println("\t\tEnter ID of Exhibit:");
         String idOfExhibit = scanner2.nextLine();
         System.out.println("\t\tEnter the date of creation you want to update to:");
@@ -121,7 +121,7 @@ public class MenuExhibit {
         ControllerExhibit.updateDate(idOfExhibit, newCreationDate);
     }
 
-    private static void updatePrice() {
+    private static void updatePrice() throws ClassNotFoundException {
         System.out.println("\t\tEnter ID of Exhibit:");
         String idOfExhibit = scanner2.nextLine();
         System.out.println("\t\tEnter new price of Exhibit:");
@@ -130,7 +130,7 @@ public class MenuExhibit {
     }
 
 
-    private static void add() {
+    private static void add() throws ClassNotFoundException {
         System.out.println("\t\tChoose what type of exhibit you want to add:");
         System.out.println("\t\t1. Artifact");
         System.out.println("\t\t2. Painting");
@@ -211,14 +211,14 @@ public class MenuExhibit {
     }
 
 
-    private static void delete() {
+    private static void delete() throws ClassNotFoundException {
         System.out.println("\t\tEnter ID of Exhibit:");
         String idOfExhibit = scanner2.nextLine();
         ControllerExhibit.delete(idOfExhibit);
     }
 
 
-    private static void display() {
+    private static void display() throws ClassNotFoundException {
         System.out.println("\t\tEnter ID of Exhibit:");
         String idOfExhibit = scanner2.nextLine();
         ControllerExhibit.display(idOfExhibit);

@@ -133,9 +133,27 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
             allMuseums.remove(MuseumToDelete);
             MuseumToDelete.setName(newName);
             allMuseums.add(MuseumToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Museum SET Name = ? WHERE Museum.Name = ?");
+                statement.setString(1, newName);
+                statement.setString(2, MuseumToDelete.getName());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("Updated name!");
-            // DB Code:
-            // UPDATE Museum SET Name = '' WHERE ID = '';
             return;
         }
         System.out.println("The Museum you want to update does not exist!");

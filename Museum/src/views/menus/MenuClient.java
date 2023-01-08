@@ -15,7 +15,7 @@ public class MenuClient {
     private static final Scanner scanner2 = new Scanner(System.in);
     private static final Scanner scanner3 = new Scanner(System.in);
 
-    public static void options() {
+    public static void options() throws ClassNotFoundException {
         System.out.println("Client Menu");
         System.out.println("\t1. Add " + currentMenuClass);
         System.out.println("\t2. Delete " + currentMenuClass);
@@ -51,9 +51,9 @@ public class MenuClient {
 
     }
 
-    private static void sort() {ControllerClient.sort();}
+    private static void sort() throws ClassNotFoundException {ControllerClient.sort();}
 
-    private static void filter() {
+    private static void filter() throws ClassNotFoundException {
         System.out.println("\t\t1. Filter " + currentMenuClass + "s by favorites");
         System.out.println("\t\t2. Filter " + currentMenuClass + "s by number of visits");
         System.out.println("\t\t0. Return");
@@ -69,31 +69,31 @@ public class MenuClient {
         }
     }
 
-    private static void filterByFavorites() {
+    private static void filterByFavorites() throws ClassNotFoundException {
         System.out.println("Enter exhibit name");
         String exhibitName = scanner2.next();
         ControllerClient.filterByFavorites(exhibitName);
     }
 
-    private static void filterByVisits() {
+    private static void filterByVisits() throws ClassNotFoundException {
         System.out.println("Enter the minimal number of visits");
         int minNumberVisits = scanner2.nextInt();
         ControllerClient.filterByVisits(minNumberVisits);
     }
 
-    private static void add() {
+    private static void add() throws ClassNotFoundException {
         System.out.println("\t\tWhat is the name of the client?");
         String clientName = scanner2.next();
         ControllerClient.add(clientName);
     }
 
-    private static void delete() {
+    private static void delete() throws ClassNotFoundException {
         System.out.println("\t\tWhat is the id of the client?");
         String clientId = scanner2.next();
         ControllerClient.delete(clientId);
     }
 
-    public static void update() {
+    public static void update() throws ClassNotFoundException {
         System.out.println("\t\tWhat is the id of the client?");
         String clientId = scanner2.next();
         System.out.println("\t\tWhat is the new name of the client?");
@@ -101,7 +101,7 @@ public class MenuClient {
         ControllerClient.update(clientId, clientName);
     }
 
-    private static void addVisit() {
+    private static void addVisit() throws ClassNotFoundException {
         System.out.println("\t\tWhat is the id of the client?");
         String clientId = scanner2.next();
         System.out.println("How many blocks?");
@@ -115,7 +115,7 @@ public class MenuClient {
         ControllerClient.addVisit(clientId, lb);
     }
 
-    private static void addFav() {
+    private static void addFav() throws ClassNotFoundException {
         System.out.println("\t\tWhat is the id of the client?");
         String clientId = scanner2.next();
         System.out.println("\t\tWhat is the id of the new favorite?");
@@ -123,7 +123,7 @@ public class MenuClient {
         ControllerClient.addFav(clientId, exId);
     }
 
-    private static void remFav() {
+    private static void remFav() throws ClassNotFoundException {
         System.out.println("\t\tWhat is the id of the client?");
         String clientId = scanner2.next();
         System.out.println("\t\tWhat is the id of the old favorite?");
@@ -131,7 +131,7 @@ public class MenuClient {
         ControllerClient.remFav(clientId, exId);
     }
 
-    private static void display() {
+    private static void display() throws ClassNotFoundException {
         System.out.println("\t\tWhat is the id of the client?");
         String clientId = scanner2.next();
         ControllerClient.display(clientId);

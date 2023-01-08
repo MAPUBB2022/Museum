@@ -144,9 +144,27 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             allPaintings.remove(PaintingToDelete);
             PaintingToDelete.setName(newName);
             allPaintings.add(PaintingToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Painting SET Name = ? WHERE Painting.ID = ?");
+                statement.setString(1, newName);
+                statement.setString(2, PaintingToDelete.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("Updated name!");
-            // DB Code:
-            // UPDATE Painting SET Name = '' WHERE ID = '';
             return;
         }
         System.out.println("The Painting you want to update does not exist!");
@@ -165,9 +183,27 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             allPaintings.remove(PaintingToDelete);
             PaintingToDelete.setPrice(newPrice);
             allPaintings.add(PaintingToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Painting SET Price = ? WHERE Painting.ID = ?");
+                statement.setDouble(1, newPrice);
+                statement.setString(2, PaintingToDelete.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("Updated price!");
-            // DB Code:
-            // UPDATE Painting SET Price = '' WHERE ID = '';
             return;
         }
         System.out.println("The Painting you want to update does not exist!");
@@ -187,9 +223,27 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             allPaintings.remove(PaintingToDelete);
             PaintingToDelete.setCreation(newCreation);
             allPaintings.add(PaintingToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Painting SET Creation = ? WHERE Painting.ID = ?");
+                statement.setDate(1, (java.sql.Date) newCreation);
+                statement.setString(2, PaintingToDelete.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("Updated Creation!");
-            // DB Code:
-            // UPDATE Painting SET Creation = '' WHERE ID = '';
             return;
         }
         System.out.println("The Painting you want to update does not exist!");
@@ -208,9 +262,27 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             allPaintings.remove(PaintingToDelete);
             PaintingToDelete.setPainter(newPainter);
             allPaintings.add(PaintingToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Painting SET Painter = ? WHERE Painting.ID = ?");
+                statement.setString(1, newPainter.getId());
+                statement.setString(2, PaintingToDelete.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("Updated Painter!");
-            // DB Code:
-            // UPDATE Painting SET Creation = '' WHERE ID = '';
             return;
         }
         System.out.println("The Painting you want to update does not exist!");
@@ -229,9 +301,27 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             allPaintings.remove(PaintingToDelete);
             PaintingToDelete.setArtMovement(newArtMovement);
             allPaintings.add(PaintingToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Painting SET ArtMovement = ? WHERE Painting.ID = ?");
+                statement.setString(1, newArtMovement.getId());
+                statement.setString(2, PaintingToDelete.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("Updated Art Movement!");
-            // DB Code:
-            // UPDATE Painting SET Creation = '' WHERE ID = '';
             return;
         }
         System.out.println("The Painting you want to update does not exist!");
@@ -250,9 +340,27 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             allPaintings.remove(PaintingToDelete);
             PaintingToDelete.setLocation(newLocation);
             allPaintings.add(PaintingToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Painting SET Location = ? WHERE Painting.ID = ?");
+                statement.setString(1, newLocation.getId());
+                statement.setString(2, PaintingToDelete.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("Updated Location!");
-            // DB Code:
-            // UPDATE Painting SET Creation = '' WHERE ID = '';
             return;
         }
         System.out.println("The Painting you want to update does not exist!");

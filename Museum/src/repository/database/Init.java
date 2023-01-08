@@ -12,15 +12,33 @@ public class Init {
 
         Connection connection = OurConnection.getConnection();
 
-        ArtistDB.getInstance().populate(connection);
-        ArtMovementDB.getInstance().populate(connection);
-        BlockDB.getInstance().populate(connection);
-        MuseumDB.getInstance().populate(connection);
-        ArtifactDB.getInstance().populate(connection);
-        PaintingDB.getInstance().populate(connection);
-        StatueDB.getInstance().populate(connection);
-        ClientDB.getInstance().populate(connection);
-        TicketDB.getInstance().populate(connection);
+        ArtistDB.getInstance();
+        ArtistDB.populate(connection);
+
+        ArtMovementDB.getInstance();
+        ArtMovementDB.populate(connection);
+
+        BlockDB.getInstance();
+        BlockDB.populate(connection);
+
+        MuseumDB.getInstance();
+        MuseumDB.populate(connection);
+
+        ArtifactDB.getInstance();
+        ArtifactDB.populate(connection);
+
+        PaintingDB.getInstance();
+        PaintingDB.populate(connection);
+
+        StatueDB.getInstance();
+        StatueDB.populate(connection);
+
+        ClientDB.getInstance();
+        ClientDB.populate(connection);
+
+        TicketDB.getInstance();
+        TicketDB.populate(connection);
+
         AdjustCounters.getInstance().adjust();
 //        ArtistDB.getInstance().add(new Artist("Nume", null, null));
 //        ArtistDB.getInstance().update("A1002", new Artist("pasarica", null, null));

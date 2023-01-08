@@ -2,6 +2,7 @@ package views.menus;
 
 import controllers.ControllerMuseum;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MenuMuseum {
@@ -11,7 +12,7 @@ public class MenuMuseum {
     static final Scanner scanner3 = new Scanner(System.in);
 
 
-    public static void options() {
+    public static void options() throws ClassNotFoundException, SQLException {
         System.out.println("Museum Menu");
         System.out.println("\t1. Add " + currentMenuClass);
         System.out.println("\t2. Delete " + currentMenuClass);
@@ -41,7 +42,7 @@ public class MenuMuseum {
         }
     }
 
-    private static void optionsUpdate() {
+    private static void optionsUpdate() throws ClassNotFoundException {
         System.out.println("\t\t1. Update " + currentMenuClass + " name");
         System.out.println("\t\t2. Add Block to a " + currentMenuClass);
         System.out.println("\t\t3. Remove Block from a " + currentMenuClass);
@@ -69,7 +70,7 @@ public class MenuMuseum {
         }
     }
 
-    private static void sortAndFilter() {
+    private static void sortAndFilter() throws ClassNotFoundException, SQLException {
         System.out.println("\t\t1. Sort by ID");
         System.out.println("\t\t2. Filter by minimal number of exhibits");
         System.out.println("\t\t3. Filter by minimal number of clients");
@@ -93,42 +94,42 @@ public class MenuMuseum {
         }
     }
 
-    private static void filterByClients() {
+    private static void filterByClients() throws ClassNotFoundException {
         System.out.println("Input the minimal number of clients");
         int minNumberClients = scanner2.nextInt();
         ControllerMuseum.filterByClients(minNumberClients);
     }
 
-    private static void filterByVisits() {
+    private static void filterByVisits() throws ClassNotFoundException, SQLException {
         System.out.println("Input the minimal number of visits");
         int minNumberVisits = scanner2.nextInt();
         ControllerMuseum.filterByVisits(minNumberVisits);
     }
 
-    private static void filterByExhibits() {
+    private static void filterByExhibits() throws ClassNotFoundException {
         System.out.println("Input the minimal number of clients");
         int minNumberExhibit = scanner2.nextInt();
         ControllerMuseum.filterByExhibit(minNumberExhibit);
     }
 
-    private static void sort() {
+    private static void sort() throws ClassNotFoundException {
         System.out.println("Sort by ID:");
         ControllerMuseum.sort();
     }
 
-    private static void add() {
+    private static void add() throws ClassNotFoundException {
         System.out.println("\t\tMuseum Name: ");
         String name = scanner2.nextLine();
         ControllerMuseum.add(name);
     }
 
-    private static void delete() {
+    private static void delete() throws ClassNotFoundException {
         System.out.println("\t\tMuseum Name: ");
         String name = scanner2.nextLine();
         ControllerMuseum.delete(name);
     }
 
-    private static void updateName() {
+    private static void updateName() throws ClassNotFoundException {
         System.out.println("\t\t\tMuseum Name you want to change: ");
         String previousName = scanner2.nextLine();
         System.out.println("\t\t\tNew Name you want to change to: ");
@@ -136,7 +137,7 @@ public class MenuMuseum {
         ControllerMuseum.changeName(previousName, newName);
     }
 
-    private static void addBlock() {
+    private static void addBlock() throws ClassNotFoundException {
         System.out.println("\t\t\tEnter ID of block you want to add: ");
         String blockID = scanner2.nextLine();
         System.out.println("\t\t\tEnter name of museum: ");
@@ -144,7 +145,7 @@ public class MenuMuseum {
         ControllerMuseum.addBlock(museumName, blockID);
     }
 
-    private static void deleteBlock() {
+    private static void deleteBlock() throws ClassNotFoundException {
         System.out.println("\t\t\tEnter ID of block you want to remove: ");
         String blockID = scanner2.nextLine();
         System.out.println("\t\t\tEnter name of museum: ");
@@ -152,7 +153,7 @@ public class MenuMuseum {
         ControllerMuseum.deleteBlock(museumName, blockID);
     }
 
-    private static void addClient() {
+    private static void addClient() throws ClassNotFoundException {
         System.out.println("\t\t\tEnter ID of client you want to add: ");
         String clientId = scanner2.nextLine();
         System.out.println("\t\t\tEnter name of museum: ");
@@ -160,7 +161,7 @@ public class MenuMuseum {
         ControllerMuseum.addClient(museumName, clientId);
     }
 
-    private static void deleteClient() {
+    private static void deleteClient() throws ClassNotFoundException {
         System.out.println("\t\t\tEnter ID of client you want to remove: ");
         String clientId = scanner2.nextLine();
         System.out.println("\t\t\tEnter name of museum: ");
@@ -168,19 +169,19 @@ public class MenuMuseum {
         ControllerMuseum.deleteClient(museumName, clientId);
     }
 
-    private static void displayAllExhibits() {
+    private static void displayAllExhibits() throws ClassNotFoundException {
         System.out.println("\t\tEnter name of museum: ");
         String name = scanner2.nextLine();
         ControllerMuseum.displayAllExhibits(name);
     }
 
-    private static void displayTotalVisits() {
+    private static void displayTotalVisits() throws SQLException, ClassNotFoundException {
         System.out.println("\t\tEnter name of museum: ");
         String name = scanner2.nextLine();
         ControllerMuseum.displayTotalVisits(name);
     }
 
-    private static void display() {
+    private static void display() throws ClassNotFoundException {
         System.out.println("\t\tEnter name of museum: ");
         String name = scanner2.nextLine();
         ControllerMuseum.display(name);

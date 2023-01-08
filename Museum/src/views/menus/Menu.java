@@ -2,6 +2,7 @@ package views.menus;
 
 import repository.inmemory.ExhibitRepositoryMemory;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menu {
@@ -13,7 +14,7 @@ public class Menu {
         return single_instance;
     }
 
-    public void showMenuOptions() {
+    public void showMenuOptions() throws ClassNotFoundException, SQLException {
         System.out.println();
         System.out.println("1. Museum Menu");
         System.out.println("2. Block Menu");

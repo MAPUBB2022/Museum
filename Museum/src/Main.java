@@ -8,7 +8,7 @@ import views.menus.Menu;
 import java.sql.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
         try {
             Init.getDB();
         } catch (ClassNotFoundException e) {

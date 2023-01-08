@@ -140,9 +140,27 @@ public class TicketDB implements ICrudRepository<String, Ticket> {
             allTickets.remove(TicketToDelete);
             TicketToDelete.setPrice(newPrice);
             allTickets.add(TicketToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Ticket SET Price = ? WHERE Ticket.ID = ?");
+                statement.setDouble(1, newPrice);
+                statement.setString(2, TicketToDelete.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("Updated Price!");
-            // DB Code:
-            // UPDATE Ticket SET Name = '' WHERE ID = '';
             return;
         }
         System.out.println("The Ticket you want to update does not exist!");
@@ -161,9 +179,27 @@ public class TicketDB implements ICrudRepository<String, Ticket> {
             allTickets.remove(TicketToDelete);
             TicketToDelete.setGuest(newClient);
             allTickets.add(TicketToDelete);
+
+            //----------
+            Connection connection = null;
+            try {
+                connection = OurConnection.getConnection();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                PreparedStatement  statement = connection.prepareStatement("UPDATE Ticket SET Client = ? WHERE Ticket.ID = ?");
+                statement.setString(1, newClient.getId());
+                statement.setString(2, TicketToDelete.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //----------
+
             System.out.println("Updated Guest!");
-            // DB Code:
-            // UPDATE Ticket SET Name = '' WHERE ID = '';
             return;
         }
         System.out.println("The Ticket you want to update does not exist!");
@@ -224,6 +260,20 @@ public class TicketDB implements ICrudRepository<String, Ticket> {
 
             client.addVisit(t1);
         }
+
+    }
+
+    public int numVisits(Museum m) throws SQLException, ClassNotFoundException {
+
+            int count = 0;
+            for (Ticket ticket : this.allTickets) {
+                List<Block> blocks2 = new ArrayList<>(ticket.getPermits());
+                blocks2.retainAll(m.getBlocks());
+                if (!blocks2.isEmpty()) {
+                    count++;
+                }
+            }
+            return count;
 
     }
 }

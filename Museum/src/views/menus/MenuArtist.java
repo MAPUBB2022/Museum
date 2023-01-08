@@ -16,7 +16,7 @@ public class MenuArtist {
     private static final Scanner scanner3 = new Scanner(System.in);
     private static final DateFormat format = new SimpleDateFormat("dd-MM-yy", Locale.ENGLISH);
 
-    public static void options() {
+    public static void options() throws ClassNotFoundException {
         System.out.println("Artist Menu");
         System.out.println("\t1. Add " + currentMenuClass);
         System.out.println("\t2. Delete " + currentMenuClass);
@@ -48,7 +48,7 @@ public class MenuArtist {
             MenuArtist.filter();
     }
 
-    private static void filter() {
+    private static void filter() throws ClassNotFoundException {
         System.out.println("\t\t1. Filter " + currentMenuClass + "s by number of exhibits");
         System.out.println("\t\t2. Filter " + currentMenuClass + "s by art movements");
         System.out.println("\t\t3. Filter " + currentMenuClass + "s by born date");
@@ -72,11 +72,11 @@ public class MenuArtist {
         }
     }
 
-    private static void filterByDead() {
+    private static void filterByDead() throws ClassNotFoundException {
         ControllerArtist.filterByDead();
     }
 
-    private static void filterByBorn() {
+    private static void filterByBorn() throws ClassNotFoundException {
         System.out.println("Enter born date");
         String startedDateString = scanner3.nextLine();
         Date BornDate;
@@ -90,23 +90,23 @@ public class MenuArtist {
         ControllerArtist.filterByBorn(BornDate);
     }
 
-    private static void filterByArtMovement() {
+    private static void filterByArtMovement() throws ClassNotFoundException {
         System.out.println("Enter art movement name");
         String artMovementName = scanner2.next();
         ControllerArtist.filterByArtMovement(artMovementName);
     }
 
-    private static void filterByExhibit() {
+    private static void filterByExhibit() throws ClassNotFoundException {
         System.out.println("Enter the maximal number of exhibits:");
         int minNumberExhibit = scanner2.nextInt();
         ControllerArtist.filterByExhibit(minNumberExhibit);
     }
 
-    private static void sort() {
+    private static void sort() throws ClassNotFoundException {
         ControllerArtist.sort();
     }
 
-    private static void optionsUpdate() {
+    private static void optionsUpdate() throws ClassNotFoundException {
         System.out.println("\t\t1. Update " + currentMenuClass + " name");
         System.out.println("\t\t2. Update date born of an " + currentMenuClass);
         System.out.println("\t\t3. Update date died of an " + currentMenuClass + " name");
@@ -142,7 +142,7 @@ public class MenuArtist {
         }
     }
 
-    private static void updateName() {
+    private static void updateName() throws ClassNotFoundException {
         System.out.println("\t\tArtist ID: ");
         String name = scanner2.nextLine();
         System.out.println("\t\tNew name of the artist: ");
@@ -150,7 +150,7 @@ public class MenuArtist {
         ControllerArtist.changeName(name, newName);
     }
 
-    private static void updateDateBorn() {
+    private static void updateDateBorn() throws ClassNotFoundException {
         System.out.println("\t\tArtist ID: ");
         String name = scanner2.nextLine();
         System.out.println("\t\tEnter the date the artist was born you want to change to: (dd-MM-yy) (e.g.24-10-2002)");
@@ -166,7 +166,7 @@ public class MenuArtist {
         ControllerArtist.updateDateBorn(name, newBornDate);
     }
 
-    private static void updateDateDied() {
+    private static void updateDateDied() throws ClassNotFoundException {
         System.out.println("\t\tArtist ID: ");
         String name = scanner2.nextLine();
         System.out.println("\t\tEnter the date the artist has died you want to change to: (dd-MM-yy) (e.g.24-10-2002) / null -> did not die");
@@ -187,7 +187,7 @@ public class MenuArtist {
 
     }
 
-    private static void addArtMovement() {
+    private static void addArtMovement() throws ClassNotFoundException {
         System.out.println("\t\tArtist ID: ");
         String name = scanner2.nextLine();
         System.out.println("\t\tArt movement id: ");
@@ -195,7 +195,7 @@ public class MenuArtist {
         ControllerArtist.addArtMovement(name, idArtMovement);
     }
 
-    private static void deleteArtMovement() {
+    private static void deleteArtMovement() throws ClassNotFoundException {
         System.out.println("\t\tArtist ID: ");
         String name = scanner2.nextLine();
         System.out.println("\t\tArt movement id: ");
@@ -203,7 +203,7 @@ public class MenuArtist {
         ControllerArtist.deleteArtMovement(name, idArtMovement);
     }
 
-    private static void addExhibit() {
+    private static void addExhibit() throws ClassNotFoundException {
         System.out.println("\t\tArtist ID: ");
         String name = scanner2.nextLine();
         System.out.println("\t\tExhibit id: ");
@@ -211,7 +211,7 @@ public class MenuArtist {
         ControllerArtist.addExhibit(name, idExhibit);
     }
 
-    private static void deleteExhibit() {
+    private static void deleteExhibit() throws ClassNotFoundException {
         System.out.println("\t\tArtist ID: ");
         String name = scanner2.nextLine();
         System.out.println("\t\tExhibit id: ");
@@ -220,7 +220,7 @@ public class MenuArtist {
     }
 
 
-    private static void add() {
+    private static void add() throws ClassNotFoundException {
         System.out.println("\t\tArtist name: ");
         String name = scanner2.nextLine();
         System.out.println("\t\tEnter the date the artist was born: (dd-MM-yy) (e.g.24-10-2002)");
@@ -249,25 +249,25 @@ public class MenuArtist {
         ControllerArtist.add(name, bornDate, diedDate);
     }
 
-    private static void delete() {
+    private static void delete() throws ClassNotFoundException {
         System.out.println("\t\tArtist ID: ");
         String name = scanner2.nextLine();
         ControllerArtist.delete(name);
     }
 
-    private static void display() {
+    private static void display() throws ClassNotFoundException {
         System.out.println("\t\tArtist ID you want to display: ");
         String name = scanner2.nextLine();
         ControllerArtist.display(name);
     }
 
-    private static void presentSelf() {
+    private static void presentSelf() throws ClassNotFoundException {
         System.out.println("\t\tArtist ID you want to display information about: ");
         String id = scanner2.nextLine();
         ControllerArtist.presentSelf(id);
     }
 
-    private static void isFamous() {
+    private static void isFamous() throws ClassNotFoundException {
         System.out.println("\t\tArtist ID you want to display if is famous or not: ");
         String id = scanner2.nextLine();
         ControllerArtist.isFamous(id);

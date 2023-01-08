@@ -16,7 +16,7 @@ public class MenuArtMovement {
     private static final Scanner scanner3 = new Scanner(System.in);
     private static final DateFormat format = new SimpleDateFormat("dd-MM-yy", Locale.ENGLISH);
 
-    public static void options() {
+    public static void options() throws ClassNotFoundException {
         System.out.println("Art Movement Menu");
         System.out.println("\t1. Add " + currentMenuClass);
         System.out.println("\t2. Delete " + currentMenuClass);
@@ -45,7 +45,7 @@ public class MenuArtMovement {
             MenuArtMovement.filterByAge();
     }
 
-    private static void filterByAge() {
+    private static void filterByAge() throws ClassNotFoundException {
         System.out.println("\t\tEnter the date the art movement you want to filter by started: (dd-MM-yy) (e.g.24-10-2002)");
         String startedDateString = scanner3.nextLine();
         Date startedDate;
@@ -59,11 +59,11 @@ public class MenuArtMovement {
         ControllerArtMovement.filterByDate(startedDate);
     }
 
-    private static void sort() {
+    private static void sort() throws ClassNotFoundException {
         ControllerArtMovement.sort();
     }
 
-    private static void optionsUpdate() {
+    private static void optionsUpdate() throws ClassNotFoundException {
         System.out.println("\t\t1. Update " + currentMenuClass + " name");
         System.out.println("\t\t2. Update date created of an " + currentMenuClass);
         System.out.println("\t\t3. Update date ended of an " + currentMenuClass + " name");
@@ -91,7 +91,7 @@ public class MenuArtMovement {
         }
     }
 
-    private static void add() {
+    private static void add() throws ClassNotFoundException {
         System.out.println("\t\tArt Movement name: ");
         String name = scanner2.nextLine();
         System.out.println("\t\tEnter the date the art movement started: (dd-MM-yy) (e.g.24-10-2002)");
@@ -116,13 +116,13 @@ public class MenuArtMovement {
         ControllerArtMovement.add(name, startedDate, endedDate);
     }
 
-    private static void delete() {
+    private static void delete() throws ClassNotFoundException {
         System.out.println("\t\tArt Movement name to delete: ");
         String name = scanner2.nextLine();
         ControllerArtMovement.delete(name);
     }
 
-    private static void updateName() {
+    private static void updateName() throws ClassNotFoundException {
         System.out.println("\t\tArt Movement name you want to change: ");
         String oldName = scanner2.nextLine();
         System.out.println("\t\tNew Art Movement name you want to change to: ");
@@ -130,7 +130,7 @@ public class MenuArtMovement {
         ControllerArtMovement.changeName(oldName, newName);
     }
 
-    private static void updateDateCreated() {
+    private static void updateDateCreated() throws ClassNotFoundException {
         System.out.println("\t\tArt Movement name you want to change: ");
         String name = scanner2.nextLine();
         System.out.println("\t\tThe date created you want to change to: ");
@@ -146,7 +146,7 @@ public class MenuArtMovement {
         ControllerArtMovement.updateDateCreated(name, startedDate);
     }
 
-    private static void updateDateEnded() {
+    private static void updateDateEnded() throws ClassNotFoundException {
         System.out.println("\t\tArt Movement name you want to change: ");
         String name = scanner2.nextLine();
         System.out.println("\t\tThe date ended you want to change to: ");
@@ -162,7 +162,7 @@ public class MenuArtMovement {
         ControllerArtMovement.updateDateEnded(name, endDate);
     }
 
-    private static void addArtist() {
+    private static void addArtist() throws ClassNotFoundException {
         System.out.println("\t\tArtist ID you want to add");
         String artistId = scanner3.nextLine();
         System.out.println("\t\tArt Movement name: ");
@@ -170,7 +170,7 @@ public class MenuArtMovement {
         ControllerArtMovement.addArtist(name, artistId);
     }
 
-    private static void deleteArtist() {
+    private static void deleteArtist() throws ClassNotFoundException {
         System.out.println("\t\tArtist ID you want to delete");
         String artistId = scanner3.nextLine();
         System.out.println("\t\tArt Movement name: ");
@@ -178,13 +178,13 @@ public class MenuArtMovement {
         ControllerArtMovement.deleteArtist(name, artistId);
     }
 
-    private static void display() {
+    private static void display() throws ClassNotFoundException {
         System.out.println("\t\tEnter name of art movement: ");
         String name = scanner2.nextLine();
         ControllerArtMovement.display(name);
     }
 
-    private static void displayRandomArtist() {
+    private static void displayRandomArtist() throws ClassNotFoundException {
         System.out.println("\t\tEnter name of art movement: ");
         String name = scanner2.nextLine();
         ControllerArtMovement.displayRandomArtist(name);
