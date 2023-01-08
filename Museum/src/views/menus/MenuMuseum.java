@@ -46,8 +46,8 @@ public class MenuMuseum {
         System.out.println("\t\t1. Update " + currentMenuClass + " name");
         System.out.println("\t\t2. Add Block to a " + currentMenuClass);
         System.out.println("\t\t3. Remove Block from a " + currentMenuClass);
-        System.out.println("\t\t4. Add Client to a " + currentMenuClass);
-        System.out.println("\t\t5. Remove Client from a " + currentMenuClass);
+//        System.out.println("\t\t4. Add Client to a " + currentMenuClass);
+//        System.out.println("\t\t5. Remove Client from a " + currentMenuClass);
         System.out.println("\t\t0. Return");
 
         Scanner scannerUpdate = new Scanner(System.in);
@@ -62,12 +62,12 @@ public class MenuMuseum {
         if (optionChosen == 3) {
             MenuMuseum.deleteBlock();
         }
-        if (optionChosen == 4) {
-            MenuMuseum.addClient();
-        }
-        if (optionChosen == 5) {
-            MenuMuseum.deleteClient();
-        }
+//        if (optionChosen == 4) {
+//            MenuMuseum.addClient();
+//        }
+//        if (optionChosen == 5) {
+//            MenuMuseum.deleteClient();
+//        }
     }
 
     private static void sortAndFilter() throws ClassNotFoundException, SQLException {

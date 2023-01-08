@@ -51,6 +51,5 @@ public class Menu {
             MenuExhibit.options();
             showMenuOptions();
         }
-        ExhibitRepositoryMemory.getInstance();
     }
 }

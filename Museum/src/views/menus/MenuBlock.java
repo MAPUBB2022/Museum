@@ -87,7 +87,9 @@ public class MenuBlock {
     private static void add() throws ClassNotFoundException {
         System.out.println("\t\tWhat is the name of the block?");
         String blockName = scanner2.next();
-        ControllerBlock.add(blockName);
+        System.out.println("\t\tWhat is the name of the museum?");
+        String museumName = scanner3.next();
+        ControllerBlock.add(blockName,museumName);
     }
 
     private static void delete() throws ClassNotFoundException {

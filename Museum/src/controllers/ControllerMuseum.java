@@ -55,6 +55,13 @@ public class ControllerMuseum {
             return;
         }
 
+        Museum theMuseum = MuseumDB.getInstance().findById(nameMuseum);
+        List<Client> clientList = theMuseum.getClients();
+        if(clientList.contains(ClientDB.getInstance().findById(id))) {
+            System.out.println("Client already exists in museum! " );
+            return;
+        }
+
         Museum museumToUpdate = MuseumDB.getInstance().findById(nameMuseum);
         Client client = ClientDB.getInstance().findById(id);
         museumToUpdate.addClient(client);

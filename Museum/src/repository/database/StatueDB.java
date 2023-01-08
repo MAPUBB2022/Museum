@@ -53,7 +53,11 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO Statue (ID, Name, Creation, Price, Location, ArtMovement, Sculptor) VALUES (?, ?, ?, ?, ?, ?, ?)");
             statement.setString(1, ID);
             statement.setString(2, Name);
-            statement.setDate(3, (java.sql.Date) Creation);
+            // Error
+            java.util.Date date  = entity.getCreation();
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            statement.setDate(3, sqlDate);
+
             statement.setDouble(4, Price);
             statement.setString(5, Location.getId());
             statement.setString(6, Artmovement.getId());

@@ -11,8 +11,13 @@ import java.util.List;
 
 public class ControllerBlock {
 
-    public static void add(String blockName) throws ClassNotFoundException {
-        BlockDB.getInstance().add(new Block(blockName));
+    public static void add(String blockName, String museumName) throws ClassNotFoundException {
+        Museum museum = MuseumDB.getInstance().findById(museumName);
+        if (museum == null) {
+            System.out.println("Museum does not exist!");
+            return;
+        }
+        BlockDB.getInstance().add(new Block(blockName,museum));
     }
 
     public static void delete(String blockId) throws ClassNotFoundException {
