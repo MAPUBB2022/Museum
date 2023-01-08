@@ -26,7 +26,6 @@ public class ControllerClient {
         Ticket t = new Ticket(lb, c);
         c.addVisit(t);
         TicketDB.getInstance().add(t);
-        ClientDB.getInstance().update(clientId, c);
     }
 
     public static void addFav(String clientId, String exId) throws ClassNotFoundException {

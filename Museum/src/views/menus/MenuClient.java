@@ -3,6 +3,7 @@ package views.menus;
 import classes.Block;
 import controllers.ControllerBlock;
 import controllers.ControllerClient;
+import repository.database.BlockDB;
 import repository.inmemory.BlockRepositoryMemory;
 
 import java.util.ArrayList;
@@ -110,7 +111,7 @@ public class MenuClient {
         for (int i = 1; i <= num; i++) {
             Scanner scanner4 = new Scanner(System.in);
             System.out.println("\t\t\t" + i + ". Block");
-            lb.add(BlockRepositoryMemory.getInstance().findById(scanner4.next()));
+            lb.add(BlockDB.getInstance().findById(scanner4.next()));
         }
         ControllerClient.addVisit(clientId, lb);
     }

@@ -238,4 +238,34 @@ public class ClientDB implements ICrudRepository<String, Client> {
 
     public List<Client> getAllClients() {return this.allClients;}
 
+    public void addClientsToMuseum(Museum entity)
+    {
+        //----------
+        Connection connection2 = null;
+        try {
+            connection2 = OurConnection.getConnection();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            for(Block b1 : entity.getBlocks()){
+                PreparedStatement statement = connection2.prepareStatement("SELECT T.Client FROM Permits P INNER JOIN Ticket T ON P.TicketID = T.ID WHERE BlockID = ?");
+                statement.setString(1, b1.getId());
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    String client = resultSet.getString("Client");
+                    if (!entity.getClients().contains(ClientDB.single_instance.findById(client))) {
+                        entity.addClient(ClientDB.single_instance.findById(client));
+                    }
+                }
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        //----------
+    }
+
 }

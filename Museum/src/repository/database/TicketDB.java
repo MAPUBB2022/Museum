@@ -55,6 +55,27 @@ public class TicketDB implements ICrudRepository<String, Ticket> {
         //----------
 
 
+        //----------
+        Connection connection2 = null;
+        try {
+            connection2 = OurConnection.getConnection();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            for(Block b1 : entity.getPermits())
+            {PreparedStatement statement = connection2.prepareStatement("INSERT INTO Permits (TicketID, BlockID) VALUES (?, ?)");
+            statement.setString(1, id);
+            statement.setString(2, b1.getId());
+            statement.executeUpdate();}
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        //----------
+
+
         System.out.println("Added Ticket!");
     }
 

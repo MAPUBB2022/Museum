@@ -50,4 +50,11 @@ public class Init {
 
         System.out.println("Passed Fetching Data from SQL");
     }
+
+    public static void fixConnections() throws ClassNotFoundException {
+        for(Museum m : MuseumDB.getInstance().getMuseums())
+        {
+            ClientDB.getInstance().addClientsToMuseum(m);
+        }
+    }
 }

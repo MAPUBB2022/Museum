@@ -51,6 +51,7 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
         }
         //----------
 
+
         System.out.println("Added Museum!");
     }
 
@@ -136,10 +137,10 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
             }
         }
         if (found) {
+            String oldName = MuseumToDelete.getName();
             allMuseums.remove(MuseumToDelete);
             MuseumToDelete.setName(newName);
             allMuseums.add(MuseumToDelete);
-
             //----------
             Connection connection = null;
             try {
@@ -150,9 +151,9 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Museum SET Name = ? WHERE Museum.Name = ?");
-                statement.setString(1, newName);
-                statement.setString(2, MuseumToDelete.getName());
+                PreparedStatement  statement = connection.prepareStatement("DELETE Museum WHERE Museum.Name = ? INSERT INTO Museum(Name) Values (?)");
+                statement.setString(1, oldName);
+                statement.setString(2, newName);
                 statement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
