@@ -29,6 +29,8 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             return;
         }
         allPaintings.add(entity);
+        BlockDB.getInstance().findById(entity.getLocation().getId()).addMovement(entity.getArtMovement());
+        BlockDB.getInstance().findById(entity.getLocation().getId()).addArtist(entity.getPainter());
 //        DB Code:
         Artist Painter = entity.getPainter();
         ArtMovement Artmovement = entity.getArtMovement();
@@ -89,6 +91,11 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             allPaintings.remove(PaintingToDelete);
             //        DB Code:
             String ID = PaintingToDelete.getId();
+            try {
+                ArtistDB.getInstance().findById(PaintingToDelete.getPainter().getId()).deleteExhibit(PaintingToDelete);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
 
             //----------
             Connection connection = null;
@@ -102,6 +109,8 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             try {
                 PreparedStatement  statement = connection.prepareStatement("DELETE FROM Painting WHERE Painting.ID = ?");
                 statement.setString(1, ID);
+                PreparedStatement  statementClients = connection.prepareStatement("DELETE FROM ClientFavorites WHERE ClientFavorites.ExhibitID = ?");
+                statementClients.setString(1, ID);
                 statement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);

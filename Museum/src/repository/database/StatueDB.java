@@ -120,6 +120,8 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             try {
                 PreparedStatement  statement = connection.prepareStatement("DELETE FROM Statue WHERE Statue.ID = ?");
                 statement.setString(1, ID);
+                PreparedStatement  statementClients = connection.prepareStatement("DELETE FROM ClientFavorites WHERE ClientFavorites.ExhibitID = ?");
+                statementClients.setString(1, ID);
                 statement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);

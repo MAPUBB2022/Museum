@@ -1,7 +1,5 @@
 package views.menus;
-
 import controllers.ControllerArtist;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,7 +17,7 @@ public class MenuArtist {
     public static void options() throws ClassNotFoundException {
         System.out.println("Artist Menu");
         System.out.println("\t1. Add " + currentMenuClass);
-        System.out.println("\t2. Delete " + currentMenuClass);
+        System.out.println("\t2. Delete " + currentMenuClass + " and all its exhibits!");
         System.out.println("\t3. Update " + currentMenuClass);
         System.out.println("\t4. Display information about an " + currentMenuClass);
         System.out.println("\t5. An artist will present itself ");
@@ -53,6 +51,7 @@ public class MenuArtist {
         System.out.println("\t\t2. Filter " + currentMenuClass + "s by art movements");
         System.out.println("\t\t3. Filter " + currentMenuClass + "s by born date");
         System.out.println("\t\t4. Filter " + currentMenuClass + "s by not dead");
+        System.out.println("\t\t5. Multiple Filters! ");
         System.out.println("\t\t0. Return");
 
         Scanner scannerUpdate = new Scanner(System.in);
@@ -70,6 +69,17 @@ public class MenuArtist {
         if (optionChosen == 4) {
             MenuArtist.filterByDead();
         }
+        if (optionChosen == 5) {
+            MenuArtist.allFilter();
+        }
+    }
+
+    private static void allFilter() throws ClassNotFoundException {
+        System.out.println("Enter art movement name");
+        String artMovementName = scanner2.next();
+        System.out.println("Enter the minimal number of exhibits:");
+        int minNumberExhibit = scanner2.nextInt();
+        ControllerArtist.multipleFilters(artMovementName, minNumberExhibit);
     }
 
     private static void filterByDead() throws ClassNotFoundException {
@@ -112,8 +122,8 @@ public class MenuArtist {
         System.out.println("\t\t3. Update date died of an " + currentMenuClass + " name");
         System.out.println("\t\t4. Add Art Movement to an " + currentMenuClass);
         System.out.println("\t\t5. Delete Art Movement from an " + currentMenuClass);
-        System.out.println("\t\t6. Add Exhibit to an " + currentMenuClass);
-        System.out.println("\t\t7. Delete Exhibit from an " + currentMenuClass);
+//        System.out.println("\t\t6. Add Exhibit to an " + currentMenuClass);
+//        System.out.println("\t\t7. Delete Exhibit from an " + currentMenuClass);
         System.out.println("\t\t0. Return");
 
         Scanner scannerUpdate = new Scanner(System.in);

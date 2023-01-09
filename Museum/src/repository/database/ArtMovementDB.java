@@ -51,8 +51,10 @@ public class ArtMovementDB implements ICrudRepository<String, ArtMovement> {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO ArtMovement (ID, Name, StartDate, EndDate) VALUES (?, ?, ?, ?)");
             statement.setString(1, ID);
             statement.setString(2, Name);
-            statement.setDate(3, (java.sql.Date) StartDate);
-            statement.setDate(4, (java.sql.Date) EndDate);
+            java.sql.Date sqlDateStart = new java.sql.Date(StartDate.getTime());
+            statement.setDate(3, sqlDateStart);
+            java.sql.Date sqlDateEnd = new java.sql.Date(EndDate.getTime());
+            statement.setDate(4, sqlDateEnd);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -98,6 +100,9 @@ public class ArtMovementDB implements ICrudRepository<String, ArtMovement> {
             try {
                 PreparedStatement  statement = connection.prepareStatement("DELETE FROM ArtMovement WHERE ArtMovement.ID = ?");
                 statement.setString(1, ID);
+                PreparedStatement  statementRemoveArtists = connection.prepareStatement("delete FROM ArtistMovements WHERE ArtistMovements.ArtMovementID = ?");
+                statementRemoveArtists.setString(1, ID);
+                statementRemoveArtists.executeUpdate();
                 statement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -183,7 +188,8 @@ public class ArtMovementDB implements ICrudRepository<String, ArtMovement> {
                 }
                 try {
                     PreparedStatement statement = connection.prepareStatement("UPDATE ArtMovement SET StartDate = ? WHERE ArtMovement.ID = ?");
-                    statement.setString(1, String.valueOf(newDate));
+                    java.sql.Date sqlDate = new java.sql.Date(newDate.getTime());
+                    statement.setDate(1, sqlDate);
                     statement.setString(2, id);
                     statement.executeUpdate();
                 } catch (SQLException e) {
@@ -213,12 +219,14 @@ public class ArtMovementDB implements ICrudRepository<String, ArtMovement> {
                 }
                 try {
                     PreparedStatement statement = connection.prepareStatement("UPDATE ArtMovement SET EndDate = ? WHERE ArtMovement.ID = ?");
-                    statement.setString(1, String.valueOf(newDate));
+                    java.sql.Date sqlDate = new java.sql.Date(newDate.getTime());
+                    statement.setDate(1, sqlDate);
                     statement.setString(2, id);
                     statement.executeUpdate();
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
+                System.out.println("Succesful change! Updated date!");
                 return;
             }
         }

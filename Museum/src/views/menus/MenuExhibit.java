@@ -1,8 +1,6 @@
 package views.menus;
-
-import controllers.ControllerArtist;
-import controllers.ControllerClient;
 import controllers.ControllerExhibit;
+import repository.database.ExhibitDB;
 
 import java.text.DateFormat;
 import java.text.ParseException;

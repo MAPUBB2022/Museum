@@ -120,4 +120,8 @@ public class ControllerExhibit {
                 .sorted(Comparator.comparing(Exhibit::getCreation))
                 .collect(Collectors.toList());
     }
+
+    public static void multipleFilters(int minPrice, Date chosenDate) {
+
+    }
 }

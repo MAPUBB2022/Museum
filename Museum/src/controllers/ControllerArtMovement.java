@@ -1,11 +1,8 @@
 package controllers;
-
 import classes.ArtMovement;
 import classes.Artist;
-import repository.inmemory.*;
 import repository.database.*;
 import views.ViewArtMovement;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,39 +18,68 @@ public class ControllerArtMovement  {
     }
 
     static public void delete(String name) throws ClassNotFoundException {
+        if(null == ArtMovementDB.getInstance().findById(name)) {
+            System.out.println("The art movement does not exist!");
+            return;
+        }
+        List<Artist> artists = ArtistDB.getInstance().getArtists();
+        for(Artist a:artists) {
+            a.deleteMovementNoSout(ArtMovementDB.getInstance().findById(name));
+        }
         ArtMovementDB.getInstance().remove(name);
     }
 
     static public void changeName(String oldName, String newName) throws ClassNotFoundException {
-        ArtMovementDB.getInstance().updateName(oldName, newName);
+        if(null == ArtMovementDB.getInstance().findByName(oldName)) {
+            System.out.println("The art movement does not exist!");
+            return;
+        }
+        ArtMovementDB.getInstance().updateName(ArtMovementDB.getInstance().findByName(oldName).getId(), newName);
+        ArtMovement artMovementToAdd = ArtMovementDB.getInstance().findByName(newName);
+        List<Artist> artists = ArtistDB.getInstance().getArtists();
+        for(Artist a:artists) {
+            a.updateArtMovements(oldName, artMovementToAdd);
+        }
     }
 
     public static void updateDateCreated(String name, Date newDate) throws ClassNotFoundException {
-        ArtMovementDB.getInstance().updateDateStarted(name, newDate);
+        if(null == ArtMovementDB.getInstance().findByName(name)) {
+            System.out.println("The art movement does not exist!");
+            return;
+        }
+        ArtMovementDB.getInstance().updateDateStarted(ArtMovementDB.getInstance().findByName(name).getId(), newDate);
     }
 
     public static void updateDateEnded(String name, Date newDate) throws ClassNotFoundException {
-        ArtMovementDB.getInstance().updateDateEnded(name, newDate);
+        if(null == ArtMovementDB.getInstance().findByName(name)) {
+            System.out.println("The art movement does not exist!");
+            return;
+        }
+        ArtMovementDB.getInstance().updateDateEnded(ArtMovementDB.getInstance().findByName(name).getId(), newDate);
     }
 
     public static void deleteArtist(String nameArtMovement, String artistId) throws ClassNotFoundException {
+        if(null == ArtMovementDB.getInstance().findByName(nameArtMovement)) {
+            System.out.println("The art movement does not exist!");
+            return;
+        }
         if (checkIfNotExistsArtist(nameArtMovement, artistId)) {
             return;
         }
-        ArtMovement wantedArtMovement = ArtMovementDB.getInstance().findByName(nameArtMovement);
-        Artist artist = ArtistDB.getInstance().findById(artistId);
-        wantedArtMovement.deleteArtist(artist);
-        ArtMovementDB.getInstance().update(nameArtMovement, wantedArtMovement);
+        ArtMovementDB.getInstance().findByName(nameArtMovement).addArtist(ArtistDB.getInstance().findById(artistId));
+        ControllerArtist.deleteArtMovement(artistId,ArtMovementDB.getInstance().findByName(nameArtMovement).getId());
     }
 
     public static void addArtist(String nameArtMovement, String artistId) throws ClassNotFoundException {
+        if(null == ArtMovementDB.getInstance().findByName(nameArtMovement)) {
+            System.out.println("The art movement does not exist!");
+            return;
+        }
         if (checkIfNotExistsArtist(nameArtMovement, artistId)) {
             return;
         }
-        ArtMovement wantedArtMovement = ArtMovementDB.getInstance().findByName(nameArtMovement);
-        Artist artist = ArtistDB.getInstance().findById(artistId);
-        wantedArtMovement.addArtist(artist);
-        ArtMovementDB.getInstance().update(nameArtMovement, wantedArtMovement);
+        ArtMovementDB.getInstance().findByName(nameArtMovement).addArtist(ArtistDB.getInstance().findById(artistId));
+        ControllerArtist.addArtMovement(artistId,ArtMovementDB.getInstance().findByName(nameArtMovement).getId());
     }
 
     public static void display(String name) throws ClassNotFoundException {

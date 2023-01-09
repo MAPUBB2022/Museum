@@ -5,9 +5,7 @@ import repository.ICrudRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 
 public class TicketDB implements ICrudRepository<String, Ticket> {

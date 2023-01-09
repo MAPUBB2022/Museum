@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import java.util.*;
 
 
 import javax.persistence.*;
@@ -96,8 +93,36 @@ public class Artist implements Person, Comparable<Artist> {
         }
     }
 
+    public void deleteMovementNoSout(ArtMovement movementToRemove) {
+        boolean contains = false;
+        if (movements.contains(movementToRemove)){
+            contains = true;
+        }
+        for (ArtMovement movement: this.movements) {
+            System.out.println(movement.getName());
+            System.out.println(movementToRemove.getName());
+            System.out.println("*");
+            if(Objects.equals(movement.getName(), movementToRemove.getName())) {
+                contains = true;
+            }
+        }
+        if (contains) {
+            System.out.println("Removed:" + movementToRemove.getName());
+            movements.remove(movementToRemove);
+        }
+    }
+
     public void deleteMovement(ArtMovement movementToRemove) {
-        if (movements.contains(movementToRemove)) {
+        boolean contains = false;
+        if (movements.contains(movementToRemove)){
+            contains = true;
+        }
+        for (ArtMovement movement: this.movements) {
+            if(Objects.equals(movement.getName(), movementToRemove.getName()) && movement.getStartDate() == movementToRemove.getStartDate() && movementToRemove.getEndDate() == movement.getEndDate()) {
+                contains = true;
+            }
+        }
+        if (contains) {
             System.out.println("Removed:" + movementToRemove.getName());
             movements.remove(movementToRemove);
         } else {
@@ -165,6 +190,24 @@ public class Artist implements Person, Comparable<Artist> {
         }
         return getBirthDate().compareTo(o.getBirthDate());
     }
+
+    public void updateArtMovements(String artMovementToDelete, ArtMovement artMovementToAdd ) {
+        Boolean flagFound = false;
+        List<ArtMovement> oldArtMovements = this.getMovements();
+        ArtMovement artMovementToDeleteFromList = null;
+        for(ArtMovement am:oldArtMovements) {
+            if (Objects.equals(am.getName(), artMovementToDelete)) {
+                artMovementToDeleteFromList = am;
+                flagFound = true;
+            }
+        }
+        if(flagFound) {
+            oldArtMovements.remove(artMovementToDeleteFromList);
+            oldArtMovements.add(artMovementToAdd);
+            System.out.println("Changed for artist!");
+            this.setMovements(oldArtMovements); }
+    }
+
 
     public static void changeCounter(int newCounter) {
         counter = newCounter;

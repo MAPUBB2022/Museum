@@ -46,8 +46,16 @@ public class ArtistDB implements ICrudRepository<String, Artist> {
             PreparedStatement  statement = connection.prepareStatement("INSERT INTO Artist (ID, Name, BirthDate, DeathDate) VALUES (?, ?, ?, ?)");
             statement.setString(1, ID);
             statement.setString(2, Name);
-            statement.setDate(3, (Date) BirthDate);
-            statement.setDate(4, (Date) DeathDate);
+            Date sqlDateBirthDate = new Date(BirthDate.getTime());
+            statement.setDate(3, sqlDateBirthDate);
+            Date sqlDateDeathDate;
+            if (DeathDate != null) {
+                sqlDateDeathDate = new Date(DeathDate.getTime());
+            }
+            else {
+                sqlDateDeathDate = null;
+            }
+            statement.setDate(4, sqlDateDeathDate);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -91,8 +99,14 @@ public class ArtistDB implements ICrudRepository<String, Artist> {
                 throw new RuntimeException(e);
             }
             try {
+                PreparedStatement statementPainting = connection.prepareStatement("DELETE FROM Painting WHERE Painting.Painter = ?");
+                statementPainting.setString(1, ID);
+                PreparedStatement statementStatue = connection.prepareStatement("DELETE FROM Statue WHERE Statue.Sculptor = ?");
+                statementStatue.setString(1, ID);
                 PreparedStatement  statement = connection.prepareStatement("DELETE FROM Artist WHERE Artist.ID = ?");
                 statement.setString(1, ID);
+//                statementPainting.executeUpdate();
+//                statementStatue.executeUpdate();
                 statement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -186,10 +200,10 @@ public class ArtistDB implements ICrudRepository<String, Artist> {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                System.out.println("Updated name!");
                 try {
                     PreparedStatement statement = connection.prepareStatement("UPDATE Artist SET BirthDate = ? WHERE Artist.ID = ?");
-                    statement.setString(1, String.valueOf(newDate));
+                    java.sql.Date sqlDate = new java.sql.Date(newDate.getTime());
+                    statement.setDate(1, sqlDate);
                     statement.setString(2, id);
                     statement.executeUpdate();
                 } catch (SQLException e) {
@@ -217,10 +231,17 @@ public class ArtistDB implements ICrudRepository<String, Artist> {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                System.out.println("Updated name!");
                 try {
                     PreparedStatement statement = connection.prepareStatement("UPDATE Artist SET DeathDate = ? WHERE Artist.ID = ?");
-                    statement.setString(1, String.valueOf(newDate));
+                    Date sqlDateDeathDate;
+                    if (newDate != null) {
+                        sqlDateDeathDate = new Date(newDate.getTime());
+                    }
+                    else {
+                        sqlDateDeathDate = null;
+                    }
+                    java.sql.Date sqlDate = sqlDateDeathDate;
+                    statement.setDate(1, sqlDate);
                     statement.setString(2, id);
                     statement.executeUpdate();
                 } catch (SQLException e) {
@@ -253,6 +274,48 @@ public class ArtistDB implements ICrudRepository<String, Artist> {
             }
         }
         return null;
+    }
+
+    public void deleteArtMovement(String artistID, String artMovement) throws ClassNotFoundException{
+        Connection connection = null;
+        try {
+            connection = OurConnection.getConnection();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE from ArtistMovements where ArtistMovements.ArtistID = ? and ArtistMovements.ArtMovementID = ?");
+            statement.setString(1, artistID);
+            statement.setString(2, artMovement);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Deleted Art Movement");
+        return;
+    }
+
+    public static void addArtMovement(String artistID, String artMovement) throws ClassNotFoundException{
+        Connection connection = null;
+        try {
+            connection = OurConnection.getConnection();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO ArtistMovements (ArtistID,ArtMovementID) VALUES (?, ?)");
+            statement.setString(1, artistID);
+            statement.setString(2, artMovement);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Added Art Movement");
+        return;
     }
 
     public static void populate(Connection connection) throws SQLException, ClassNotFoundException {

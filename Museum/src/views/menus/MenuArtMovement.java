@@ -1,7 +1,5 @@
 package views.menus;
-
 import controllers.ControllerArtMovement;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -117,7 +115,7 @@ public class MenuArtMovement {
     }
 
     private static void delete() throws ClassNotFoundException {
-        System.out.println("\t\tArt Movement name to delete: ");
+        System.out.println("\t\tArt Movement ID to delete: ");
         String name = scanner2.nextLine();
         ControllerArtMovement.delete(name);
     }

@@ -125,6 +125,13 @@ public class Block implements Comparable<Block>{
         }
     }
 
+    public void deleteExhibitNoSout(Exhibit exhibitToRemove) {
+        if (exhibits.contains(exhibitToRemove)) {
+            System.out.println("Removed:" + exhibitToRemove.getName());
+            exhibits.remove(exhibitToRemove);
+        }
+    }
+
     public List<Artist> getArtists() {
         return artists;
     }

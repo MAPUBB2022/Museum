@@ -25,6 +25,10 @@ public class ControllerClient {
     public static void addVisit(String clientId, List<Block> lb) throws ClassNotFoundException {
         Client c = ClientDB.getInstance().findById(clientId);
         Ticket t = new Ticket(lb, c);
+        if(c == null) {
+            System.out.println("Client does not exist!");
+            return;
+        }
         c.addVisit(t);
         TicketDB.getInstance().add(t);
     }
@@ -32,6 +36,10 @@ public class ControllerClient {
     public static void addFav(String clientId, String exId) throws ClassNotFoundException {
         Client c = ClientDB.getInstance().findById(clientId);
         Exhibit e = ExhibitDB.getInstance().findById(exId);
+        if(c == null || e == null) {
+            System.out.println("Client or exhibit does not exist!");
+            return;
+        }
         c.addExhibitToFavorites(e);
         ClientDB.getInstance().addFav(clientId, exId);
     }
@@ -39,6 +47,10 @@ public class ControllerClient {
     public static void remFav(String clientId, String exId) throws ClassNotFoundException {
         Client c = ClientDB.getInstance().findById(clientId);
         Exhibit e = ExhibitDB.getInstance().findById(exId);
+        if(c == null || e == null) {
+            System.out.println("Client or exhibit does not exist!");
+            return;
+        }
         c.deleteExhibitToFavorites(e);
         ClientDB.getInstance().remFav(clientId, exId);
     }
@@ -82,5 +94,9 @@ public class ControllerClient {
             }
         }
         return filteredClients;
+    }
+
+    public static void multipleFilters(String exhibitName, int minNumberVisits) {
+
     }
 }

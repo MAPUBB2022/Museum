@@ -1,16 +1,10 @@
 package controllers;
 
-import classes.ArtMovement;
-import classes.Artifact;
-import classes.Artist;
-import classes.Exhibit;
+import classes.*;
 import repository.database.*;
 import views.ViewArtist;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ControllerArtist {
@@ -21,7 +15,25 @@ public class ControllerArtist {
 
 
     public static void delete(String id) throws ClassNotFoundException {
+        if(!ArtistDB.getInstance().checkIfExists(id)) {
+            System.out.println("Wrong id!");
+            return;
+        }
+        List<Exhibit> exhibits = ArtistDB.getInstance().findById(id).getListOfArt();
+        List<ArtMovement> artMovementsList = ArtistDB.getInstance().findById(id).getMovements();
+        List<Client> clients = ClientDB.getInstance().getClients();
+        for (Exhibit e:exhibits) {
+            ExhibitDB.getInstance().remove(e.getId());
+        }
+        for (ArtMovement am:artMovementsList) {
+            ArtistDB.getInstance().deleteArtMovement(id,am.getId());
+        }
+        List<Block> blocks = BlockDB.getInstance().getBlocks();
+        for (Block b:blocks) {
+            b.deleteArtist(ArtistDB.getInstance().findById(id));
+        }
         ArtistDB.getInstance().remove(id);
+
     }
 
     public static void presentSelf(String id) throws ClassNotFoundException {
@@ -61,7 +73,8 @@ public class ControllerArtist {
         Artist wantedArtist = ArtistDB.getInstance().findById(id);
         ArtMovement wantedArtMovement = ArtMovementDB.getInstance().findById(idArtMovement);
         wantedArtist.addMovement(wantedArtMovement);
-        ArtistDB.getInstance().update(id, wantedArtist);
+        wantedArtMovement.addArtist(wantedArtist);
+        ArtistDB.getInstance().addArtMovement(id,idArtMovement);
     }
 
     public static void deleteArtMovement(String id, String idArtMovement) throws ClassNotFoundException {
@@ -71,7 +84,8 @@ public class ControllerArtist {
         Artist wantedArtist = ArtistDB.getInstance().findById(id);
         ArtMovement wantedArtMovement = ArtMovementDB.getInstance().findById(idArtMovement);
         wantedArtist.deleteMovement(wantedArtMovement);
-        ArtistDB.getInstance().update(id, wantedArtist);
+        wantedArtMovement.deleteArtist(wantedArtist);
+        ArtistDB.getInstance().deleteArtMovement(id, idArtMovement);
     }
 
     public static void addExhibit(String id, String idExhibit) throws ClassNotFoundException {
@@ -155,10 +169,17 @@ public class ControllerArtist {
     }
 
     public static List<Artist> filterByArtMovement(String artMovementName) throws ClassNotFoundException {
-        ArtMovement artMovementToCheck = ArtMovementDB.getInstance().findByName(artMovementName);
         List<Artist> filteredArtists = new java.util.ArrayList<>(Collections.emptyList());
         for (Artist a : Collections.unmodifiableList(ArtistDB.getInstance().getArtists())) {
-            if (a.getMovements().contains(artMovementToCheck)) {
+            boolean foundArtMovement = false;
+            List<ArtMovement> artistArtMovement = a.getMovements();
+            for(ArtMovement am:artistArtMovement) {
+                if (Objects.equals(am.getName(), artMovementName)) {
+                    foundArtMovement = true;
+                    break;
+                }
+            }
+            if (foundArtMovement) {
                 display(a.getId());
                 filteredArtists.add(a);
             }
@@ -189,5 +210,24 @@ public class ControllerArtist {
         }
         return filteredArtists.stream()
                 .sorted(Comparator.comparing(Artist::getDeathDate)).toList();
+    }
+
+    public static List<Artist> multipleFilters(String artMovementName, int minNumberExhibit) throws ClassNotFoundException {
+        List<Artist> filteredArtists = new java.util.ArrayList<>(Collections.emptyList());
+        for (Artist a : Collections.unmodifiableList(ArtistDB.getInstance().getArtists())) {
+            boolean foundArtMovement = false;
+            List<ArtMovement> artistArtMovement = a.getMovements();
+            for(ArtMovement am:artistArtMovement) {
+                if (Objects.equals(am.getName(), artMovementName)) {
+                    foundArtMovement = true;
+                    break;
+                }
+            }
+            if (a.getListOfArt().size() > minNumberExhibit && foundArtMovement) {
+                display(a.getId());
+                filteredArtists.add(a);
+            }
+        }
+        return filteredArtists;
     }
 }

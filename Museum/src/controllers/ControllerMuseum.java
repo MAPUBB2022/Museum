@@ -24,7 +24,8 @@ public class ControllerMuseum {
     }
 
     static public void changeName(String previousName, String newName) throws ClassNotFoundException {
-        MuseumDB.getInstance().updateName(previousName, newName);
+        MuseumDB.getInstance().changeName(previousName, newName);
+        System.out.println("Succesful change!");
     }
 
     static public void addBlock(String nameMuseum, String id) throws ClassNotFoundException {
@@ -62,9 +63,13 @@ public class ControllerMuseum {
             return;
         }
 
-        Museum museumToUpdate = MuseumDB.getInstance().findById(nameMuseum);
-        museumToUpdate.deleteBlock(BlockDB.getInstance().findById(id));
-        MuseumDB.getInstance().update(nameMuseum, museumToUpdate);
+        Museum museumToDeleteFrom = MuseumDB.getInstance().findById(nameMuseum);
+        Block blockToDelete = BlockDB.getInstance().findById(id);
+        if (!museumToDeleteFrom.getBlocks().contains(blockToDelete)) {
+            System.out.println("The block does not exist in the museum!");
+            return;
+        }
+        MuseumDB.getInstance().deleteBlock(museumToDeleteFrom,blockToDelete);
     }
 
     static public void addClient(String nameMuseum, String id) throws ClassNotFoundException {

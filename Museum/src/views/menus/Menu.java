@@ -1,7 +1,4 @@
 package views.menus;
-
-import repository.inmemory.ExhibitRepositoryMemory;
-
 import java.sql.SQLException;
 import java.util.Scanner;
 

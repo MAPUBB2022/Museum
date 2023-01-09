@@ -50,7 +50,9 @@ public class ArtifactDB implements ICrudRepository<String, Artifact> {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO Artifact (ID, Name, Creation, Price, Location, Origin) VALUES (?, ?, ?, ?, ?, ?)");
             statement.setString(1, ID);
             statement.setString(2, Name);
-            statement.setDate(3, (java.sql.Date) Creation);
+            java.util.Date date  = entity.getCreation();
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            statement.setDate(3, sqlDate);
             statement.setDouble(4, Price);
             statement.setString(5, Location.getId());
             statement.setString(6, Origin);
@@ -99,6 +101,8 @@ public class ArtifactDB implements ICrudRepository<String, Artifact> {
             try {
                 PreparedStatement  statement = connection.prepareStatement("DELETE FROM Artifact WHERE Artifact.ID = ?");
                 statement.setString(1, ID);
+                PreparedStatement  statementClients = connection.prepareStatement("DELETE FROM ClientFavorites WHERE ClientFavorites.ExhibitID = ?");
+                statementClients.setString(1, ID);
                 statement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -264,7 +268,8 @@ public class ArtifactDB implements ICrudRepository<String, Artifact> {
             System.out.println("Updated name!");
             try {
                 PreparedStatement statement = connection.prepareStatement("UPDATE Artifact SET Creation = ? WHERE Artifact.ID = ?");
-                statement.setDate(1, (java.sql.Date) newCreation);
+                java.sql.Date sqlDate = new java.sql.Date(newCreation.getTime());
+                statement.setDate(1, sqlDate);
                 statement.setString(2, id);
                 statement.executeUpdate();
             } catch (SQLException e) {
@@ -320,6 +325,7 @@ public class ArtifactDB implements ICrudRepository<String, Artifact> {
             //Location
             String blockid = resultSet.getString(2);
             Block location = BlockDB.getInstance().findById(blockid);
+
 
             Double price = resultSet.getDouble(3);
             Date creation = resultSet.getDate(4);

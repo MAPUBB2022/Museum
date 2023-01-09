@@ -103,6 +103,13 @@ public class Client implements Person, Comparable<Client> {
         }
     }
 
+    public void deleteExhibitNoSout(Exhibit exhibitToRemove) {
+        if (favorites.contains(exhibitToRemove)) {
+            System.out.println("Removed:" + exhibitToRemove.getName());
+            favorites.remove(exhibitToRemove);
+        }
+    }
+
     public String presentSelf() {
         return ("Hello my name is " + this.getName() + " and I am a client!");
     }

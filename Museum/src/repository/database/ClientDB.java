@@ -88,6 +88,19 @@ public class ClientDB implements ICrudRepository<String, Client> {
                 throw new RuntimeException(e);
             }
             try {
+                for(Ticket t1 : ClientDB.getInstance().findById(s).getVisits())
+                {PreparedStatement statementPermits = connection.prepareStatement("DELETE FROM Permits WHERE TicketID = ?");
+                statementPermits.setString(1, t1.getId());
+                statementPermits.executeUpdate();}
+
+                PreparedStatement statementTickets = connection.prepareStatement("DELETE FROM Ticket WHERE Ticket.Client = ?");
+                statementTickets.setString(1, s);
+                statementTickets.executeUpdate();
+
+                PreparedStatement statementFav = connection.prepareStatement("DELETE FROM ClientFavorites WHERE ClientFavorites.ClientID = ?");
+                statementFav.setString(1, s);
+                statementFav.executeUpdate();
+
                 PreparedStatement  statement = connection.prepareStatement("DELETE FROM Client WHERE Client.ID = ?");
                 statement.setString(1, ID);
                 statement.executeUpdate();

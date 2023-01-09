@@ -1,7 +1,5 @@
 package views.menus;
-
 import controllers.ControllerMuseum;
-
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -75,6 +73,7 @@ public class MenuMuseum {
         System.out.println("\t\t2. Filter by minimal number of exhibits");
         System.out.println("\t\t3. Filter by minimal number of clients");
         System.out.println("\t\t4. Filter by minimal number of visits");
+        System.out.println("\t\t5. Multiple filters");
         System.out.println("\t\t0. Return");
 
         Scanner scannerUpdate = new Scanner(System.in);
@@ -92,6 +91,19 @@ public class MenuMuseum {
         if (optionChosen == 4) {
             MenuMuseum.filterByVisits();
         }
+        if (optionChosen == 5) {
+            MenuMuseum.filterAll();
+        }
+    }
+
+    private static void filterAll() {
+        System.out.println("Input the minimal number of clients");
+        int minNumberClients = scanner2.nextInt();
+        System.out.println("Input the minimal number of visits");
+        int minNumberVisits = scanner2.nextInt();
+        System.out.println("Input the minimal number of clients");
+        int minNumberExhibit = scanner2.nextInt();
+        ControllerMuseum.multipleFilters(minNumberClients,minNumberVisits,minNumberExhibit);
     }
 
     private static void filterByClients() throws ClassNotFoundException {

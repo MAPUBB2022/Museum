@@ -89,6 +89,9 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
                 throw new RuntimeException(e);
             }
             try {
+                PreparedStatement  statementDeleteBlocks = connection.prepareStatement("Update Block SET Block.Museum = null WHERE Block.Museum = ?");
+                statementDeleteBlocks.setString(1, ID);
+                statementDeleteBlocks.executeUpdate();
                 PreparedStatement  statement = connection.prepareStatement("DELETE FROM Museum WHERE Museum.Name = ?");
                 statement.setString(1, ID);
                 statement.executeUpdate();
@@ -103,8 +106,48 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
         System.out.println("The Museum does not exist, please try again using an existing one!");
     }
 
+    public void changeName(String previousName, String newName) {
+        if (this.checkIfExists(newName)) {
+            System.out.println("New name already exists!");
+            return;
+        }
+        Connection connection = null;
+        try {
+            connection = OurConnection.getConnection();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            PreparedStatement statementCreateAProvisoryTable = connection.prepareStatement("Insert into Museum(Name) values (?)");
+            statementCreateAProvisoryTable.setString(1, newName);
+            statementCreateAProvisoryTable.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            PreparedStatement statement = connection.prepareStatement("Update Block set Block.Museum = ? where Block.Museum = ?");
+            statement.setString(1, newName);
+            statement.setString(2, previousName);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            PreparedStatement statementDeleteTable = connection.prepareStatement("delete from Museum where Museum.Name = ?");
+            statementDeleteTable.setString(1,previousName);
+            statementDeleteTable.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        this.findById(previousName).setName(newName);
+    }
+
     @Override
     public void update(String id, Museum newEntity) {
+        System.out.println("If you get here you are in trouble!");
         boolean found = false;
         for (Museum a : allMuseums) {
             if (a.getName().equals(id)) {
@@ -166,6 +209,25 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
         System.out.println("The Museum you want to update does not exist!");
     }
 
+    public void deleteBlock(Museum museum, Block block) throws ClassNotFoundException  {
+        Connection connection = null;
+        try {
+            connection = OurConnection.getConnection();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            PreparedStatement  statement = connection.prepareStatement("Update Block SET Block.Museum = null WHERE Block.ID = ?");
+            statement.setString(1, block.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        museum.deleteBlock(block);
+        block.setMuseum(null);
+    }
 
     @Override
     public Museum findById(String s) {
@@ -217,17 +279,20 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
             Block block = BlockDB.getInstance().findById(blockID);
             String MuseumName = resultSetBlock.getString(2);
             System.out.println(MuseumName);
-            MuseumDB.getInstance().findById(MuseumName).addBlock(block);
+            if (MuseumName != null) {
+                MuseumDB.getInstance().findById(MuseumName).addBlock(block);
+            }
         }
 
         ResultSet resultSet2 = statement1.executeQuery("SELECT * FROM Block");
-
         while (resultSet2.next()) {
 //            String name = resultSet2.getString(1);
             String museumid = resultSet2.getString(2);
             String blockID = resultSet2.getString(3);
-            Museum museumToChange = MuseumDB.getInstance().findById(museumid);
-            BlockDB.getInstance().updateMuseumNoDB(blockID,museumToChange);
+            if (museumid != null) {
+                Museum museumToChange = MuseumDB.getInstance().findById(museumid);
+                BlockDB.getInstance().updateMuseumNoDB(blockID, museumToChange);
+            }
         }
 
     }

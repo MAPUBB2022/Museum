@@ -23,7 +23,7 @@ public class ViewArtist {
         }
 
         ArrayList<Exhibit> exhibits = (ArrayList<Exhibit>) artist.getListOfArt();
-        System.out.println("Blocks:");
+        System.out.println("Exhibits:");
         for (Exhibit e : exhibits) {
             System.out.println(e.getName() + " with ID " + e.getId());
         }

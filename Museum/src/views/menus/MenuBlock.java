@@ -1,8 +1,5 @@
 package views.menus;
-
-import controllers.ControllerArtist;
 import controllers.ControllerBlock;
-
 import java.util.Scanner;
 
 public class MenuBlock {
@@ -19,7 +16,7 @@ public class MenuBlock {
         System.out.println("\t4. Add new exhibit in " + currentMenuClass);
         System.out.println("\t5. Remove an exhibit from " + currentMenuClass);
         System.out.println("\t6. Display " + currentMenuClass);
-        System.out.println("\t7. Sort by name");
+        System.out.println("\t7. Sort by size");
         System.out.println("\t8. Filter " + currentMenuClass);
         System.out.println("\t0. Return");
 
@@ -50,6 +47,7 @@ public class MenuBlock {
         System.out.println("\t\t1. Filter " + currentMenuClass + "s by number of exhibits");
         System.out.println("\t\t2. Filter " + currentMenuClass + "s by art movements");
         System.out.println("\t\t3. Filter " + currentMenuClass + "s by artists");
+        System.out.println("\t\t4. Multiple filters ");
         System.out.println("\t\t0. Return");
 
         Scanner scannerUpdate = new Scanner(System.in);
@@ -64,6 +62,19 @@ public class MenuBlock {
         if (optionChosen == 3) {
             MenuBlock.filterByArtists();
         }
+        if (optionChosen == 3) {
+            MenuBlock.multipleFilters();
+        }
+    }
+
+    private static void multipleFilters() {
+        System.out.println("Enter the minimal number of exhibits");
+        int minNumberExhibit = scanner2.nextInt();
+        System.out.println("Enter art movement name");
+        String artMovementName = scanner2.next();
+        System.out.println("Enter artist name");
+        String artistName = scanner2.next();
+        ControllerBlock.multipleFilters(minNumberExhibit, artMovementName, artistName);
     }
 
     private static void filterByExhibit() throws ClassNotFoundException {

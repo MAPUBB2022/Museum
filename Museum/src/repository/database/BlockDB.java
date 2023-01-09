@@ -66,6 +66,7 @@ public class BlockDB implements ICrudRepository<String, Block> {
         System.out.println("Added Block!");
     }
 
+
     @Override
     public void remove(String s) {
         boolean found = false;
@@ -91,6 +92,18 @@ public class BlockDB implements ICrudRepository<String, Block> {
                 throw new RuntimeException(e);
             }
             try {
+                PreparedStatement  statementDeleteFromArtifact = connection.prepareStatement("UPDATE Artifact set Artifact.Location = null WHERE Artifact.Location = ?");
+                statementDeleteFromArtifact.setString(1, ID);
+                statementDeleteFromArtifact.executeUpdate();
+
+                PreparedStatement  statementDeleteFromPainting = connection.prepareStatement("UPDATE Painting set Painting.Location = null WHERE Painting.Location = ?");
+                statementDeleteFromPainting.setString(1, ID);
+                statementDeleteFromPainting.executeUpdate();
+
+                PreparedStatement  statementDeleteFromStatue = connection.prepareStatement("UPDATE Statue set Statue.Location = null where Statue.Location = ?");
+                statementDeleteFromStatue.setString(1, ID);
+                statementDeleteFromStatue.executeUpdate();
+
                 PreparedStatement  statement = connection.prepareStatement("DELETE FROM Block WHERE Block.ID = ?");
                 statement.setString(1, ID);
                 statement.executeUpdate();
@@ -183,7 +196,7 @@ public class BlockDB implements ICrudRepository<String, Block> {
             }
             try {
                 PreparedStatement statement = connection.prepareStatement("UPDATE Block SET Museum = ? WHERE Block.ID = ?");
-                statement.setString(1, String.valueOf(newMuseum));
+                statement.setString(1, newMuseum.getName());
                 statement.setString(2, id);
                 statement.executeUpdate();
             } catch (SQLException e) {
@@ -216,7 +229,10 @@ public class BlockDB implements ICrudRepository<String, Block> {
 
     @Override
     public Block findById(String s) {
-        for (Block a : allBlocks) {
+        if (s == null) {
+            return null;
+        }
+            for (Block a : allBlocks) {
             if (s.equals(a.getId())) {
                 return a;
             }
