@@ -46,7 +46,8 @@ public abstract class Exhibit implements Comparable<Exhibit> {
         this.creation = creation;
         this.location = location;
         artist.addExhibit(this);
-        location.addExhibit(this);
+        if(location != null)
+        {location.addExhibit(this);}
         this.price = price;
     }
 
@@ -56,7 +57,8 @@ public abstract class Exhibit implements Comparable<Exhibit> {
         this.creation = creation;
         this.location = location;
         artist.addExhibit(this);
-        location.addExhibit(this);
+        if(location != null)
+        {location.addExhibit(this);}
         this.price = price;
     }
 
@@ -65,7 +67,8 @@ public abstract class Exhibit implements Comparable<Exhibit> {
         this.id = "E" + counter++;
         this.creation = creation;
         this.location = location;
-        location.addExhibit(this);
+        if(location != null)
+        {location.addExhibit(this);}
         this.price = price;
     }
 
@@ -74,7 +77,8 @@ public abstract class Exhibit implements Comparable<Exhibit> {
         this.name = name;
         this.creation = creation;
         this.location = location;
-        location.addExhibit(this);
+        if(location != null)
+        {location.addExhibit(this);}
         this.price = price;
     }
 

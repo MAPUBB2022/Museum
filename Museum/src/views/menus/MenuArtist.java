@@ -97,7 +97,7 @@ public class MenuArtist {
     }
 
     private static void filterByExhibit() throws ClassNotFoundException {
-        System.out.println("Enter the maximal number of exhibits:");
+        System.out.println("Enter the minimal number of exhibits:");
         int minNumberExhibit = scanner2.nextInt();
         ControllerArtist.filterByExhibit(minNumberExhibit);
     }

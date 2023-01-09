@@ -23,7 +23,7 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
     }
 
     @Override
-    public void add(Painting entity) {
+    public void add(Painting entity) throws ClassNotFoundException {
         if (checkIfExists(entity.getId())) {
             System.out.println("The Painting already exists, please try again using an new name!");
             return;
@@ -51,7 +51,8 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO Painting (ID, Name, Creation, Price, Location, ArtMovement, Painter) VALUES (?, ?, ?, ?, ?, ?, ?)");
             statement.setString(1, ID);
             statement.setString(2, Name);
-            statement.setDate(3, (java.sql.Date) Creation);
+            java.sql.Date sqlDate = new java.sql.Date(Creation.getTime());
+            statement.setDate(3, sqlDate);
             statement.setDouble(4, Price);
             statement.setString(5, Location.getId());
             statement.setString(6, Artmovement.getId());
@@ -114,7 +115,7 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
     }
 
     @Override
-    public void update(String id, Painting newEntity) {
+    public void update(String id, Painting newEntity) throws ClassNotFoundException {
         boolean found = false;
         for (Painting a : allPaintings) {
             if (a.getId().equals(id)) {
@@ -235,7 +236,8 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             }
             try {
                 PreparedStatement  statement = connection.prepareStatement("UPDATE Painting SET Creation = ? WHERE Painting.ID = ?");
-                statement.setDate(1, (java.sql.Date) newCreation);
+                java.sql.Date sqlDate = new java.sql.Date(newCreation.getTime());
+                statement.setDate(1, sqlDate);
                 statement.setString(2, PaintingToDelete.getId());
                 statement.executeUpdate();
             } catch (SQLException e) {

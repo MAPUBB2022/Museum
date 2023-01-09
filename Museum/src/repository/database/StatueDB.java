@@ -1,8 +1,5 @@
 package repository.database;
-import classes.ArtMovement;
-import classes.Statue;
-import classes.Artist;
-import classes.Block;
+import classes.*;
 import repository.ICrudRepository;
 
 import java.sql.*;
@@ -25,12 +22,16 @@ public class StatueDB implements ICrudRepository<String, Statue> {
     }
 
     @Override
-    public void add(Statue entity) {
+    public void add(Statue entity) throws ClassNotFoundException {
         if (checkIfExists(entity.getId())) {
             System.out.println("The Statue already exists, please try again using an new name!");
             return;
         }
         allStatues.add(entity);
+        System.out.println(entity.getArtMovement().getName());
+        BlockDB.getInstance().findById(entity.getLocation().getId()).addMovement(entity.getArtMovement());
+        BlockDB.getInstance().findById(entity.getLocation().getId()).addArtist(entity.getSculptor());
+
 //        DB Code:
         Artist Sculptor = entity.getSculptor();
         ArtMovement Artmovement = entity.getArtMovement();
@@ -81,7 +82,7 @@ public class StatueDB implements ICrudRepository<String, Statue> {
     }
 
     @Override
-    public void remove(String s) {
+    public void remove(String s) throws ClassNotFoundException {
         boolean found = false;
         Statue StatueToDelete = null;
         for (Statue a : allStatues) {
@@ -92,6 +93,18 @@ public class StatueDB implements ICrudRepository<String, Statue> {
         }
         if (found) {
             allStatues.remove(StatueToDelete);
+            try {
+                ArtistDB.getInstance().findById(StatueToDelete.getSculptor().getId()).deleteExhibit(StatueToDelete);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            List<Client> allClients = ClientDB.getInstance().getClients();
+            for(Client c : allClients)
+            {
+                c.deleteExhibitToFavorites(StatueToDelete);
+            }
+
             //        DB Code:
             String ID = StatueToDelete.getId();
 
@@ -120,7 +133,7 @@ public class StatueDB implements ICrudRepository<String, Statue> {
     }
 
     @Override
-    public void update(String id, Statue newEntity) {
+    public void update(String id, Statue newEntity) throws ClassNotFoundException {
         boolean found = false;
         for (Statue a : allStatues) {
             if (a.getId().equals(id)) {
@@ -242,7 +255,8 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             }
             try {
                 PreparedStatement  statement = connection.prepareStatement("UPDATE Statue SET Creation = ? WHERE Statue.ID = ?");
-                statement.setDate(1, (java.sql.Date) newCreation);
+                java.sql.Date sqlDate = new java.sql.Date(newCreation.getTime());
+                statement.setDate(1, sqlDate);
                 statement.setString(2, StatueToDelete.getId());
                 statement.executeUpdate();
             } catch (SQLException e) {

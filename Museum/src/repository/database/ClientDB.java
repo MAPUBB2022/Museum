@@ -75,7 +75,6 @@ public class ClientDB implements ICrudRepository<String, Client> {
             }
         }
         if (found) {
-            allClients.remove(ClientToDelete);
             //        DB Code:
             String ID = ClientToDelete.getId();
 
@@ -92,11 +91,11 @@ public class ClientDB implements ICrudRepository<String, Client> {
                 PreparedStatement  statement = connection.prepareStatement("DELETE FROM Client WHERE Client.ID = ?");
                 statement.setString(1, ID);
                 statement.executeUpdate();
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
             //----------
-
+            allClients.remove(ClientToDelete);
             System.out.println("The Client has been removed!");
             return;
         }
@@ -266,6 +265,72 @@ public class ClientDB implements ICrudRepository<String, Client> {
             throw new RuntimeException(e);
         }
         //----------
+    }
+
+    public void addFav(String clientId, String exId) throws ClassNotFoundException {
+        if (!ClientDB.getInstance().checkIfExists(clientId)) {
+            System.out.println("The Client doesn't exists, please try again using an new name!");
+            return;
+        }
+        if (!ExhibitDB.getInstance().checkIfExists(exId)) {
+            System.out.println("The Exhibit doesn't exists, please try again using an new name!");
+            return;
+        }
+
+//        ClientDB.getInstance().findById(clientId).addExhibitToFavorites(ExhibitDB.getInstance().findById(exId));
+        //----------
+        Connection connection = null;
+        try {
+            connection = OurConnection.getConnection();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO ClientFavorites (ClientID, ExhibitID) VALUES (?, ?)");
+            statement.setString(1, clientId);
+            statement.setString(2, exId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        //----------
+
+//        System.out.println("Added Favorite!");
+    }
+
+    public void remFav(String clientId, String exId) throws ClassNotFoundException {
+        if (!ClientDB.getInstance().checkIfExists(clientId)) {
+            System.out.println("The Client doesn't exists, please try again using an new name!");
+            return;
+        }
+        if (!ExhibitDB.getInstance().checkIfExists(exId)) {
+            System.out.println("The Exhibit doesn't exists, please try again using an new name!");
+            return;
+        }
+
+//        ClientDB.getInstance().findById(clientId).addExhibitToFavorites(ExhibitDB.getInstance().findById(exId));
+        //----------
+        Connection connection = null;
+        try {
+            connection = OurConnection.getConnection();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM ClientFavorites WHERE ClientFavorites.ClientID = ? AND ClientFavorites.ExhibitID = ?");
+            statement.setString(1, clientId);
+            statement.setString(2, exId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        //----------
+
+//        System.out.println("Added Favorite!");
     }
 
 }

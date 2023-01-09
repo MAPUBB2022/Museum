@@ -28,6 +28,14 @@ public class TicketDB implements ICrudRepository<String, Ticket> {
             System.out.println("The Ticket already exists, please try again using an new name!");
             return;
         }
+
+        for(Block b1 : entity.getPermits()){
+            if(b1 == null)
+            {
+                System.out.println("The block does not exist!");
+                return;
+            }}
+
         allTickets.add(entity);
 //        DB Code:
         Double price = entity.getPrice();
@@ -65,8 +73,8 @@ public class TicketDB implements ICrudRepository<String, Ticket> {
             throw new RuntimeException(e);
         }
         try {
-            for(Block b1 : entity.getPermits())
-            {PreparedStatement statement = connection2.prepareStatement("INSERT INTO Permits (TicketID, BlockID) VALUES (?, ?)");
+            for(Block b1 : entity.getPermits()){
+            PreparedStatement statement = connection2.prepareStatement("INSERT INTO Permits (TicketID, BlockID) VALUES (?, ?)");
             statement.setString(1, id);
             statement.setString(2, b1.getId());
             statement.executeUpdate();}

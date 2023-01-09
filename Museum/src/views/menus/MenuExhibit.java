@@ -49,6 +49,7 @@ public class MenuExhibit {
     private static void filter() throws ClassNotFoundException {
         System.out.println("\t\t1. Filter " + currentMenuClass + "s by price");
         System.out.println("\t\t2. Filter " + currentMenuClass + "s by creation date");
+        System.out.println("\t\t3. Multiple filters");
         System.out.println("\t\t0. Return");
 
         Scanner scannerUpdate = new Scanner(System.in);
@@ -60,6 +61,24 @@ public class MenuExhibit {
         if (optionChosen == 2) {
             MenuExhibit.filterByDate();
         }
+        if (optionChosen == 3) {
+            MenuExhibit.filterAll();
+        }
+    }
+
+    private static void filterAll() {
+        System.out.println("Enter the minimum price");
+        int minPrice = scanner2.nextInt();
+        System.out.println("Enter born date");
+        String startedDateString = scanner3.nextLine();
+        Date chosenDate;
+        try {
+            chosenDate = format.parse(startedDateString);
+        } catch (ParseException e) {
+            System.out.println("Date format input is wrong:");
+            return;
+        }
+        ControllerExhibit.multipleFilters(minPrice, chosenDate);
     }
 
     private static void filterByPrice() throws ClassNotFoundException {

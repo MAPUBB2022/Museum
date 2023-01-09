@@ -57,6 +57,7 @@ public class MenuClient {
     private static void filter() throws ClassNotFoundException {
         System.out.println("\t\t1. Filter " + currentMenuClass + "s by favorites");
         System.out.println("\t\t2. Filter " + currentMenuClass + "s by number of visits");
+        System.out.println("\t\t3. Multiple filters");
         System.out.println("\t\t0. Return");
 
         Scanner scannerUpdate = new Scanner(System.in);
@@ -68,10 +69,21 @@ public class MenuClient {
         if (optionChosen == 2) {
             MenuClient.filterByVisits();
         }
+        if (optionChosen == 3) {
+            MenuClient.filterAll();
+        }
+    }
+
+    private static void filterAll() {
+        System.out.println("Enter exhibit id");
+        String exhibitName = scanner2.next();
+        System.out.println("Enter the minimal number of visits");
+        int minNumberVisits = scanner2.nextInt();
+        ControllerClient.multipleFilters(exhibitName, minNumberVisits);
     }
 
     private static void filterByFavorites() throws ClassNotFoundException {
-        System.out.println("Enter exhibit name");
+        System.out.println("Enter exhibit id");
         String exhibitName = scanner2.next();
         ControllerClient.filterByFavorites(exhibitName);
     }

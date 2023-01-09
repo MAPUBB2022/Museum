@@ -11,6 +11,7 @@ import java.util.List;
 public class ControllerClient {
     public static void add(String s) throws ClassNotFoundException {
         ClientDB.getInstance().add(new Client(s));
+
     }
 
     public static void delete(String s) throws ClassNotFoundException {
@@ -32,14 +33,14 @@ public class ControllerClient {
         Client c = ClientDB.getInstance().findById(clientId);
         Exhibit e = ExhibitDB.getInstance().findById(exId);
         c.addExhibitToFavorites(e);
-        ClientDB.getInstance().update(clientId, c);
+        ClientDB.getInstance().addFav(clientId, exId);
     }
 
     public static void remFav(String clientId, String exId) throws ClassNotFoundException {
         Client c = ClientDB.getInstance().findById(clientId);
         Exhibit e = ExhibitDB.getInstance().findById(exId);
         c.deleteExhibitToFavorites(e);
-        ClientDB.getInstance().update(clientId, c);
+        ClientDB.getInstance().remFav(clientId, exId);
     }
 
     public static void display(String clientId) throws ClassNotFoundException {
@@ -60,11 +61,11 @@ public class ControllerClient {
         return clients;
     }
 
-    public static List<Client> filterByFavorites(String exhibitName) throws ClassNotFoundException {
-        Exhibit exhibitToCheck = ExhibitDB.getInstance().findById(exhibitName);
+    public static List<Client> filterByFavorites(String exhibitId) throws ClassNotFoundException {
+        Exhibit exhibitToCheck = ExhibitDB.getInstance().findById(exhibitId);
         List<Client> filteredClients = new java.util.ArrayList<>(Collections.emptyList());
         for (Client c : Collections.unmodifiableList(ClientDB.getInstance().getAllClients())) {
-            if (c.getFavorites().contains(filteredClients)) {
+            if (c.getFavorites().contains(exhibitToCheck)) {
                 display(c.getId());
                 filteredClients.add(c);
             }

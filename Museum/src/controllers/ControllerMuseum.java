@@ -33,9 +33,27 @@ public class ControllerMuseum {
             return;
         }
 
+        Block blockToChange = BlockDB.getInstance().findById(id);
+        Museum newMuseum = MuseumDB.getInstance().findById(nameMuseum);
+
+        if (newMuseum.getBlocks().contains(blockToChange)) {
+            System.out.println("Duplicate!");
+            return;
+        }
+
+        if (blockToChange.getMuseum().getName() != null) {
+            System.out.println("The block belongs to another museum!");
+            return;
+        }
+
+        Museum museumToCheckIfNull = blockToChange.getMuseum();
+        if (museumToCheckIfNull.getName() != null) {
+            Museum oldMuseum = MuseumDB.getInstance().findById(blockToChange.getMuseum().getName());
+            oldMuseum.deleteBlock(blockToChange);
+        }
+        BlockDB.getInstance().updateMuseum(id, MuseumDB.getInstance().findById(nameMuseum));
         Museum museumToUpdate = MuseumDB.getInstance().findById(nameMuseum);
         museumToUpdate.addBlock(BlockDB.getInstance().findById(id));
-        MuseumDB.getInstance().update(nameMuseum, museumToUpdate);
     }
 
     static public void deleteBlock(String nameMuseum, String id) throws ClassNotFoundException {

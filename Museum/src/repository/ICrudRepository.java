@@ -1,11 +1,11 @@
 package repository;
 
 public interface ICrudRepository<ID, E> {
-    void add(E entity);
+    void add(E entity) throws ClassNotFoundException;
 
-    void remove(ID id);
+    void remove(ID id) throws ClassNotFoundException;
 
-    void update(ID id, E newEntity);
+    void update(ID id, E newEntity) throws ClassNotFoundException;
 
     void updateName(ID id, ID newId);
 
