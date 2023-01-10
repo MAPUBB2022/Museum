@@ -113,7 +113,7 @@ public class MenuMuseum {
     }
 
     private static void filterByExhibits() throws ClassNotFoundException {
-        System.out.println("Input the minimal number of clients");
+        System.out.println("Input the minimal number of exhibits");
         int minNumberExhibit = scanner2.nextInt();
         ControllerMuseum.filterByExhibit(minNumberExhibit);
     }

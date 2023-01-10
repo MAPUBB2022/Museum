@@ -211,14 +211,6 @@ public class ClientDB implements ICrudRepository<String, Client> {
             ClientDB.getInstance().addNoDB(new Client(id, name));
         }
 
-        ResultSet resultSetClientMuseum = statement2.executeQuery("SELECT * FROM  ClientMuseum");
-        while (resultSetClientMuseum.next()) {
-            String ClientID = resultSetClientMuseum.getString(1);
-            String MuseumID = resultSetClientMuseum.getString(2);
-            Client clientToAdd = ClientDB.getInstance().findById(ClientID);
-            MuseumDB.getInstance().findById(MuseumID).addClient(clientToAdd);
-        }
-
         ResultSet resultSetExhibit = statement3.executeQuery("SELECT * FROM  ClientFavorites");
         while (resultSetExhibit.next()) {
             String ClientID = resultSetExhibit.getString(1);

@@ -88,7 +88,7 @@ public class ControllerClient {
     public static List<Client> filterByVisits(int minNumberVisits) throws ClassNotFoundException {
         List<Client> filteredClients = new java.util.ArrayList<>(Collections.emptyList());
         for (Client c : Collections.unmodifiableList(ClientDB.getInstance().getAllClients())) {
-            if (c.getVisits().size() > minNumberVisits) {
+            if (c.getVisits().size() >= minNumberVisits) {
                 display(c.getId());
                 filteredClients.add(c);
             }

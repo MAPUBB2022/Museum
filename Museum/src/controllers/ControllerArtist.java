@@ -160,7 +160,7 @@ public class ControllerArtist {
     public static List<Artist> filterByExhibit(int minNumberExhibit) throws ClassNotFoundException {
         List<Artist> filteredArtists = new java.util.ArrayList<>(Collections.emptyList());
         for (Artist a : Collections.unmodifiableList(ArtistDB.getInstance().getArtists())) {
-            if (a.getListOfArt().size() > minNumberExhibit) {
+            if (a.getListOfArt().size() >= minNumberExhibit) {
                 display(a.getId());
                 filteredArtists.add(a);
             }
@@ -223,7 +223,7 @@ public class ControllerArtist {
                     break;
                 }
             }
-            if (a.getListOfArt().size() > minNumberExhibit && foundArtMovement) {
+            if (a.getListOfArt().size() >= minNumberExhibit && foundArtMovement) {
                 display(a.getId());
                 filteredArtists.add(a);
             }

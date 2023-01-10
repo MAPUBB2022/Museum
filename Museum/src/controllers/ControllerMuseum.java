@@ -179,7 +179,7 @@ public class ControllerMuseum {
     public static List<Museum> filterByClients(int minNumberClients) throws ClassNotFoundException {
         List<Museum> filteredMuseums = new java.util.ArrayList<>(Collections.emptyList());
         for (Museum m : Collections.unmodifiableList(MuseumDB.getInstance().getMuseums())) {
-            if (m.getClients().size() > minNumberClients) {
+            if (m.getClients().size() >= minNumberClients) {
                 display(m.getName());
                 filteredMuseums.add(m);
             }
@@ -191,7 +191,7 @@ public class ControllerMuseum {
         List<Museum> filteredMuseums = new java.util.ArrayList<>(Collections.emptyList());
         for (Museum m : Collections.unmodifiableList(MuseumDB.getInstance().getMuseums())) {
             System.out.println(m.getName() + ' ' + getTotalVisitsNoPrints(m.getName()));
-            if (getTotalVisitsNoPrints(m.getName()) > minNumberVisits) {
+            if (getTotalVisitsNoPrints(m.getName()) >= minNumberVisits) {
                 display(m.getName());
                 filteredMuseums.add(m);
             }
@@ -207,7 +207,7 @@ public class ControllerMuseum {
             for (Block b : blocksOfMuseum) {
                 numberExhibits = numberExhibits + b.getExhibits().size();
             }
-            if (numberExhibits > minNumberExhibit) {
+            if (numberExhibits >= minNumberExhibit) {
                 display(m.getName());
                 filteredMuseums.add(m);
             }

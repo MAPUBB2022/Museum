@@ -144,7 +144,7 @@ public class ControllerBlock {
     public static List<Block> filterByExhibit(int minNumberExhibit) throws ClassNotFoundException {
         List<Block> filteredBlocks = new java.util.ArrayList<>(Collections.emptyList());
         for (Block b : Collections.unmodifiableList(BlockDB.getInstance().getAllBlocks())) {
-            if (b.getExhibits().size() > minNumberExhibit) {
+            if (b.getExhibits().size() >= minNumberExhibit) {
                 display(b.getId());
                 filteredBlocks.add(b);
             }
@@ -164,8 +164,8 @@ public class ControllerBlock {
         return filteredBlocks;
     }
 
-    public static List<Block> filterByArtist(String artistName) throws ClassNotFoundException {
-        Artist artistToCheck = ArtistDB.getInstance().findByName(artistName);
+    public static List<Block> filterByArtist(String artistID) throws ClassNotFoundException {
+        Artist artistToCheck = ArtistDB.getInstance().findById(artistID);
         List<Block> filteredBlocks = new java.util.ArrayList<>(Collections.emptyList());
         for (Block b : Collections.unmodifiableList(BlockDB.getInstance().getAllBlocks())) {
             if (b.getArtists().contains(artistToCheck)) {
@@ -176,6 +176,29 @@ public class ControllerBlock {
         return filteredBlocks;
     }
 
-    public static void multipleFilters(int minNumberExhibit, String artMovementName, String artistName) {
+    public static List<Block> multipleFilters(int minNumberExhibit, String artMovementName, String artistID) throws ClassNotFoundException {
+        List<Block> filteredBlocks = new java.util.ArrayList<>(Collections.emptyList());
+        for (Block b : Collections.unmodifiableList(BlockDB.getInstance().getAllBlocks())) {
+            boolean foundArtist = false;
+            for (Artist a : b.getArtists()) {
+                System.out.println(b.getName());
+                if (Objects.equals(a.getId(), artistID)) {
+                    foundArtist = true;
+                    break;
+                }
+            }
+            boolean foundArtMovement = false;
+            for (ArtMovement am : b.getMovements()) {
+                if (Objects.equals(am.getName(), artMovementName)) {
+                    foundArtMovement = true;
+                    break;
+                }
+            }
+            if (foundArtist && foundArtMovement && b.getExhibits().size() >= minNumberExhibit) {
+                display(b.getId());
+                filteredBlocks.add(b);
+            }
+        }
+        return filteredBlocks;
     }
 }

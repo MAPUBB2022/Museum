@@ -131,7 +131,8 @@ public class ControllerArtMovement {
         List<ArtMovement> filteredArtMovement = new java.util.ArrayList<>(Collections.emptyList());
         for (ArtMovement am : Collections.unmodifiableList(ArtMovementDB.getInstance().getList())) {
             if (am.getStartDate().after(startDate)) {
-                display(am.getId());
+                display(am.getName());
+                System.out.println("\n");
                 filteredArtMovement.add(am);
             }
         }

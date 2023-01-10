@@ -69,7 +69,7 @@ public class MenuExhibit {
     private static void filterAll() throws ClassNotFoundException {
         System.out.println("Enter the minimum price");
         int minPrice = scanner2.nextInt();
-        System.out.println("Enter born date");
+        System.out.println("Enter creation date");
         String startedDateString = scanner3.nextLine();
         Date chosenDate;
         try {

@@ -66,19 +66,19 @@ public class MenuBlock {
         if (optionChosen == 3) {
             MenuBlock.filterByArtists();
         }
-        if (optionChosen == 3) {
+        if (optionChosen == 4) {
             MenuBlock.multipleFilters();
         }
     }
 
-    private static void multipleFilters() {
+    private static void multipleFilters() throws ClassNotFoundException {
         System.out.println("Enter the minimal number of exhibits");
         int minNumberExhibit = scanner2.nextInt();
         System.out.println("Enter art movement name");
         String artMovementName = scanner2.next();
-        System.out.println("Enter artist name");
-        String artistName = scanner2.next();
-        ControllerBlock.multipleFilters(minNumberExhibit, artMovementName, artistName);
+        System.out.println("Enter artist ID");
+        String artistID = scanner2.next();
+        ControllerBlock.multipleFilters(minNumberExhibit, artMovementName, artistID);
     }
 
     private static void filterByExhibit() throws ClassNotFoundException {
@@ -94,9 +94,9 @@ public class MenuBlock {
     }
 
     private static void filterByArtists() throws ClassNotFoundException {
-        System.out.println("Enter artist name");
-        String artistName = scanner2.next();
-        ControllerBlock.filterByArtist(artistName);
+        System.out.println("Enter Artist ID");
+        String artistID = scanner2.next();
+        ControllerBlock.filterByArtist(artistID);
     }
 
     private static void add() throws ClassNotFoundException {
