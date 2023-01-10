@@ -1,10 +1,10 @@
 package controllers;
 
 import classes.*;
-import repository.inmemory.*;
 import repository.database.*;
 import views.ViewClient;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class ControllerClient {
     public static void addVisit(String clientId, List<Block> lb) throws ClassNotFoundException {
         Client c = ClientDB.getInstance().findById(clientId);
         Ticket t = new Ticket(lb, c);
-        if(c == null) {
+        if (c == null) {
             System.out.println("Client does not exist!");
             return;
         }
@@ -36,7 +36,7 @@ public class ControllerClient {
     public static void addFav(String clientId, String exId) throws ClassNotFoundException {
         Client c = ClientDB.getInstance().findById(clientId);
         Exhibit e = ExhibitDB.getInstance().findById(exId);
-        if(c == null || e == null) {
+        if (c == null || e == null) {
             System.out.println("Client or exhibit does not exist!");
             return;
         }
@@ -47,7 +47,7 @@ public class ControllerClient {
     public static void remFav(String clientId, String exId) throws ClassNotFoundException {
         Client c = ClientDB.getInstance().findById(clientId);
         Exhibit e = ExhibitDB.getInstance().findById(exId);
-        if(c == null || e == null) {
+        if (c == null || e == null) {
             System.out.println("Client or exhibit does not exist!");
             return;
         }
@@ -96,7 +96,15 @@ public class ControllerClient {
         return filteredClients;
     }
 
-    public static void multipleFilters(String exhibitName, int minNumberVisits) {
-
+    public static List<Client> multipleFilters(String exhibitName, int minNumberVisits) throws ClassNotFoundException {
+        List<Client> filteredClients = new ArrayList<>();
+        Exhibit exhibitToCheck = ExhibitDB.getInstance().findById(exhibitName);
+        for (Client c : Collections.unmodifiableList(ClientDB.getInstance().getClients())) {
+            if (c.getFavorites().contains(exhibitToCheck) && c.getVisits().size() >= minNumberVisits) {
+                display(c.getId());
+                filteredClients.add(c);
+            }
+        }
+        return filteredClients;
     }
 }

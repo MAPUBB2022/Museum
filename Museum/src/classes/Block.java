@@ -1,11 +1,8 @@
 package classes;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import repository.database.MuseumDB;
 
-import java.util.Date;
 import javax.persistence.*;
 
 import java.util.ArrayList;
@@ -14,17 +11,17 @@ import java.util.List;
 
 @Entity
 @Table(name = "Block")
-public class Block implements Comparable<Block>{
+public class Block implements Comparable<Block> {
     private static int counter = 1000;
 
     @Id
     @Getter
-    @Column(name="ID")
+    @Column(name = "ID")
     private final String id;
 
     @Getter
     @Setter
-    @Column(name="Name")
+    @Column(name = "Name")
     private String name;
 
     @Getter

@@ -1,5 +1,7 @@
 package views.menus;
+
 import controllers.ControllerMuseum;
+
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -44,8 +46,6 @@ public class MenuMuseum {
         System.out.println("\t\t1. Update " + currentMenuClass + " name");
         System.out.println("\t\t2. Add Block to a " + currentMenuClass);
         System.out.println("\t\t3. Remove Block from a " + currentMenuClass);
-//        System.out.println("\t\t4. Add Client to a " + currentMenuClass);
-//        System.out.println("\t\t5. Remove Client from a " + currentMenuClass);
         System.out.println("\t\t0. Return");
 
         Scanner scannerUpdate = new Scanner(System.in);
@@ -60,12 +60,6 @@ public class MenuMuseum {
         if (optionChosen == 3) {
             MenuMuseum.deleteBlock();
         }
-//        if (optionChosen == 4) {
-//            MenuMuseum.addClient();
-//        }
-//        if (optionChosen == 5) {
-//            MenuMuseum.deleteClient();
-//        }
     }
 
     private static void sortAndFilter() throws ClassNotFoundException, SQLException {
@@ -96,14 +90,14 @@ public class MenuMuseum {
         }
     }
 
-    private static void filterAll() {
+    private static void filterAll() throws SQLException, ClassNotFoundException {
         System.out.println("Input the minimal number of clients");
         int minNumberClients = scanner2.nextInt();
         System.out.println("Input the minimal number of visits");
         int minNumberVisits = scanner2.nextInt();
-        System.out.println("Input the minimal number of clients");
+        System.out.println("Input the minimal number of exhibits");
         int minNumberExhibit = scanner2.nextInt();
-        ControllerMuseum.multipleFilters(minNumberClients,minNumberVisits,minNumberExhibit);
+        ControllerMuseum.multipleFilters(minNumberClients, minNumberVisits, minNumberExhibit);
     }
 
     private static void filterByClients() throws ClassNotFoundException {

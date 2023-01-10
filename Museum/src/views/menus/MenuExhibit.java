@@ -1,6 +1,6 @@
 package views.menus;
+
 import controllers.ControllerExhibit;
-import repository.database.ExhibitDB;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -42,7 +42,9 @@ public class MenuExhibit {
             MenuExhibit.filter();
     }
 
-    private static void sort() throws ClassNotFoundException {ControllerExhibit.sort();}
+    private static void sort() throws ClassNotFoundException {
+        ControllerExhibit.sort();
+    }
 
     private static void filter() throws ClassNotFoundException {
         System.out.println("\t\t1. Filter " + currentMenuClass + "s by price");
@@ -64,7 +66,7 @@ public class MenuExhibit {
         }
     }
 
-    private static void filterAll() {
+    private static void filterAll() throws ClassNotFoundException {
         System.out.println("Enter the minimum price");
         int minPrice = scanner2.nextInt();
         System.out.println("Enter born date");

@@ -1,4 +1,5 @@
 package repository.database;
+
 import classes.*;
 import classes.Ticket;
 import repository.ICrudRepository;
@@ -27,26 +28,24 @@ public class TicketDB implements ICrudRepository<String, Ticket> {
             return;
         }
 
-        for(Block b1 : entity.getPermits()){
-            if(b1 == null)
-            {
+        for (Block b1 : entity.getPermits()) {
+            if (b1 == null) {
                 System.out.println("The block does not exist!");
                 return;
-            }}
+            }
+        }
 
         allTickets.add(entity);
 //        DB Code:
-        Double price = entity.getPrice();
+        double price = entity.getPrice();
         Client client = entity.getGuest();
         String id = entity.getId();
 
         //----------
-        Connection connection = null;
+        Connection connection;
         try {
             connection = OurConnection.getConnection();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         try {
@@ -62,20 +61,19 @@ public class TicketDB implements ICrudRepository<String, Ticket> {
 
 
         //----------
-        Connection connection2 = null;
+        Connection connection2;
         try {
             connection2 = OurConnection.getConnection();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         try {
-            for(Block b1 : entity.getPermits()){
-            PreparedStatement statement = connection2.prepareStatement("INSERT INTO Permits (TicketID, BlockID) VALUES (?, ?)");
-            statement.setString(1, id);
-            statement.setString(2, b1.getId());
-            statement.executeUpdate();}
+            for (Block b1 : entity.getPermits()) {
+                PreparedStatement statement = connection2.prepareStatement("INSERT INTO Permits (TicketID, BlockID) VALUES (?, ?)");
+                statement.setString(1, id);
+                statement.setString(2, b1.getId());
+                statement.executeUpdate();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -110,16 +108,14 @@ public class TicketDB implements ICrudRepository<String, Ticket> {
             String ID = TicketToDelete.getId();
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("DELETE FROM Ticket WHERE Ticket.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM Ticket WHERE Ticket.ID = ?");
                 statement.setString(1, ID);
                 statement.executeUpdate();
             } catch (SQLException e) {
@@ -169,16 +165,14 @@ public class TicketDB implements ICrudRepository<String, Ticket> {
             allTickets.add(TicketToDelete);
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Ticket SET Price = ? WHERE Ticket.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("UPDATE Ticket SET Price = ? WHERE Ticket.ID = ?");
                 statement.setDouble(1, newPrice);
                 statement.setString(2, TicketToDelete.getId());
                 statement.executeUpdate();
@@ -208,16 +202,14 @@ public class TicketDB implements ICrudRepository<String, Ticket> {
             allTickets.add(TicketToDelete);
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Ticket SET Client = ? WHERE Ticket.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("UPDATE Ticket SET Client = ? WHERE Ticket.ID = ?");
                 statement.setString(1, newClient.getId());
                 statement.setString(2, TicketToDelete.getId());
                 statement.executeUpdate();
@@ -260,7 +252,6 @@ public class TicketDB implements ICrudRepository<String, Ticket> {
     public static void populate(Connection connection) throws SQLException, ClassNotFoundException {
         Statement statement1 = connection.createStatement();
         Statement statement2 = connection.createStatement();
-        Statement statement3 = connection.createStatement();
 
         ResultSet resultSet = statement1.executeQuery("SELECT * FROM Ticket");
 
@@ -290,17 +281,17 @@ public class TicketDB implements ICrudRepository<String, Ticket> {
 
     }
 
-    public int numVisits(Museum m) throws SQLException, ClassNotFoundException {
+    public int numVisits(Museum m) {
 
-            int count = 0;
-            for (Ticket ticket : this.allTickets) {
-                List<Block> blocks2 = new ArrayList<>(ticket.getPermits());
-                blocks2.retainAll(m.getBlocks());
-                if (!blocks2.isEmpty()) {
-                    count++;
-                }
+        int count = 0;
+        for (Ticket ticket : this.allTickets) {
+            List<Block> blocks2 = new ArrayList<>(ticket.getPermits());
+            blocks2.retainAll(m.getBlocks());
+            if (!blocks2.isEmpty()) {
+                count++;
             }
-            return count;
+        }
+        return count;
 
     }
 }

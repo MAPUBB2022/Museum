@@ -1,13 +1,12 @@
 package repository.database;
+
 import classes.*;
 import classes.Client;
 import repository.ICrudRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 
 public class ClientDB implements ICrudRepository<String, Client> {
@@ -34,12 +33,10 @@ public class ClientDB implements ICrudRepository<String, Client> {
         String Name = entity.getName();
 
         //----------
-        Connection connection = null;
+        Connection connection;
         try {
             connection = OurConnection.getConnection();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         try {
@@ -79,19 +76,18 @@ public class ClientDB implements ICrudRepository<String, Client> {
             String ID = ClientToDelete.getId();
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                for(Ticket t1 : ClientDB.getInstance().findById(s).getVisits())
-                {PreparedStatement statementPermits = connection.prepareStatement("DELETE FROM Permits WHERE TicketID = ?");
-                statementPermits.setString(1, t1.getId());
-                statementPermits.executeUpdate();}
+                for (Ticket t1 : ClientDB.getInstance().findById(s).getVisits()) {
+                    PreparedStatement statementPermits = connection.prepareStatement("DELETE FROM Permits WHERE TicketID = ?");
+                    statementPermits.setString(1, t1.getId());
+                    statementPermits.executeUpdate();
+                }
 
                 PreparedStatement statementTickets = connection.prepareStatement("DELETE FROM Ticket WHERE Ticket.Client = ?");
                 statementTickets.setString(1, s);
@@ -101,7 +97,7 @@ public class ClientDB implements ICrudRepository<String, Client> {
                 statementFav.setString(1, s);
                 statementFav.executeUpdate();
 
-                PreparedStatement  statement = connection.prepareStatement("DELETE FROM Client WHERE Client.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM Client WHERE Client.ID = ?");
                 statement.setString(1, ID);
                 statement.executeUpdate();
             } catch (SQLException | ClassNotFoundException e) {
@@ -148,12 +144,10 @@ public class ClientDB implements ICrudRepository<String, Client> {
             allClients.add(ClientToDelete);
             System.out.println("Updated name!");
             // DB Code:
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
@@ -206,7 +200,6 @@ public class ClientDB implements ICrudRepository<String, Client> {
 
     public static void populate(Connection connection) throws SQLException, ClassNotFoundException {
         Statement statement1 = connection.createStatement();
-        Statement statement2 = connection.createStatement();
         Statement statement3 = connection.createStatement();
 
         ResultSet resultSet = statement1.executeQuery("SELECT * FROM Client");
@@ -248,21 +241,20 @@ public class ClientDB implements ICrudRepository<String, Client> {
         }
     }
 
-    public List<Client> getAllClients() {return this.allClients;}
+    public List<Client> getAllClients() {
+        return this.allClients;
+    }
 
-    public void addClientsToMuseum(Museum entity)
-    {
+    public void addClientsToMuseum(Museum entity) {
         //----------
-        Connection connection2 = null;
+        Connection connection2;
         try {
             connection2 = OurConnection.getConnection();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         try {
-            for(Block b1 : entity.getBlocks()){
+            for (Block b1 : entity.getBlocks()) {
                 PreparedStatement statement = connection2.prepareStatement("SELECT T.Client FROM Permits P INNER JOIN Ticket T ON P.TicketID = T.ID WHERE BlockID = ?");
                 statement.setString(1, b1.getId());
                 ResultSet resultSet = statement.executeQuery();
@@ -292,12 +284,10 @@ public class ClientDB implements ICrudRepository<String, Client> {
 
 //        ClientDB.getInstance().findById(clientId).addExhibitToFavorites(ExhibitDB.getInstance().findById(exId));
         //----------
-        Connection connection = null;
+        Connection connection;
         try {
             connection = OurConnection.getConnection();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         try {
@@ -310,7 +300,6 @@ public class ClientDB implements ICrudRepository<String, Client> {
         }
         //----------
 
-//        System.out.println("Added Favorite!");
     }
 
     public void remFav(String clientId, String exId) throws ClassNotFoundException {
@@ -325,12 +314,10 @@ public class ClientDB implements ICrudRepository<String, Client> {
 
 //        ClientDB.getInstance().findById(clientId).addExhibitToFavorites(ExhibitDB.getInstance().findById(exId));
         //----------
-        Connection connection = null;
+        Connection connection;
         try {
             connection = OurConnection.getConnection();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         try {
@@ -343,7 +330,6 @@ public class ClientDB implements ICrudRepository<String, Client> {
         }
         //----------
 
-//        System.out.println("Added Favorite!");
     }
 
 }

@@ -1,5 +1,7 @@
 package views.menus;
+
 import controllers.ControllerArtist;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -122,8 +124,6 @@ public class MenuArtist {
         System.out.println("\t\t3. Update date died of an " + currentMenuClass + " name");
         System.out.println("\t\t4. Add Art Movement to an " + currentMenuClass);
         System.out.println("\t\t5. Delete Art Movement from an " + currentMenuClass);
-//        System.out.println("\t\t6. Add Exhibit to an " + currentMenuClass);
-//        System.out.println("\t\t7. Delete Exhibit from an " + currentMenuClass);
         System.out.println("\t\t0. Return");
 
         Scanner scannerUpdate = new Scanner(System.in);

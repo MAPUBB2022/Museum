@@ -1,13 +1,12 @@
 package repository.database;
+
 import classes.*;
 import classes.Block;
 import repository.ICrudRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 
 public class BlockDB implements ICrudRepository<String, Block> {
@@ -35,12 +34,10 @@ public class BlockDB implements ICrudRepository<String, Block> {
         String ID = entity.getId();
 
         //----------
-        Connection connection = null;
+        Connection connection;
         try {
             connection = OurConnection.getConnection();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         try {
@@ -83,28 +80,26 @@ public class BlockDB implements ICrudRepository<String, Block> {
             String ID = BlockToDelete.getId();
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statementDeleteFromArtifact = connection.prepareStatement("UPDATE Artifact set Artifact.Location = null WHERE Artifact.Location = ?");
+                PreparedStatement statementDeleteFromArtifact = connection.prepareStatement("UPDATE Artifact set Artifact.Location = null WHERE Artifact.Location = ?");
                 statementDeleteFromArtifact.setString(1, ID);
                 statementDeleteFromArtifact.executeUpdate();
 
-                PreparedStatement  statementDeleteFromPainting = connection.prepareStatement("UPDATE Painting set Painting.Location = null WHERE Painting.Location = ?");
+                PreparedStatement statementDeleteFromPainting = connection.prepareStatement("UPDATE Painting set Painting.Location = null WHERE Painting.Location = ?");
                 statementDeleteFromPainting.setString(1, ID);
                 statementDeleteFromPainting.executeUpdate();
 
-                PreparedStatement  statementDeleteFromStatue = connection.prepareStatement("UPDATE Statue set Statue.Location = null where Statue.Location = ?");
+                PreparedStatement statementDeleteFromStatue = connection.prepareStatement("UPDATE Statue set Statue.Location = null where Statue.Location = ?");
                 statementDeleteFromStatue.setString(1, ID);
                 statementDeleteFromStatue.executeUpdate();
 
-                PreparedStatement  statement = connection.prepareStatement("DELETE FROM Block WHERE Block.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM Block WHERE Block.ID = ?");
                 statement.setString(1, ID);
                 statement.executeUpdate();
             } catch (SQLException e) {
@@ -150,12 +145,10 @@ public class BlockDB implements ICrudRepository<String, Block> {
             BlockToDelete.setName(newName);
             allBlocks.add(BlockToDelete);
             // DB Code:
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
@@ -186,12 +179,10 @@ public class BlockDB implements ICrudRepository<String, Block> {
             BlockToDelete.setMuseum(newMuseum);
             allBlocks.add(BlockToDelete);
             // DB Code:
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
@@ -232,7 +223,7 @@ public class BlockDB implements ICrudRepository<String, Block> {
         if (s == null) {
             return null;
         }
-            for (Block a : allBlocks) {
+        for (Block a : allBlocks) {
             if (s.equals(a.getId())) {
                 return a;
             }
@@ -264,14 +255,15 @@ public class BlockDB implements ICrudRepository<String, Block> {
         return null;
     }
 
-    public List<Block> getAllBlocks(){return this.allBlocks;}
+    public List<Block> getAllBlocks() {
+        return this.allBlocks;
+    }
 
 
     public static void populate(Connection connection) throws SQLException, ClassNotFoundException {
         Statement statement1 = connection.createStatement();
         Statement statement2 = connection.createStatement();
         Statement statement3 = connection.createStatement();
-        Statement statement5 = connection.createStatement();
 
         ResultSet resultSet = statement1.executeQuery("SELECT * FROM Block");
 
@@ -279,7 +271,6 @@ public class BlockDB implements ICrudRepository<String, Block> {
             String name = resultSet.getString(1);
             String museumid = resultSet.getString(2);
             Museum museumToAdd = new Museum(museumid);
-//            Museum museum = MuseumDB.getInstance().findById(museumid);
             String id = resultSet.getString(3);
             //System.out.println(id + ": " + name);
             BlockDB.getInstance().addNoDB(new Block(id, name, museumToAdd));

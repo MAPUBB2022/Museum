@@ -1,14 +1,12 @@
 package repository.database;
+
 import classes.*;
-import classes.Museum;
 import classes.Museum;
 import repository.ICrudRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 
 public class MuseumDB implements ICrudRepository<String, Museum> {
@@ -34,12 +32,10 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
         String Name = entity.getName();
 
         //----------
-        Connection connection = null;
+        Connection connection;
         try {
             connection = OurConnection.getConnection();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         try {
@@ -80,19 +76,17 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
             String ID = MuseumToDelete.getName();
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statementDeleteBlocks = connection.prepareStatement("Update Block SET Block.Museum = null WHERE Block.Museum = ?");
+                PreparedStatement statementDeleteBlocks = connection.prepareStatement("Update Block SET Block.Museum = null WHERE Block.Museum = ?");
                 statementDeleteBlocks.setString(1, ID);
                 statementDeleteBlocks.executeUpdate();
-                PreparedStatement  statement = connection.prepareStatement("DELETE FROM Museum WHERE Museum.Name = ?");
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM Museum WHERE Museum.Name = ?");
                 statement.setString(1, ID);
                 statement.executeUpdate();
             } catch (SQLException e) {
@@ -111,20 +105,17 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
             System.out.println("New name already exists!");
             return;
         }
-        Connection connection = null;
+        Connection connection;
         try {
             connection = OurConnection.getConnection();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         try {
-            PreparedStatement statementCreateAProvisoryTable = connection.prepareStatement("Insert into Museum(Name) values (?)");
-            statementCreateAProvisoryTable.setString(1, newName);
-            statementCreateAProvisoryTable.executeUpdate();
-        }
-        catch (SQLException e) {
+            PreparedStatement statementCreateAProvisoTable = connection.prepareStatement("Insert into Museum(Name) values (?)");
+            statementCreateAProvisoTable.setString(1, newName);
+            statementCreateAProvisoTable.executeUpdate();
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         try {
@@ -137,7 +128,7 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
         }
         try {
             PreparedStatement statementDeleteTable = connection.prepareStatement("delete from Museum where Museum.Name = ?");
-            statementDeleteTable.setString(1,previousName);
+            statementDeleteTable.setString(1, previousName);
             statementDeleteTable.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -185,16 +176,14 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
             MuseumToDelete.setName(newName);
             allMuseums.add(MuseumToDelete);
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("DELETE Museum WHERE Museum.Name = ? INSERT INTO Museum(Name) Values (?)");
+                PreparedStatement statement = connection.prepareStatement("DELETE Museum WHERE Museum.Name = ? INSERT INTO Museum(Name) Values (?)");
                 statement.setString(1, oldName);
                 statement.setString(2, newName);
                 statement.executeUpdate();
@@ -209,17 +198,15 @@ public class MuseumDB implements ICrudRepository<String, Museum> {
         System.out.println("The Museum you want to update does not exist!");
     }
 
-    public void deleteBlock(Museum museum, Block block) throws ClassNotFoundException  {
-        Connection connection = null;
+    public void deleteBlock(Museum museum, Block block) {
+        Connection connection;
         try {
             connection = OurConnection.getConnection();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         try {
-            PreparedStatement  statement = connection.prepareStatement("Update Block SET Block.Museum = null WHERE Block.ID = ?");
+            PreparedStatement statement = connection.prepareStatement("Update Block SET Block.Museum = null WHERE Block.ID = ?");
             statement.setString(1, block.getId());
             statement.executeUpdate();
         } catch (SQLException e) {

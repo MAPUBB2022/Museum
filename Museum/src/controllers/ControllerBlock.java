@@ -3,6 +3,7 @@ package controllers;
 import classes.*;
 import repository.database.*;
 import views.ViewBlock;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,13 +17,13 @@ public class ControllerBlock {
             System.out.println("Museum does not exist!");
             return;
         }
-        BlockDB.getInstance().add(new Block(blockName,museum));
+        BlockDB.getInstance().add(new Block(blockName, museum));
         MuseumDB.getInstance().findById(museumName).addBlock(BlockDB.getInstance().findByName(blockName));
     }
 
     public static void delete(String blockId) throws ClassNotFoundException {
         Block oldBlock = BlockDB.getInstance().findById(blockId);
-        if(oldBlock.getMuseum() == null) {
+        if (oldBlock.getMuseum() == null) {
             Museum museumTheBlockWasIn = oldBlock.getMuseum();
             museumTheBlockWasIn.deleteBlock(oldBlock);
         }
@@ -38,10 +39,6 @@ public class ControllerBlock {
         Block b = BlockDB.getInstance().findById(blockId);
         b.setName(blockName);
         BlockDB.getInstance().updateName(blockId, blockName);
-//        b.setArtists(BlockDB.getInstance().findById(blockId).getArtists());
-//        b.setExhibits(BlockDB.getInstance().findById(blockId).getExhibits());
-//        b.setMovements(BlockDB.getInstance().findById(blockId).getMovements());
-//        BlockDB.getInstance().update(blockId, b);
     }
 
     public static void addEx(String blockId, String exId) throws ClassNotFoundException {
@@ -56,7 +53,7 @@ public class ControllerBlock {
 
         Exhibit theExhibit = ExhibitDB.getInstance().findById(exId);
 
-        if(!(theExhibit.getLocation() == null)) {
+        if (!(theExhibit.getLocation() == null)) {
             System.out.println("The exhibit already exists in a Block");
             return;
         }
@@ -66,6 +63,10 @@ public class ControllerBlock {
         Exhibit exToAdd = ExhibitDB.getInstance().findById(exId);
         ExhibitDB.getInstance().changeLocation(blockId, exToAdd);
 
+        changeBlockLists(b);
+    }
+
+    public static void changeBlockLists(Block b) {
         List<Artist> la1 = new ArrayList<>();
         for (int i = 0; i < b.getExhibits().size(); i++) {
             if (b.getExhibits().get(i) instanceof Painting) {
@@ -110,7 +111,7 @@ public class ControllerBlock {
             System.out.println("The exhibit is in no block at the moment!");
             return;
         }
-        if(Objects.equals(theExhibit.getLocation().getName(), "null")) {
+        if (Objects.equals(theExhibit.getLocation().getName(), "null")) {
             System.out.println("The exhibit is in no block at the moment!");
             return;
         }
@@ -131,12 +132,10 @@ public class ControllerBlock {
         ViewBlock.displayBlock(b);
     }
 
-    public static List<Block> sort() throws ClassNotFoundException
-    {
+    public static List<Block> sort() throws ClassNotFoundException {
         List<Block> lb1 = BlockDB.getInstance().getAllBlocks();
         Collections.sort(lb1);
-        for(Block b : lb1)
-        {
+        for (Block b : lb1) {
             ControllerBlock.display(b.getId());
         }
         return lb1;

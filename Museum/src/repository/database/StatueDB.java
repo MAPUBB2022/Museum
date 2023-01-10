@@ -1,4 +1,5 @@
 package repository.database;
+
 import classes.*;
 import repository.ICrudRepository;
 
@@ -6,7 +7,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 
 public class StatueDB implements ICrudRepository<String, Statue> {
@@ -36,18 +36,15 @@ public class StatueDB implements ICrudRepository<String, Statue> {
         Artist Sculptor = entity.getSculptor();
         ArtMovement Artmovement = entity.getArtMovement();
         Block Location = entity.getLocation();
-        Double Price = entity.getPrice();
-        java.util.Date Creation = entity.getCreation();
+        double Price = entity.getPrice();
         String Name = entity.getName();
         String ID = entity.getId();
 
         //----------
-        Connection connection = null;
+        Connection connection;
         try {
             connection = OurConnection.getConnection();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         try {
@@ -55,7 +52,7 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             statement.setString(1, ID);
             statement.setString(2, Name);
             // Error
-            java.util.Date date  = entity.getCreation();
+            java.util.Date date = entity.getCreation();
             java.sql.Date sqlDate = new java.sql.Date(date.getTime());
             statement.setDate(3, sqlDate);
 
@@ -100,8 +97,7 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             }
 
             List<Client> allClients = ClientDB.getInstance().getClients();
-            for(Client c : allClients)
-            {
+            for (Client c : allClients) {
                 c.deleteExhibitToFavorites(StatueToDelete);
             }
 
@@ -109,18 +105,16 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             String ID = StatueToDelete.getId();
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("DELETE FROM Statue WHERE Statue.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM Statue WHERE Statue.ID = ?");
                 statement.setString(1, ID);
-                PreparedStatement  statementClients = connection.prepareStatement("DELETE FROM ClientFavorites WHERE ClientFavorites.ExhibitID = ?");
+                PreparedStatement statementClients = connection.prepareStatement("DELETE FROM ClientFavorites WHERE ClientFavorites.ExhibitID = ?");
                 statementClients.setString(1, ID);
                 statement.executeUpdate();
             } catch (SQLException e) {
@@ -167,16 +161,14 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             allStatues.add(StatueToDelete);
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Statue SET Name = ? WHERE Statue.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("UPDATE Statue SET Name = ? WHERE Statue.ID = ?");
                 statement.setString(1, newName);
                 statement.setString(2, StatueToDelete.getId());
                 statement.executeUpdate();
@@ -207,16 +199,14 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             allStatues.add(StatueToDelete);
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Statue SET Price = ? WHERE Statue.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("UPDATE Statue SET Price = ? WHERE Statue.ID = ?");
                 statement.setDouble(1, newPrice);
                 statement.setString(2, StatueToDelete.getId());
                 statement.executeUpdate();
@@ -247,16 +237,14 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             allStatues.add(StatueToDelete);
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Statue SET Creation = ? WHERE Statue.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("UPDATE Statue SET Creation = ? WHERE Statue.ID = ?");
                 java.sql.Date sqlDate = new java.sql.Date(newCreation.getTime());
                 statement.setDate(1, sqlDate);
                 statement.setString(2, StatueToDelete.getId());
@@ -287,16 +275,14 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             allStatues.add(StatueToDelete);
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Statue SET Sculptor = ? WHERE Statue.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("UPDATE Statue SET Sculptor = ? WHERE Statue.ID = ?");
                 statement.setString(1, newSculptor.getId());
                 statement.setString(2, StatueToDelete.getId());
                 statement.executeUpdate();
@@ -326,16 +312,14 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             allStatues.add(StatueToDelete);
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Statue SET ArtMovement = ? WHERE Statue.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("UPDATE Statue SET ArtMovement = ? WHERE Statue.ID = ?");
                 statement.setString(1, newArtMovement.getId());
                 statement.setString(2, StatueToDelete.getId());
                 statement.executeUpdate();
@@ -365,16 +349,14 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             allStatues.add(StatueToDelete);
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Statue SET Location = ? WHERE Statue.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("UPDATE Statue SET Location = ? WHERE Statue.ID = ?");
                 statement.setString(1, newLocation.getId());
                 statement.setString(2, StatueToDelete.getId());
                 statement.executeUpdate();
@@ -426,7 +408,6 @@ public class StatueDB implements ICrudRepository<String, Statue> {
 
     public static void populate(Connection connection) throws SQLException, ClassNotFoundException {
         Statement statement1 = connection.createStatement();
-        Statement statement2 = connection.createStatement();
 
         ResultSet resultSet = statement1.executeQuery("SELECT * FROM Statue");
 
@@ -441,7 +422,7 @@ public class StatueDB implements ICrudRepository<String, Statue> {
             String b1 = resultSet.getString(3);
             Block location = BlockDB.getInstance().findById(b1);
 
-            Double price = resultSet.getDouble(4);
+            double price = resultSet.getDouble(4);
             Date creation = resultSet.getDate(5);
             String name = resultSet.getString(6);
             String id = resultSet.getString(7);

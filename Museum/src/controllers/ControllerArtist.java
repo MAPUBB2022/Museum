@@ -15,21 +15,21 @@ public class ControllerArtist {
 
 
     public static void delete(String id) throws ClassNotFoundException {
-        if(!ArtistDB.getInstance().checkIfExists(id)) {
+        if (!ArtistDB.getInstance().checkIfExists(id)) {
             System.out.println("Wrong id!");
             return;
         }
         List<Exhibit> exhibits = ArtistDB.getInstance().findById(id).getListOfArt();
         List<ArtMovement> artMovementsList = ArtistDB.getInstance().findById(id).getMovements();
         List<Client> clients = ClientDB.getInstance().getClients();
-        for (Exhibit e:exhibits) {
+        for (Exhibit e : exhibits) {
             ExhibitDB.getInstance().remove(e.getId());
         }
-        for (ArtMovement am:artMovementsList) {
-            ArtistDB.getInstance().deleteArtMovement(id,am.getId());
+        for (ArtMovement am : artMovementsList) {
+            ArtistDB.getInstance().deleteArtMovement(id, am.getId());
         }
         List<Block> blocks = BlockDB.getInstance().getBlocks();
-        for (Block b:blocks) {
+        for (Block b : blocks) {
             b.deleteArtist(ArtistDB.getInstance().findById(id));
         }
         ArtistDB.getInstance().remove(id);
@@ -74,7 +74,7 @@ public class ControllerArtist {
         ArtMovement wantedArtMovement = ArtMovementDB.getInstance().findById(idArtMovement);
         wantedArtist.addMovement(wantedArtMovement);
         wantedArtMovement.addArtist(wantedArtist);
-        ArtistDB.getInstance().addArtMovement(id,idArtMovement);
+        ArtistDB.getInstance().addArtMovement(id, idArtMovement);
     }
 
     public static void deleteArtMovement(String id, String idArtMovement) throws ClassNotFoundException {
@@ -120,7 +120,7 @@ public class ControllerArtist {
             System.out.println("Wrong id, please try again using an existing one!");
             return true;
         }
-        if (!ArtistDB.getInstance().checkIfExists(idArtist))  {
+        if (!ArtistDB.getInstance().checkIfExists(idArtist)) {
             System.out.println("Artist doesn't exist! Please create it first!");
             return true;
         }
@@ -173,7 +173,7 @@ public class ControllerArtist {
         for (Artist a : Collections.unmodifiableList(ArtistDB.getInstance().getArtists())) {
             boolean foundArtMovement = false;
             List<ArtMovement> artistArtMovement = a.getMovements();
-            for(ArtMovement am:artistArtMovement) {
+            for (ArtMovement am : artistArtMovement) {
                 if (Objects.equals(am.getName(), artMovementName)) {
                     foundArtMovement = true;
                     break;
@@ -217,7 +217,7 @@ public class ControllerArtist {
         for (Artist a : Collections.unmodifiableList(ArtistDB.getInstance().getArtists())) {
             boolean foundArtMovement = false;
             List<ArtMovement> artistArtMovement = a.getMovements();
-            for(ArtMovement am:artistArtMovement) {
+            for (ArtMovement am : artistArtMovement) {
                 if (Objects.equals(am.getName(), artMovementName)) {
                     foundArtMovement = true;
                     break;

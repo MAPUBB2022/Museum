@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "Museum")
@@ -15,7 +14,7 @@ public class Museum implements Comparable<Museum> {
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="Name")
+    @Column(name = "Name")
     private String name;
 
     @OneToMany

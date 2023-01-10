@@ -1,5 +1,7 @@
 package views.menus;
+
 import controllers.ControllerBlock;
+
 import java.util.Scanner;
 
 public class MenuBlock {
@@ -41,7 +43,9 @@ public class MenuBlock {
 
     }
 
-    private static void sort() throws ClassNotFoundException {ControllerBlock.sort();}
+    private static void sort() throws ClassNotFoundException {
+        ControllerBlock.sort();
+    }
 
     private static void filter() throws ClassNotFoundException {
         System.out.println("\t\t1. Filter " + currentMenuClass + "s by number of exhibits");
@@ -100,7 +104,7 @@ public class MenuBlock {
         String blockName = scanner2.next();
         System.out.println("\t\tWhat is the name of the museum?");
         String museumName = scanner3.next();
-        ControllerBlock.add(blockName,museumName);
+        ControllerBlock.add(blockName, museumName);
     }
 
     private static void delete() throws ClassNotFoundException {

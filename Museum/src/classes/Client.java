@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -16,7 +16,7 @@ public class Client implements Person, Comparable<Client> {
 
     @Id
     @Getter
-    @Column(name="ID")
+    @Column(name = "ID")
     private final String id;
 
     @OneToMany
@@ -24,7 +24,7 @@ public class Client implements Person, Comparable<Client> {
 
     @Getter
     @Setter
-    @Column(name="Name")
+    @Column(name = "Name")
     private String name;
 
     @OneToMany

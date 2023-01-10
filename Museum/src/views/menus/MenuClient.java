@@ -1,7 +1,9 @@
 package views.menus;
+
 import classes.Block;
 import controllers.ControllerClient;
 import repository.database.BlockDB;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -48,7 +50,9 @@ public class MenuClient {
 
     }
 
-    private static void sort() throws ClassNotFoundException {ControllerClient.sort();}
+    private static void sort() throws ClassNotFoundException {
+        ControllerClient.sort();
+    }
 
     private static void filter() throws ClassNotFoundException {
         System.out.println("\t\t1. Filter " + currentMenuClass + "s by favorites");
@@ -70,7 +74,7 @@ public class MenuClient {
         }
     }
 
-    private static void filterAll() {
+    private static void filterAll() throws ClassNotFoundException {
         System.out.println("Enter exhibit id");
         String exhibitName = scanner2.next();
         System.out.println("Enter the minimal number of visits");

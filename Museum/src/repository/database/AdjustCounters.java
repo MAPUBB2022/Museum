@@ -1,7 +1,7 @@
 package repository.database;
+
 import classes.*;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class AdjustCounters {
@@ -14,7 +14,7 @@ public class AdjustCounters {
         return single_instance;
     }
 
-    public void adjust() throws SQLException, ClassNotFoundException {
+    public void adjust() throws ClassNotFoundException {
         int maxExhibit = 0;
         List<Statue> statues = StatueDB.getInstance().getStatues();
         List<Painting> paintings = PaintingDB.getInstance().getPaintings();
@@ -40,7 +40,7 @@ public class AdjustCounters {
                 maxExhibit = intID;
             }
         }
-        Exhibit.changeCounter(maxExhibit+1);
+        Exhibit.changeCounter(maxExhibit + 1);
 
         List<Ticket> tickets = TicketDB.getInstance().getTickets();
         int maxTicket = 0;
@@ -51,7 +51,7 @@ public class AdjustCounters {
                 maxTicket = intID;
             }
         }
-        Ticket.changeCounter(maxTicket+1);
+        Ticket.changeCounter(maxTicket + 1);
 
         List<Client> clients = ClientDB.getInstance().getClients();
         int maxClients = 0;
@@ -62,7 +62,7 @@ public class AdjustCounters {
                 maxClients = intID;
             }
         }
-        Client.changeCounter(maxClients+1);
+        Client.changeCounter(maxClients + 1);
 
         List<Block> blocks = BlockDB.getInstance().getBlocks();
         int maxBlocks = 0;
@@ -73,7 +73,7 @@ public class AdjustCounters {
                 maxBlocks = intID;
             }
         }
-        Block.changeCounter(maxBlocks+1);
+        Block.changeCounter(maxBlocks + 1);
 
         List<ArtMovement> artMovements = ArtMovementDB.getInstance().getArtMovements();
         int maxArtMovement = 0;
@@ -84,7 +84,7 @@ public class AdjustCounters {
                 maxArtMovement = intID;
             }
         }
-        ArtMovement.changeCounter(maxArtMovement+1);
+        ArtMovement.changeCounter(maxArtMovement + 1);
 
         List<Artist> artists = ArtistDB.getInstance().getArtists();
         int maxArtist = 0;
@@ -95,6 +95,6 @@ public class AdjustCounters {
                 maxArtist = intID;
             }
         }
-        Artist.changeCounter(maxArtist+1);
+        Artist.changeCounter(maxArtist + 1);
     }
 }

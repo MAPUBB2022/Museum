@@ -32,6 +32,9 @@ public class Painting extends Exhibit {
         this.artMovement = artMove;
     }
 
+    public Painting() {
+    }
+
     public String getName() {
         return super.getName();
     }

@@ -4,17 +4,17 @@ import classes.Block;
 import classes.Client;
 import classes.Exhibit;
 import classes.Museum;
-import lombok.SneakyThrows;
 import repository.database.*;
 import views.ViewMuseum;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class ControllerMuseum {
 
-    static public void add(String name) throws ClassNotFoundException  {
+    static public void add(String name) throws ClassNotFoundException {
         Museum museumToAdd = new Museum(name);
         MuseumDB.getInstance().add(museumToAdd);
     }
@@ -25,7 +25,7 @@ public class ControllerMuseum {
 
     static public void changeName(String previousName, String newName) throws ClassNotFoundException {
         MuseumDB.getInstance().changeName(previousName, newName);
-        System.out.println("Succesful change!");
+        System.out.println("Successful change!");
     }
 
     static public void addBlock(String nameMuseum, String id) throws ClassNotFoundException {
@@ -69,7 +69,7 @@ public class ControllerMuseum {
             System.out.println("The block does not exist in the museum!");
             return;
         }
-        MuseumDB.getInstance().deleteBlock(museumToDeleteFrom,blockToDelete);
+        MuseumDB.getInstance().deleteBlock(museumToDeleteFrom, blockToDelete);
     }
 
     static public void addClient(String nameMuseum, String id) throws ClassNotFoundException {
@@ -80,8 +80,8 @@ public class ControllerMuseum {
 
         Museum theMuseum = MuseumDB.getInstance().findById(nameMuseum);
         List<Client> clientList = theMuseum.getClients();
-        if(clientList.contains(ClientDB.getInstance().findById(id))) {
-            System.out.println("Client already exists in museum! " );
+        if (clientList.contains(ClientDB.getInstance().findById(id))) {
+            System.out.println("Client already exists in museum! ");
             return;
         }
 
@@ -135,7 +135,7 @@ public class ControllerMuseum {
             System.out.println("Wrong name, please try again using an existing one!");
             return true;
         }
-        if (!ClientDB.getInstance().checkIfExists(id))  {
+        if (!ClientDB.getInstance().checkIfExists(id)) {
             System.out.println("Client doesn't exist! Please create it first!");
             return true;
         }
@@ -199,7 +199,7 @@ public class ControllerMuseum {
         return filteredMuseums;
     }
 
-    public static List<Museum> filterByExhibit(int minNumberExhibit)  throws ClassNotFoundException{
+    public static List<Museum> filterByExhibit(int minNumberExhibit) throws ClassNotFoundException {
         List<Museum> filteredMuseums = new java.util.ArrayList<>(Collections.emptyList());
         for (Museum m : Collections.unmodifiableList(MuseumDB.getInstance().getMuseums())) {
             List<Block> blocksOfMuseum = MuseumDB.getInstance().findById(m.getName()).getBlocks();
@@ -211,6 +211,24 @@ public class ControllerMuseum {
                 display(m.getName());
                 filteredMuseums.add(m);
             }
+        }
+        return filteredMuseums;
+    }
+
+    public static List<Museum> multipleFilters(int minNumberClients, int minNumberVisits, int minNumberExhibit) throws ClassNotFoundException, SQLException {
+        List<Museum> filteredMuseums = new ArrayList<>();
+        for (Museum m : Collections.unmodifiableList(MuseumDB.getInstance().getMuseums())) {
+            int numClients = m.getClients().size();
+            int numVisits = getTotalVisitsNoPrints(m.getName());
+            int numExhibits = 0;
+            for (Block b : m.getBlocks()) {
+                numExhibits = numExhibits + b.getExhibits().size();
+            }
+            if (numExhibits >= minNumberExhibit && numVisits >= minNumberVisits && numClients >= minNumberClients) {
+                display(m.getName());
+                filteredMuseums.add(m);
+            }
+
         }
         return filteredMuseums;
     }

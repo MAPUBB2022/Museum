@@ -3,8 +3,8 @@ package classes;
 import java.util.List;
 
 import javax.persistence.*;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -14,12 +14,12 @@ public class Ticket {
 
     @Id
     @Getter
-    @Column(name="ID")
+    @Column(name = "ID")
     private final String id;
 
     @Getter
     @Setter
-    @Column(name="Price")
+    @Column(name = "Price")
     private double price;
 
     @OneToMany

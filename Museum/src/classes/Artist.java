@@ -1,7 +1,6 @@
 package classes;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.*;
@@ -12,18 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="Artist")
+@Table(name = "Artist")
 public class Artist implements Person, Comparable<Artist> {
     private static int counter = 1000;
 
     @Id
     @Getter
-    @Column(name="ID")
+    @Column(name = "ID")
     private final String id;
 
     @Getter
     @Setter
-    @Column(name="Name")
+    @Column(name = "Name")
     private String name;
 
     @ManyToMany
@@ -31,12 +30,12 @@ public class Artist implements Person, Comparable<Artist> {
 
     @Getter
     @Setter
-    @Column(name="BirthDate")
+    @Column(name = "BirthDate")
     private Date birthDate;
 
     @Getter
     @Setter
-    @Column(name="DeathDate")
+    @Column(name = "DeathDate")
     private Date deathDate;
 
     @OneToMany(cascade = CascadeType.PERSIST)
@@ -94,15 +93,12 @@ public class Artist implements Person, Comparable<Artist> {
     }
 
     public void deleteMovementNoSout(ArtMovement movementToRemove) {
-        boolean contains = false;
-        if (movements.contains(movementToRemove)){
-            contains = true;
-        }
-        for (ArtMovement movement: this.movements) {
+        boolean contains = movements.contains(movementToRemove);
+        for (ArtMovement movement : this.movements) {
             System.out.println(movement.getName());
             System.out.println(movementToRemove.getName());
             System.out.println("*");
-            if(Objects.equals(movement.getName(), movementToRemove.getName())) {
+            if (Objects.equals(movement.getName(), movementToRemove.getName())) {
                 contains = true;
             }
         }
@@ -113,13 +109,11 @@ public class Artist implements Person, Comparable<Artist> {
     }
 
     public void deleteMovement(ArtMovement movementToRemove) {
-        boolean contains = false;
-        if (movements.contains(movementToRemove)){
-            contains = true;
-        }
-        for (ArtMovement movement: this.movements) {
-            if(Objects.equals(movement.getName(), movementToRemove.getName()) && movement.getStartDate() == movementToRemove.getStartDate() && movementToRemove.getEndDate() == movement.getEndDate()) {
+        boolean contains = movements.contains(movementToRemove);
+        for (ArtMovement movement : this.movements) {
+            if (Objects.equals(movement.getName(), movementToRemove.getName()) && movement.getStartDate() == movementToRemove.getStartDate() && movementToRemove.getEndDate() == movement.getEndDate()) {
                 contains = true;
+                break;
             }
         }
         if (contains) {
@@ -191,21 +185,22 @@ public class Artist implements Person, Comparable<Artist> {
         return getBirthDate().compareTo(o.getBirthDate());
     }
 
-    public void updateArtMovements(String artMovementToDelete, ArtMovement artMovementToAdd ) {
-        Boolean flagFound = false;
+    public void updateArtMovements(String artMovementToDelete, ArtMovement artMovementToAdd) {
+        boolean flagFound = false;
         List<ArtMovement> oldArtMovements = this.getMovements();
         ArtMovement artMovementToDeleteFromList = null;
-        for(ArtMovement am:oldArtMovements) {
+        for (ArtMovement am : oldArtMovements) {
             if (Objects.equals(am.getName(), artMovementToDelete)) {
                 artMovementToDeleteFromList = am;
                 flagFound = true;
             }
         }
-        if(flagFound) {
+        if (flagFound) {
             oldArtMovements.remove(artMovementToDeleteFromList);
             oldArtMovements.add(artMovementToAdd);
             System.out.println("Changed for artist!");
-            this.setMovements(oldArtMovements); }
+            this.setMovements(oldArtMovements);
+        }
     }
 
 

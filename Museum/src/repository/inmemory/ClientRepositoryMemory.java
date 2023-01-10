@@ -89,5 +89,7 @@ public class ClientRepositoryMemory implements ICrudRepository<String, Client> {
         return false;
     }
 
-    public List<Client> getAllClients() {return this.allClients;}
+    public List<Client> getAllClients() {
+        return this.allClients;
+    }
 }

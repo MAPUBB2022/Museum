@@ -1,13 +1,10 @@
 package classes;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @DiscriminatorValue("artifact")
@@ -18,7 +15,7 @@ public class Artifact extends Exhibit {
 
     @Setter
     @Getter
-    @Column(name="Origin")
+    @Column(name = "Origin")
     private String origin;
 
     public Artifact(String name, Date creation, Block location, String origin, double price) {

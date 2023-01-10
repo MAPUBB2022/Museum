@@ -1,15 +1,13 @@
 package repository.database;
+
 import classes.ArtMovement;
 import classes.Artist;
-import classes.Artifact;
-import classes.Block;
 import repository.ICrudRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 
 public class ArtMovementDB implements ICrudRepository<String, ArtMovement> {
@@ -39,12 +37,10 @@ public class ArtMovementDB implements ICrudRepository<String, ArtMovement> {
 
 
         //----------
-        Connection connection = null;
+        Connection connection;
         try {
             connection = OurConnection.getConnection();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         try {
@@ -89,18 +85,16 @@ public class ArtMovementDB implements ICrudRepository<String, ArtMovement> {
             String ID = ArtMovementToDelete.getId();
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("DELETE FROM ArtMovement WHERE ArtMovement.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM ArtMovement WHERE ArtMovement.ID = ?");
                 statement.setString(1, ID);
-                PreparedStatement  statementRemoveArtists = connection.prepareStatement("delete FROM ArtistMovements WHERE ArtistMovements.ArtMovementID = ?");
+                PreparedStatement statementRemoveArtists = connection.prepareStatement("delete FROM ArtistMovements WHERE ArtistMovements.ArtMovementID = ?");
                 statementRemoveArtists.setString(1, ID);
                 statementRemoveArtists.executeUpdate();
                 statement.executeUpdate();
@@ -149,12 +143,10 @@ public class ArtMovementDB implements ICrudRepository<String, ArtMovement> {
             allArtMovements.add(ArtMovementToDelete);
             System.out.println("Updated name!");
             // DB Code:
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
@@ -178,12 +170,10 @@ public class ArtMovementDB implements ICrudRepository<String, ArtMovement> {
                 aToUpdate.setStartDate(newDate);
                 allArtMovements.add(aToUpdate);
 //                DB Code:
-                Connection connection = null;
+                Connection connection;
                 try {
                     connection = OurConnection.getConnection();
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                } catch (SQLException e) {
+                } catch (ClassNotFoundException | SQLException e) {
                     throw new RuntimeException(e);
                 }
                 try {
@@ -209,12 +199,10 @@ public class ArtMovementDB implements ICrudRepository<String, ArtMovement> {
                 aToUpdate.setEndDate(newDate);
                 allArtMovements.add(aToUpdate);
                 //                DB Code:
-                Connection connection = null;
+                Connection connection;
                 try {
                     connection = OurConnection.getConnection();
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                } catch (SQLException e) {
+                } catch (ClassNotFoundException | SQLException e) {
                     throw new RuntimeException(e);
                 }
                 try {
@@ -226,7 +214,7 @@ public class ArtMovementDB implements ICrudRepository<String, ArtMovement> {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                System.out.println("Succesful change! Updated date!");
+                System.out.println("Successful change! Updated date!");
                 return;
             }
         }

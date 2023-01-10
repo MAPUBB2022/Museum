@@ -1,13 +1,10 @@
 package classes;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -18,26 +15,25 @@ public abstract class Exhibit implements Comparable<Exhibit> {
 
     @Id
     @Getter
-    @Column(name="ID")
+    @Column(name = "ID")
     private final String id;
 
     @Getter
     @Setter
-    @Column(name="Name")
+    @Column(name = "Name")
     private String name;
 
     @Getter
     @Setter
-    @Column(name="Creation")
+    @Column(name = "Creation")
     private Date creation;
 
     @ManyToOne
-    @Column(name="Location")
     private Block location;
 
     @Getter
     @Setter
-    @Column(name="Price")
+    @Column(name = "Price")
     private double price;
 
     public Exhibit(String name, Date creation, Block location, Artist artist, double price) {
@@ -46,8 +42,9 @@ public abstract class Exhibit implements Comparable<Exhibit> {
         this.creation = creation;
         this.location = location;
         artist.addExhibit(this);
-        if(location != null)
-        {location.addExhibit(this);}
+        if (location != null) {
+            location.addExhibit(this);
+        }
         this.price = price;
     }
 
@@ -57,8 +54,9 @@ public abstract class Exhibit implements Comparable<Exhibit> {
         this.creation = creation;
         this.location = location;
         artist.addExhibit(this);
-        if(location != null)
-        {location.addExhibit(this);}
+        if (location != null) {
+            location.addExhibit(this);
+        }
         this.price = price;
     }
 
@@ -67,8 +65,9 @@ public abstract class Exhibit implements Comparable<Exhibit> {
         this.id = "E" + counter++;
         this.creation = creation;
         this.location = location;
-        if(location != null)
-        {location.addExhibit(this);}
+        if (location != null) {
+            location.addExhibit(this);
+        }
         this.price = price;
     }
 
@@ -77,8 +76,9 @@ public abstract class Exhibit implements Comparable<Exhibit> {
         this.name = name;
         this.creation = creation;
         this.location = location;
-        if(location != null)
-        {location.addExhibit(this);}
+        if (location != null) {
+            location.addExhibit(this);
+        }
         this.price = price;
     }
 

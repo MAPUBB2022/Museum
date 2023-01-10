@@ -1,7 +1,6 @@
 package controllers;
 
 import classes.*;
-import repository.inmemory.*;
 import repository.database.*;
 import views.ViewExhibit;
 
@@ -13,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class ControllerExhibit {
 
-    public static void display(String idOfExhibit)  throws ClassNotFoundException {
+    public static void display(String idOfExhibit) throws ClassNotFoundException {
         Exhibit exhibitToDisplay = ExhibitDB.getInstance().findById(idOfExhibit);
         if (exhibitToDisplay == null) {
             System.out.println("This exhibit does not exist, try again using a different ID");
@@ -106,12 +105,10 @@ public class ControllerExhibit {
         return filteredExhibits;
     }
 
-    public static List<Exhibit> filterByAge(Date minDate) throws ClassNotFoundException
-    {
+    public static List<Exhibit> filterByAge(Date minDate) throws ClassNotFoundException {
         List<Exhibit> filteredExhibits = new java.util.ArrayList<>(Collections.emptyList());
-        for (Exhibit e :Collections.unmodifiableList(ExhibitDB.getInstance().getAllExhibits())) {
-            if (e.getCreation().after(minDate))
-            {
+        for (Exhibit e : Collections.unmodifiableList(ExhibitDB.getInstance().getAllExhibits())) {
+            if (e.getCreation().after(minDate)) {
                 display(e.getId());
                 filteredExhibits.add(e);
             }

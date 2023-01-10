@@ -1,7 +1,6 @@
 package classes;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
@@ -14,27 +13,27 @@ import static java.lang.Math.random;
 
 @Entity
 @Table(name = "ArtMovement")
-public class ArtMovement implements Comparable<ArtMovement>{
+public class ArtMovement implements Comparable<ArtMovement> {
     private static int counter = 1000;
 
     @Id
     @Getter
-    @Column(name="ID")
+    @Column(name = "ID")
     private final String id;
 
     @Getter
     @Setter
-    @Column(name="Name")
+    @Column(name = "Name")
     private String name;
 
     @Getter
     @Setter
-    @Column(name="StartDate")
+    @Column(name = "StartDate")
     private Date startDate;
 
     @Getter
     @Setter
-    @Column(name="EndDate")
+    @Column(name = "EndDate")
     private Date endDate;
 
     @ManyToMany

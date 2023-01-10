@@ -1,13 +1,12 @@
 package repository.database;
+
 import classes.*;
 import repository.ICrudRepository;
-import repository.inmemory.ExhibitRepositoryMemory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 
 public class PaintingDB implements ICrudRepository<String, Painting> {
@@ -35,18 +34,16 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
         Artist Painter = entity.getPainter();
         ArtMovement Artmovement = entity.getArtMovement();
         Block Location = entity.getLocation();
-        Double Price = entity.getPrice();
+        double Price = entity.getPrice();
         java.util.Date Creation = entity.getCreation();
         String Name = entity.getName();
         String ID = entity.getId();
 
         //----------
-        Connection connection = null;
+        Connection connection;
         try {
             connection = OurConnection.getConnection();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         try {
@@ -98,18 +95,16 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             }
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("DELETE FROM Painting WHERE Painting.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM Painting WHERE Painting.ID = ?");
                 statement.setString(1, ID);
-                PreparedStatement  statementClients = connection.prepareStatement("DELETE FROM ClientFavorites WHERE ClientFavorites.ExhibitID = ?");
+                PreparedStatement statementClients = connection.prepareStatement("DELETE FROM ClientFavorites WHERE ClientFavorites.ExhibitID = ?");
                 statementClients.setString(1, ID);
                 statement.executeUpdate();
             } catch (SQLException e) {
@@ -156,16 +151,14 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             allPaintings.add(PaintingToDelete);
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Painting SET Name = ? WHERE Painting.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("UPDATE Painting SET Name = ? WHERE Painting.ID = ?");
                 statement.setString(1, newName);
                 statement.setString(2, PaintingToDelete.getId());
                 statement.executeUpdate();
@@ -195,16 +188,14 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             allPaintings.add(PaintingToDelete);
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Painting SET Price = ? WHERE Painting.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("UPDATE Painting SET Price = ? WHERE Painting.ID = ?");
                 statement.setDouble(1, newPrice);
                 statement.setString(2, PaintingToDelete.getId());
                 statement.executeUpdate();
@@ -235,16 +226,14 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             allPaintings.add(PaintingToDelete);
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Painting SET Creation = ? WHERE Painting.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("UPDATE Painting SET Creation = ? WHERE Painting.ID = ?");
                 java.sql.Date sqlDate = new java.sql.Date(newCreation.getTime());
                 statement.setDate(1, sqlDate);
                 statement.setString(2, PaintingToDelete.getId());
@@ -275,16 +264,14 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             allPaintings.add(PaintingToDelete);
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Painting SET Painter = ? WHERE Painting.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("UPDATE Painting SET Painter = ? WHERE Painting.ID = ?");
                 statement.setString(1, newPainter.getId());
                 statement.setString(2, PaintingToDelete.getId());
                 statement.executeUpdate();
@@ -314,16 +301,14 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             allPaintings.add(PaintingToDelete);
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Painting SET ArtMovement = ? WHERE Painting.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("UPDATE Painting SET ArtMovement = ? WHERE Painting.ID = ?");
                 statement.setString(1, newArtMovement.getId());
                 statement.setString(2, PaintingToDelete.getId());
                 statement.executeUpdate();
@@ -353,16 +338,14 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             allPaintings.add(PaintingToDelete);
 
             //----------
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = OurConnection.getConnection();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                PreparedStatement  statement = connection.prepareStatement("UPDATE Painting SET Location = ? WHERE Painting.ID = ?");
+                PreparedStatement statement = connection.prepareStatement("UPDATE Painting SET Location = ? WHERE Painting.ID = ?");
                 statement.setString(1, newLocation.getId());
                 statement.setString(2, PaintingToDelete.getId());
                 statement.executeUpdate();
@@ -414,7 +397,6 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
 
     public static void populate(Connection connection) throws SQLException, ClassNotFoundException {
         Statement statement1 = connection.createStatement();
-        Statement statement2 = connection.createStatement();
 
         ResultSet resultSet = statement1.executeQuery("SELECT * FROM Painting");
 
@@ -429,7 +411,7 @@ public class PaintingDB implements ICrudRepository<String, Painting> {
             String b1 = resultSet.getString(3);
             Block location = BlockDB.getInstance().findById(b1);
 
-            Double price = resultSet.getDouble(4);
+            double price = resultSet.getDouble(4);
             Date creation = resultSet.getDate(5);
             String name = resultSet.getString(6);
             String id = resultSet.getString(7);
